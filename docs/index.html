@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Minimal Book Example</title>
+  <title>텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Minimal Book Example" />
+  <meta property="og:title" content="텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Minimal Book Example" />
+  <meta name="twitter:title" content="텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="Yihui Xie" />
+<meta name="author" content="JDW" />
 
 
-<meta name="date" content="2020-09-26" />
+<meta name="date" content="2019-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,18 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.7/datatables.js"></script>
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -131,16 +143,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 프롤로그</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#code"><i class="fa fa-check"></i><b>2.1</b> code</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-전처리-1"><i class="fa fa-check"></i><b>3.1</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#mixedsort-함수"><i class="fa fa-check"></i><b>3.1.1</b> mixedsort() 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#변수열-생성"><i class="fa fa-check"></i><b>3.2</b> 변수열 생성</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> EDA</a><ul>
+<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#dataset"><i class="fa fa-check"></i><b>4.1</b> dataset</a></li>
+<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.4</b> 일자별 게시글 수 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시각화.html"><a href="시각화.html"><i class="fa fa-check"></i><b>5</b> 시각화</a><ul>
+<li class="chapter" data-level="5.1" data-path="시각화.html"><a href="시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="시각화.html"><a href="시각화.html#범위-설정"><i class="fa fa-check"></i><b>5.2</b> 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="시각화.html"><a href="시각화.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a></li>
+<li class="chapter" data-level="5.4" data-path="시각화.html"><a href="시각화.html#시각화-1"><i class="fa fa-check"></i><b>5.4</b> 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="시각화.html"><a href="시각화.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode"><i class="fa fa-check"></i><b>5.4.2</b> Barchart(Split by episode)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode-and-reordered"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(Split by episode and reordered)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="시각화.html"><a href="시각화.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -153,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a>
           </h1>
         </div>
 
@@ -162,19 +191,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">A Minimal Book Example</h1>
-<p class="author"><em>Yihui Xie</em></p>
-<p class="date"><em>2020-09-26</em></p>
+<h1 class="title">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</h1>
+<p class="author"><em>JDW</em></p>
+<p class="date"><em>2019-12-19</em></p>
 </div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports, e.g., a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co"># or the development version</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span></a></code></pre></div>
-<p>Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading <code>#</code>.</p>
-<p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.org/tinytex/" class="uri">https://yihui.org/tinytex/</a>.</p>
+<div id="프롤로그" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> 프롤로그</h1>
+<p><img src="img_source/producex1/final.jpg" width="100%" /></p>
+<p>조금은 시간이 지났지만 지난 여름 프로듀스X 101이 한참 방영했던 당시 진행했던 텍스트 분석입니다.
+<br>
+<br>
+k-pop에 관심이 있으신 분이라면 아실만한 프로듀스 시리즈는 시즌을 거듭할수록 화제가 높아져만 갔는데요. 그 중 이번에 분석한 프로듀스 X 101은 엠넷의 프로듀스 시리즈 중 네번째 시리즈로 101명의 연습생들중 국민프로듀서(시청자) 들이 투표를 통해 열 한명의 아이돌을 선발한다는 컨셉의 방송입니다.
+<br>
+사실 지금 이 글을 쓰고있는 시점인 11월 현재 프로듀스 시리즈는 제작진의 투표조작 논란에 휩싸여서 국민 프로듀서의 투표를 통해 아이돌을 뽑는다는 컨셉의 신뢰성이 무너진 상태라 텍스트 분석을 통한 데뷔조 예측이 의미가 있긴 했었을까라는 의문을 가질수도 있는데요. 그래도 분석을 통해 어느 연습생의 인기가 많았는지 또는 누가 많은 이슈를 몰고 있었는지를 가늠할 수 있었던 척도로 바라볼 수 있어서 나름 의미있는 분석이였다고 생각이 듭니다.
+<br></p>
+<hr />
+<p><br>
+<br>
+데이터 분석은 크게 세가지로 나누어 진행을 하였습니다.
+<br>
+<br></p>
+<ol style="list-style-type: decimal">
+<li>데이터수집</li>
+<li>데이터 전처리 및 취합</li>
+<li>시각화</li>
+</ol>
+<p><br>
+데이터 수집의 단계는 온라인 커뮤니티에 올라오는 국민프로듀서들의 의견을 수집을 했는데, 모든 커뮤니티 데이터를 가저오는 것은 시간적으로 너무 많이 소요되기에 커뮤니티 사이트들 중 가장 활발했던 d모 사이트를 대상으로 크롤링을 진행하였습니다.
+<br>
+<br></p>
+<p>다음으로 데이터 전처리 및 취합은 수집한 데이터를 여러 기준들을 통해 나누는 전처리 과정인데, 이를테면 일간별로 수집한 데이터를 1주 간격으로 취합하고, 취합한 데이터들을 기준으로 각 연습생들의 언급량을 추출하는 과정입니다.
+<br>
+<br></p>
+<p>마지막으로 전처리를 끝마친 데이터를 이해하기 쉽도록 시각화를 진행 하였습니다.
+<br>
+<br></p>
+<p>이제 단계별로 차근차근 알아보겠습니다.</p>
 
 </div>
             </section>
@@ -233,20 +285,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

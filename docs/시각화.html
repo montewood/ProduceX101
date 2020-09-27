@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 시각화 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 시각화 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 시각화 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="JDW" />
+
+
+<meta name="date" content="2019-12-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="eda.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.7/datatables.js"></script>
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 프롤로그</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#code"><i class="fa fa-check"></i><b>2.1</b> code</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-전처리-1"><i class="fa fa-check"></i><b>3.1</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#mixedsort-함수"><i class="fa fa-check"></i><b>3.1.1</b> mixedsort() 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#변수열-생성"><i class="fa fa-check"></i><b>3.2</b> 변수열 생성</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> EDA</a><ul>
+<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#dataset"><i class="fa fa-check"></i><b>4.1</b> dataset</a></li>
+<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.4</b> 일자별 게시글 수 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시각화.html"><a href="시각화.html"><i class="fa fa-check"></i><b>5</b> 시각화</a><ul>
+<li class="chapter" data-level="5.1" data-path="시각화.html"><a href="시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="시각화.html"><a href="시각화.html#범위-설정"><i class="fa fa-check"></i><b>5.2</b> 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="시각화.html"><a href="시각화.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a></li>
+<li class="chapter" data-level="5.4" data-path="시각화.html"><a href="시각화.html#시각화-1"><i class="fa fa-check"></i><b>5.4</b> 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="시각화.html"><a href="시각화.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode"><i class="fa fa-check"></i><b>5.4.2</b> Barchart(Split by episode)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode-and-reordered"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(Split by episode and reordered)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="시각화.html"><a href="시각화.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="시각화" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> 시각화</h1>
+<p><img src="img_source/producex5/final.jpg" width="80%" /></p>
+<p><br></p>
+<p> 이제 분석의 마지막 작업으로 지금까지 전처리한 데이터를 기반으로 어느 연습생의 언급량이 높았었는지를 직접 확인해 볼 시간입니다. 데이터 크롤링부터 이전 시간에 진행한 EDA까지 다소 짧은 분량은 아니었는데요. 이번 시각화를 통해서 분석을 마무리를 지어볼까 합니다.</p>
+<p><br></p>
+<div id="데이터-시각화" class="section level2">
+<h2><span class="header-section-number">5.1</span> 데이터 시각화</h2>
+<p>  지금까지 수집한 데이터는 실제로 방송을 시청하는 시청자들이 게시판에 작성했던 게시물들의 제목들(<code>p_title</code>) 입니다. 즉, 방송을 보고 투표를 할 확률이 높은 시청자들의 의견이 담긴 텍스트인데요. 처음 분석을 기획하였을 당시 저는 먼저 한가지 가정을 했었습니다. 그건 바로 언급량이 높으면 높을수록 그만큼 인기도 많을 것 이였는데요. 사람들 입에서 회자가 많이 된다는 것은 그만큼 관심과 인기가 있다는 의미이고, 투표량도 그것과 상관이 있을것이다라고 가정하였습니다.</p>
+<p><br></p>
+</div>
+<div id="범위-설정" class="section level2">
+<h2><span class="header-section-number">5.2</span> 범위 설정</h2>
+<p><br>
+  프로듀스X101은 101명의 연습생들이 경쟁을 펼치고, 시청자들의 투표를 통해서 최종 11명의 아이돌 멤버를 선발한다는 컨셉의 방송인데요. 마지막 방송날에 인기가 높았던 20명의 연습생들이 생방송 무대에서 경합을 펼쳤습니다. 마지막 방송까지 살아남은 최종 20명을 대상으로 분석을 진행해 보도록 하겠습니다.</p>
+<p>미리 마지막 생방송에 진출한 스무명의 연습생 이름을 <code>final_boylist.txt</code> 파일에 저장해 두었었고, 이를 불러오겠습니다.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">boylist &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&#39;./final_boylist.txt&#39;</span>)</a>
+<a class="sourceLine" id="cb36-2" title="2">boylist</a></code></pre></div>
+<pre><code>##  [1] &quot;김요한&quot; &quot;김우석&quot; &quot;이진혁&quot; &quot;한승우&quot; &quot;김민규&quot; &quot;조승연&quot; &quot;남도현&quot; &quot;송형준&quot;
+##  [9] &quot;이은상&quot; &quot;금동현&quot; &quot;차준호&quot; &quot;손동표&quot; &quot;황윤성&quot; &quot;강민희&quot; &quot;구정모&quot; &quot;이한결&quot;
+## [17] &quot;송유빈&quot; &quot;함원진&quot; &quot;토니&quot;   &quot;이세진&quot;</code></pre>
+<p>  언급량은 연습생별로 연습생이 언급된 게시물들의 갯수가 몇개인지를 세어보는 방식으로 집계할 것입니다. 그런데 게시물들의 특성상 연습생의 fullname을 적는 경우보다 name만 적는 경우가 많이 있었기에 먼저 호출한 <code>boylist</code>에서 이름만 추출하겠습니다.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">boylist2 &lt;-<span class="st"> </span><span class="kw">str_sub</span>(boylist, <span class="dv">-2</span>, <span class="dv">-1</span>) <span class="co"># 뒤에서 두번째 글자부터 뒤에서 첫번째 글자까지만을 저장 </span></a>
+<a class="sourceLine" id="cb38-2" title="2">boylist2</a></code></pre></div>
+<pre><code>##  [1] &quot;요한&quot; &quot;우석&quot; &quot;진혁&quot; &quot;승우&quot; &quot;민규&quot; &quot;승연&quot; &quot;도현&quot; &quot;형준&quot; &quot;은상&quot; &quot;동현&quot;
+## [11] &quot;준호&quot; &quot;동표&quot; &quot;윤성&quot; &quot;민희&quot; &quot;정모&quot; &quot;한결&quot; &quot;유빈&quot; &quot;원진&quot; &quot;토니&quot; &quot;세진&quot;</code></pre>
+<p>그런다음 for문을 통해 연습생별로 언급량을 집계해 보겠습니다.</p>
+<p><br></p>
+</div>
+<div id="언급량-집계" class="section level2">
+<h2><span class="header-section-number">5.3</span> 언급량 집계</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">boys &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(boylist2)){</a>
+<a class="sourceLine" id="cb40-3" title="3">    boys[i] &lt;-<span class="st"> </span><span class="kw">nrow</span>(pxdata[<span class="kw">grep</span>(boylist2[i], pxdata<span class="op">$</span>p_title), ]) <span class="co">#연습생별 언급게시글 수를 boys 리스트에 저장 </span></a>
+<a class="sourceLine" id="cb40-4" title="4">}</a>
+<a class="sourceLine" id="cb40-5" title="5"></a>
+<a class="sourceLine" id="cb40-6" title="6">boys_comment &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(boylist, boys), <span class="dt">stringsAsFactors =</span> F) <span class="co"># 연습생 - 연습생 언급게시글 수 데이터프레임화 </span></a>
+<a class="sourceLine" id="cb40-7" title="7">boys_comment<span class="op">$</span>boys &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(boys_comment<span class="op">$</span>boys) <span class="co"># 숫자형으로 변환 </span></a>
+<a class="sourceLine" id="cb40-8" title="8"></a>
+<a class="sourceLine" id="cb40-9" title="9"><span class="kw">str</span>(boys_comment)</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:	20 obs. of  2 variables:
+##  $ boylist: chr  &quot;김요한&quot; &quot;김우석&quot; &quot;이진혁&quot; &quot;한승우&quot; ...
+##  $ boys   : num  36346 67610 26061 26593 47132 ...</code></pre>
+<p>이를 시각화하여 바로 알아보도록 하겠습니다.</p>
+<p><br></p>
+</div>
+<div id="시각화-1" class="section level2">
+<h2><span class="header-section-number">5.4</span> 시각화</h2>
+<div id="barchart" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Barchart</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">boys_comment <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> boylist, <span class="dt">y =</span> boys)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-3" title="3"><span class="st">    </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-4" title="4"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> boys), <span class="dt">vjust =</span> <span class="fl">-.5</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>)) </a></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-34-1.png" width="1000px" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">boys_comment <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(boylist, <span class="op">-</span>boys), <span class="dt">y =</span> boys)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="st">    </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-4" title="4"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> boys), <span class="dt">vjust =</span> <span class="fl">-.5</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>)) </a></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-35-1.png" width="1000px" /></p>
+<p>시각화를 진행한 결과 <strong>김우석</strong>, <strong>조승연</strong>, <strong>김민규</strong>, <strong>구정모</strong>, <strong>이은상</strong>, <strong>김요한</strong>, <strong>남도현</strong>, <strong>송형준</strong>, <strong>강민희</strong>, <strong>한승우</strong> , <strong>이진혁</strong> 순으로 언급량이 많은것을 확인 할 수 있었습니다.</p>
+<p>하지만 이것은 전체기간을(06/01 ~ 07/19) 대상으로 집계한 언급량이기 때문에 연습생들의 시간에 따른 언급량의 변화는 찾아 볼 수가 없네요. 방송이 진행되면서 멋진 무대를 소화해 낸 연습생은 순위가 올라간 경우도 있었고, 반대로 다른 여러 요인들로 인해 인기가 하락한 경우도 종종 볼 수 있었습니다.</p>
+<p>그렇다면 이번에는 에피소드별로 연습생들의 언급량이 어떻게 변화했는지를 확인해 보도록 하겠습니다.</p>
+<p><br></p>
+</div>
+<div id="barchartsplit-by-episode" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Barchart(Split by episode)</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">boyname &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb44-2" title="2">temp &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb44-3" title="3">total &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>){</a>
+<a class="sourceLine" id="cb44-5" title="5">    <span class="kw">assign</span>(<span class="kw">paste0</span>(<span class="st">&#39;episode_&#39;</span>, i <span class="op">+</span><span class="st"> </span><span class="dv">4</span>), <span class="kw">data.frame</span>()) <span class="co"># 빈 객체 생성</span></a>
+<a class="sourceLine" id="cb44-6" title="6">    <span class="kw">assign</span>(<span class="kw">paste0</span>(<span class="st">&#39;episode_&#39;</span>, i <span class="op">+</span><span class="st"> </span><span class="dv">4</span>), pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(p_weeknum <span class="op">==</span><span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)) <span class="co"># 회차별로 데이터 나누기</span></a>
+<a class="sourceLine" id="cb44-7" title="7">    boyname &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb44-8" title="8">    temp &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb44-9" title="9">    <span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(boylist2)){</a>
+<a class="sourceLine" id="cb44-10" title="10">        boyname[x] &lt;-<span class="st"> </span><span class="kw">nrow</span>(<span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&#39;episode_&#39;</span>, i <span class="op">+</span><span class="st"> </span><span class="dv">4</span>))[<span class="kw">grep</span>(boylist2[x], <span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&#39;episode_&#39;</span>, i <span class="op">+</span><span class="st"> </span><span class="dv">4</span>))<span class="op">$</span>p_title), ])</a>
+<a class="sourceLine" id="cb44-11" title="11">    }</a>
+<a class="sourceLine" id="cb44-12" title="12">    temp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(boylist2, boyname))</a>
+<a class="sourceLine" id="cb44-13" title="13">    temp<span class="op">$</span>weeknum &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb44-14" title="14">    total &lt;-<span class="st"> </span><span class="kw">rbind</span>(total, temp)</a>
+<a class="sourceLine" id="cb44-15" title="15"></a>
+<a class="sourceLine" id="cb44-16" title="16">}</a></code></pre></div>
+<p><code>assign()</code> 함수는 변수를 만들때 사용하는 함수입니다. for문 내부에서는 할당연산자인 <code>=</code> 혹은 <code>&lt;-</code> 를 사용할수가 없는데요, for문 내에서 특정한 변수를 생성해야 할 경우가 발생할 수 있습니다. 그럴경우 <code>assign('변수명', '변수')</code>의 형태를 통해 변수를 만드실 수 있습니다.</p>
+<p>코드를 잠깐 해석하자면 <code>assign()</code> 함수를 통해 <code>episode_5</code> ~ <code>episode_11</code> 까지의 변수를 생성하고, 각각의 변수에다가 변수 이름에 맞는 데이터들을 분할하여 넣어주었습니다. 그런다음 다시 내부의 for문을 통해 각 에피소드별 연습생들의 언급량을 구하였고(<code>boyname</code> 변수), 이를 연습생의 이름칼럼과 합친 <code>temp</code>라는 이름의 데이터 프레임으로 생성해 주었습니다. 그리고 최종적으로 <code>rbind()</code> 함수를 통해 <code>total</code> 이란 변수에 접합을 해주었습니다.</p>
+<p>말로 설명하자니 꽤나 추상적이군요 이번에는 <code>total</code> 변수 직접 확인해 보겠습니다.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">DT<span class="op">::</span><span class="kw">datatable</span>(total)</a></code></pre></div>
+<div id="htmlwidget-3f1a61b842507ea08afa" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3f1a61b842507ea08afa">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140"],["요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진","요한","우석","진혁","승우","민규","승연","도현","형준","은상","동현","준호","동표","윤성","민희","정모","한결","유빈","원진","토니","세진"],["4158","7075","1922","2455","5198","4763","3336","4164","4155","717","2401","2415","1399","2179","4305","2246","1348","1883","1540","607","4315","8556","5237","2664","5699","5046","4099","4224","3998","1590","1600","3898","2896","1886","5866","1884","1746","1825","904","865","4843","8662","4655","3013","5713","6038","3152","4035","5611","1405","2596","2927","1610","4280","4981","1587","1173","1749","1206","820","5677","12987","2245","2481","8851","4944","4915","3080","6258","1459","2438","2095","2123","2980","3902","1374","1817","1114","1835","1705","5354","11410","2015","3984","5995","9682","4190","3602","5636","1314","2212","2418","2651","3451","4074","2430","1413","1326","1999","1307","5724","9709","4455","6035","6478","12375","5713","5916","6398","3478","3233","3631","5065","6431","7614","3090","2779","2508","4408","2169","4920","7736","5107","5548","7844","12381","5812","4428","5562","3386","4415","3615","4060","5826","8575","3255","3376","2952","3450","1212"],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>boylist2<\/th>\n      <th>boyname<\/th>\n      <th>weeknum<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>이렇게 에피소드별, 연습생별로 나누어진 데이터를 Barchart를 통해 시각화 해보겠습니다.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="kw">colnames</span>(total) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;boyname&#39;</span>, <span class="st">&#39;mention&#39;</span>, <span class="st">&#39;weeknum&#39;</span>)</a>
+<a class="sourceLine" id="cb46-2" title="2">total<span class="op">$</span>mention &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(total<span class="op">$</span>mention))</a>
+<a class="sourceLine" id="cb46-3" title="3"></a>
+<a class="sourceLine" id="cb46-4" title="4">total <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-5" title="5"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.factor</span>(weeknum), <span class="dt">y =</span> mention)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-6" title="6"><span class="st">    </span><span class="kw">geom_col</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-7" title="7"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> mention), <span class="dt">vjust =</span> <span class="dv">-1</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-8" title="8"><span class="st">    </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>boyname) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-9" title="9"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&#39;episode&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;mention&#39;</span>)</a></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-38-1.png" width="1000px" /></p>
+<p>확실히 시간에 따른(에피소드) 연습생의 언급량이 어떻게 변화하였는지가 파악이 되는군요. 그렇지만 언급량 순으로 정렬이 안돼있어서 직관적으로 파악하기가 어렵습니다. 한번 11주차 방송 기간을 기준으로 연습생의 언급도를 재정렬해 보겠습니다.</p>
+<p><br></p>
+</div>
+<div id="barchartsplit-by-episode-and-reordered" class="section level3">
+<h3><span class="header-section-number">5.4.3</span> Barchart(Split by episode and reordered)</h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">pxlevel &lt;-<span class="st"> </span>total <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="st">    </span><span class="kw">filter</span>(weeknum <span class="op">==</span><span class="st"> </span><span class="dv">11</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-3" title="3"><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mention)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="st">    </span><span class="kw">select</span>(boyname) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="st">    </span><span class="kw">as.list</span>()</a>
+<a class="sourceLine" id="cb47-6" title="6"></a>
+<a class="sourceLine" id="cb47-7" title="7">pxlevel &lt;-<span class="st"> </span><span class="kw">melt</span>(pxlevel)</a>
+<a class="sourceLine" id="cb47-8" title="8">pxlevel &lt;-<span class="st"> </span>pxlevel<span class="op">$</span>value</a>
+<a class="sourceLine" id="cb47-9" title="9">pxlevel &lt;-<span class="st"> </span><span class="kw">as.character</span>(pxlevel)</a>
+<a class="sourceLine" id="cb47-10" title="10">total_ordered &lt;-<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">transform</span>(total, <span class="dt">boyname =</span> <span class="kw">factor</span>(boyname, <span class="dt">levels =</span> pxlevel)), boyname)</a>
+<a class="sourceLine" id="cb47-11" title="11"></a>
+<a class="sourceLine" id="cb47-12" title="12">total_ordered <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.factor</span>(weeknum), <span class="dt">y =</span> mention, <span class="dt">group =</span> boyname)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-13" title="13"><span class="st">    </span><span class="kw">geom_col</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-14" title="14"><span class="st">    </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>boyname) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-15" title="15"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> mention), <span class="dt">vjust =</span> <span class="dv">-1</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-16" title="16"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;[PRODUCEX101] 회차별 연습생 언급량 변화 추이&#39;</span>, </a>
+<a class="sourceLine" id="cb47-17" title="17">        <span class="dt">subtitle =</span> <span class="st">&#39;&quot;ep.11&quot; 기준 정렬&#39;</span>,</a>
+<a class="sourceLine" id="cb47-18" title="18">        <span class="dt">x =</span> <span class="st">&#39;episode&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;mention&#39;</span>)</a></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-39-1.png" width="1000px" /></p>
+<p>11회차를 기준으로는 <strong>조승연</strong>, <strong>구정모</strong>, <strong>김우석</strong>, <strong>김민규</strong>, <strong>남도현</strong>, <strong>한승우</strong>, <strong>이은상</strong>, <strong>강민희</strong>, <strong>이진혁</strong>, <strong>김요한</strong>, <strong>송형준</strong> 순으로 언급된 것을 볼 수 있습니다. 실제로 데뷔한 연습생들과 비교해 보니 전체 11명중 8명이 속하는군요 (물론 잘못된 투표였다는 발표가 있었지만요…) 하지만 온라인 커뮤니티에서 실제 사람들이 누구를 많이 얘기하고, 누구를 상대적으로 적게 얘기하는지를 객관적으로 측정할 수 있는 분석이였습니다.</p>
+<p>이제 정말 마지막으로 Bump chart를 제작하여 연습생들의 언급도가 어떻게 변화하였는지를 확인해 보도록 하겠습니다.</p>
+<p><br></p>
+</div>
+<div id="bump-chart" class="section level3">
+<h3><span class="header-section-number">5.4.4</span> Bump chart</h3>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
+<img src="img_source/producex5/Bump-Chart-unnamed-chunk-7-1.png" alt="Bump chart" width="80%" />
+<p class="caption">
+Figure 5.1: Bump chart
+</p>
+</div>
+<p>Bump chart는 순위가 있는 값들을 시각화하는데 사용이 되는 차트인데요. 위와 같이 순위의 변화를 관찰할때 유용하게 사용되는 차트입니다.</p>
+<pre><code>```r
+library(plotly)
+
+# data setting
+total_ranking &lt;- total %&gt;%
+group_by(weeknum) %&gt;%
+arrange(-mention) %&gt;%
+mutate(ranking = row_number()) %&gt;%
+as.data.frame()
+
+# theme
+my_theme &lt;- function() { 
+
+# Colors
+color.background = &quot;white&quot;
+color.text = &quot;#22211d&quot;
+
+# Begin construction of chart
+theme_bw(base_size=15) +
+
+    # Format background colors
+    theme(panel.background = element_rect(fill=color.background, color=color.background)) +
+    theme(plot.background  = element_rect(fill=color.background, color=color.background)) +
+    theme(panel.border     = element_rect(color=color.background)) +
+    theme(strip.background = element_rect(fill=color.background, color=color.background)) +
+
+    # Format the grid
+    theme(panel.grid.major.y = element_blank()) +
+    theme(panel.grid.minor.y = element_blank()) +
+    theme(axis.ticks       = element_blank()) +
+
+    # Format the legend
+    # theme(legend.position = &quot;none&quot;) +
+
+    # Format title and axis labels
+    theme(plot.title       = element_text(color=color.text, size=20, face = &quot;bold&quot;)) +
+    theme(axis.title.x     = element_text(size=14, color=&quot;black&quot;, face = &quot;bold&quot;)) +
+    theme(axis.title.y     = element_text(size=14, color=&quot;black&quot;, face = &quot;bold&quot;, vjust=1.25)) +
+    theme(axis.text.x      = element_text(size=10, vjust=0.5, hjust=0.5, color = color.text)) +
+    theme(axis.text.y      = element_text(size=10, color = color.text)) +
+    theme(strip.text       = element_text(face = &quot;bold&quot;)) +
+
+    # Plot margins
+    theme(plot.margin = unit(c(0.35, 0.2, 0.3, 0.35), &quot;cm&quot;))
+}
+
+# Visualizing
+total_ranking %&gt;%
+ggplot(aes(x = weeknum, y = ranking, group = boyname)) +
+geom_line(aes(color = boyname, alpha = 1), size = 2) +
+geom_point(aes(color = boyname, alpha = 1), size = 4) +
+geom_point(color =&#39;#FFFFFF&#39;, size = 1) +
+scale_x_continuous(breaks = 5: 11, minor_breaks = 5:11, expand = c(.05, .05)) +
+scale_y_reverse(breaks = 1:20) +
+geom_text(data = total_ranking %&gt;% filter(weeknum == 5),
+          aes(label = boyname, x = 4.5), hjust = 2, fontface = &#39;bold&#39;, color = &#39;#888888&#39;, size = 5) +
+geom_text(data = total_ranking %&gt;% filter(weeknum == 11),
+          aes(label = boyname, x = 11.5), hjust = 2, fontface = &#39;bold&#39;, color = &#39;#888888&#39;, size = 5) +
+theme(legend.position = &#39;none&#39;) +
+labs(title = &#39;[PRODUCEX101 GALLARY] WEEKLY BUMPCHART&#39;,
+     subtitle = &#39;separated by episode&#39;,
+     x = &#39;episode&#39;, y = &#39;ranking&#39;, alpha = &quot;&quot;, color = &quot;&quot;) +
+my_theme() -&gt; p
+
+ggplotly(p)
+```
+
+<div id="htmlwidget-87343b7f3c38250afedf" style="width:672px;height:480px;" class="plotly html-widget"></div>
+    <script type="application/json" data-for="htmlwidget-87343b7f3c38250afedf">{"x":{"data":[{"x":[5,6,7,8,9,10,11],"y":[-8,-8,-10,-6,-6,-10,-6],"text":["boyname: 도현<br />alpha: 1<br />weeknum:  5<br />ranking:  8<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  6<br />ranking:  8<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  7<br />ranking: 10<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  8<br />ranking:  6<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  9<br />ranking:  6<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum: 10<br />ranking: 10<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum: 11<br />ranking:  6<br />boyname: 도현"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(248,118,109,0.55)","dash":"solid"},"hoveron":"points","name":"도현","legendgroup":"도현","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-10,-10,-12,-14,-13,-14,-14],"text":["boyname: 동표<br />alpha: 1<br />weeknum:  5<br />ranking: 10<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  6<br />ranking: 10<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  7<br />ranking: 12<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  8<br />ranking: 14<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  9<br />ranking: 13<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum: 10<br />ranking: 14<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum: 11<br />ranking: 14<br />boyname: 동표"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(234,131,49,0.55)","dash":"solid"},"hoveron":"points","name":"동표","legendgroup":"동표","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-19,-18,-17,-18,-19,-15,-16],"text":["boyname: 동현<br />alpha: 1<br />weeknum:  5<br />ranking: 19<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  6<br />ranking: 18<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  7<br />ranking: 17<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  8<br />ranking: 18<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  9<br />ranking: 19<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum: 10<br />ranking: 15<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum: 11<br />ranking: 16<br />boyname: 동현"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(216,144,0,0.55)","dash":"solid"},"hoveron":"points","name":"동현","legendgroup":"동현","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-2,-3,-3,-2,-3,-4,-3],"text":["boyname: 민규<br />alpha: 1<br />weeknum:  5<br />ranking:  2<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  6<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  7<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  8<br />ranking:  2<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  9<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum: 10<br />ranking:  4<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum: 11<br />ranking:  3<br />boyname: 민규"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(192,155,0,0.55)","dash":"solid"},"hoveron":"points","name":"민규","legendgroup":"민규","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-13,-13,-8,-9,-10,-5,-5],"text":["boyname: 민희<br />alpha: 1<br />weeknum:  5<br />ranking: 13<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  6<br />ranking: 13<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  7<br />ranking:  8<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  8<br />ranking:  9<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  9<br />ranking: 10<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum: 10<br />ranking:  5<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum: 11<br />ranking:  5<br />boyname: 민희"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(163,165,0,0.55)","dash":"solid"},"hoveron":"points","name":"민희","legendgroup":"민희","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-20,-20,-20,-17,-20,-20,-20],"text":["boyname: 세진<br />alpha: 1<br />weeknum:  5<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  6<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  7<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  8<br />ranking: 17<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  9<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum: 10<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum: 11<br />ranking: 20<br />boyname: 세진"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(124,174,0,0.55)","dash":"solid"},"hoveron":"points","name":"세진","legendgroup":"세진","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-3,-5,-2,-5,-2,-1,-1],"text":["boyname: 승연<br />alpha: 1<br />weeknum:  5<br />ranking:  3<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  6<br />ranking:  5<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  7<br />ranking:  2<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  8<br />ranking:  5<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  9<br />ranking:  2<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum: 10<br />ranking:  1<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum: 11<br />ranking:  1<br />boyname: 승연"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(57,182,0,0.55)","dash":"solid"},"hoveron":"points","name":"승연","legendgroup":"승연","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-9,-12,-11,-10,-8,-7,-8],"text":["boyname: 승우<br />alpha: 1<br />weeknum:  5<br />ranking:  9<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  6<br />ranking: 12<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  7<br />ranking: 11<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  8<br />ranking: 10<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  9<br />ranking:  8<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum: 10<br />ranking:  7<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum: 11<br />ranking:  8<br />boyname: 승우"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,187,78,0.55)","dash":"solid"},"hoveron":"points","name":"승우","legendgroup":"승우","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-6,-6,-6,-4,-5,-9,-10],"text":["boyname: 요한<br />alpha: 1<br />weeknum:  5<br />ranking:  6<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  6<br />ranking:  6<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  7<br />ranking:  6<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  8<br />ranking:  4<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  9<br />ranking:  5<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum: 10<br />ranking:  9<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum: 11<br />ranking: 10<br />boyname: 요한"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,191,125,0.55)","dash":"solid"},"hoveron":"points","name":"요한","legendgroup":"요한","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-1,-1,-1,-1,-1,-2,-4],"text":["boyname: 우석<br />alpha: 1<br />weeknum:  5<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  6<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  7<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  8<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  9<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum: 10<br />ranking:  2<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum: 11<br />ranking:  4<br />boyname: 우석"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,193,163,0.55)","dash":"solid"},"hoveron":"points","name":"우석","legendgroup":"우석","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-15,-15,-14,-20,-18,-19,-19],"text":["boyname: 원진<br />alpha: 1<br />weeknum:  5<br />ranking: 15<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  6<br />ranking: 15<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  7<br />ranking: 14<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  8<br />ranking: 20<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  9<br />ranking: 18<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum: 10<br />ranking: 19<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum: 11<br />ranking: 19<br />boyname: 원진"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,191,196,0.55)","dash":"solid"},"hoveron":"points","name":"원진","legendgroup":"원진","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-18,-16,-19,-16,-17,-18,-17],"text":["boyname: 유빈<br />alpha: 1<br />weeknum:  5<br />ranking: 18<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  6<br />ranking: 16<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  7<br />ranking: 19<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  8<br />ranking: 16<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  9<br />ranking: 17<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum: 10<br />ranking: 18<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum: 11<br />ranking: 17<br />boyname: 유빈"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,186,224,0.55)","dash":"solid"},"hoveron":"points","name":"유빈","legendgroup":"유빈","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-17,-11,-15,-13,-11,-11,-13],"text":["boyname: 윤성<br />alpha: 1<br />weeknum:  5<br />ranking: 17<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  6<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  7<br />ranking: 15<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  8<br />ranking: 13<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  9<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum: 10<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum: 11<br />ranking: 13<br />boyname: 윤성"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(0,176,246,0.55)","dash":"solid"},"hoveron":"points","name":"윤성","legendgroup":"윤성","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-7,-9,-4,-3,-4,-6,-7],"text":["boyname: 은상<br />alpha: 1<br />weeknum:  5<br />ranking:  7<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  6<br />ranking:  9<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  7<br />ranking:  4<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  8<br />ranking:  3<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  9<br />ranking:  4<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum: 10<br />ranking:  6<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum: 11<br />ranking:  7<br />boyname: 은상"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(53,162,255,0.55)","dash":"solid"},"hoveron":"points","name":"은상","legendgroup":"은상","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-4,-2,-5,-7,-7,-3,-2],"text":["boyname: 정모<br />alpha: 1<br />weeknum:  5<br />ranking:  4<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  6<br />ranking:  2<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  7<br />ranking:  5<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  8<br />ranking:  7<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  9<br />ranking:  7<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum: 10<br />ranking:  3<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum: 11<br />ranking:  2<br />boyname: 정모"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(149,144,255,0.55)","dash":"solid"},"hoveron":"points","name":"정모","legendgroup":"정모","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-11,-17,-13,-11,-14,-16,-12],"text":["boyname: 준호<br />alpha: 1<br />weeknum:  5<br />ranking: 11<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  6<br />ranking: 17<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  7<br />ranking: 13<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  8<br />ranking: 11<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  9<br />ranking: 14<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum: 10<br />ranking: 16<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum: 11<br />ranking: 12<br />boyname: 준호"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(199,124,255,0.55)","dash":"solid"},"hoveron":"points","name":"준호","legendgroup":"준호","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-14,-4,-7,-12,-15,-12,-9],"text":["boyname: 진혁<br />alpha: 1<br />weeknum:  5<br />ranking: 14<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  6<br />ranking:  4<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  7<br />ranking:  7<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  8<br />ranking: 12<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  9<br />ranking: 15<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum: 10<br />ranking: 12<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum: 11<br />ranking:  9<br />boyname: 진혁"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(231,107,243,0.55)","dash":"solid"},"hoveron":"points","name":"진혁","legendgroup":"진혁","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-16,-19,-18,-15,-16,-13,-15],"text":["boyname: 토니<br />alpha: 1<br />weeknum:  5<br />ranking: 16<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  6<br />ranking: 19<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  7<br />ranking: 18<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  8<br />ranking: 15<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  9<br />ranking: 16<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum: 10<br />ranking: 13<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum: 11<br />ranking: 15<br />boyname: 토니"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(250,98,219,0.55)","dash":"solid"},"hoveron":"points","name":"토니","legendgroup":"토니","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-12,-14,-16,-19,-12,-17,-18],"text":["boyname: 한결<br />alpha: 1<br />weeknum:  5<br />ranking: 12<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  6<br />ranking: 14<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  7<br />ranking: 16<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  8<br />ranking: 19<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  9<br />ranking: 12<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum: 10<br />ranking: 17<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum: 11<br />ranking: 18<br />boyname: 한결"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(255,98,188,0.55)","dash":"solid"},"hoveron":"points","name":"한결","legendgroup":"한결","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9,10,11],"y":[-5,-7,-9,-8,-9,-8,-11],"text":["boyname: 형준<br />alpha: 1<br />weeknum:  5<br />ranking:  5<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  6<br />ranking:  7<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  7<br />ranking:  9<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  8<br />ranking:  8<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  9<br />ranking:  9<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum: 10<br />ranking:  8<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum: 11<br />ranking: 11<br />boyname: 형준"],"type":"scatter","mode":"lines","line":{"width":7.55905511811024,"color":"rgba(255,106,152,0.55)","dash":"solid"},"hoveron":"points","name":"형준","legendgroup":"형준","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,8,9,6,5,7],"y":[-6,-10,-6,-6,-8,-8,-10],"text":["boyname: 도현<br />alpha: 1<br />weeknum: 11<br />ranking:  6<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum: 10<br />ranking: 10<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  8<br />ranking:  6<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  9<br />ranking:  6<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  6<br />ranking:  8<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  5<br />ranking:  8<br />boyname: 도현","boyname: 도현<br />alpha: 1<br />weeknum:  7<br />ranking: 10<br />boyname: 도현"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"도현","legendgroup":"도현","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6,10,11,7,9,5,8],"y":[-10,-14,-14,-12,-13,-10,-14],"text":["boyname: 동표<br />alpha: 1<br />weeknum:  6<br />ranking: 10<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum: 10<br />ranking: 14<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum: 11<br />ranking: 14<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  7<br />ranking: 12<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  9<br />ranking: 13<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  5<br />ranking: 10<br />boyname: 동표","boyname: 동표<br />alpha: 1<br />weeknum:  8<br />ranking: 14<br />boyname: 동표"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(234,131,49,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(234,131,49,1)"}},"hoveron":"points","name":"동표","legendgroup":"동표","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,6,8,7,9,5],"y":[-15,-16,-18,-18,-17,-19,-19],"text":["boyname: 동현<br />alpha: 1<br />weeknum: 10<br />ranking: 15<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum: 11<br />ranking: 16<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  6<br />ranking: 18<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  8<br />ranking: 18<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  7<br />ranking: 17<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  9<br />ranking: 19<br />boyname: 동현","boyname: 동현<br />alpha: 1<br />weeknum:  5<br />ranking: 19<br />boyname: 동현"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(216,144,0,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(216,144,0,1)"}},"hoveron":"points","name":"동현","legendgroup":"동현","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[8,11,10,9,7,6,5],"y":[-2,-3,-4,-3,-3,-3,-2],"text":["boyname: 민규<br />alpha: 1<br />weeknum:  8<br />ranking:  2<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum: 11<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum: 10<br />ranking:  4<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  9<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  7<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  6<br />ranking:  3<br />boyname: 민규","boyname: 민규<br />alpha: 1<br />weeknum:  5<br />ranking:  2<br />boyname: 민규"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(192,155,0,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(192,155,0,1)"}},"hoveron":"points","name":"민규","legendgroup":"민규","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,7,9,8,5,6],"y":[-5,-5,-8,-10,-9,-13,-13],"text":["boyname: 민희<br />alpha: 1<br />weeknum: 10<br />ranking:  5<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum: 11<br />ranking:  5<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  7<br />ranking:  8<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  9<br />ranking: 10<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  8<br />ranking:  9<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  5<br />ranking: 13<br />boyname: 민희","boyname: 민희<br />alpha: 1<br />weeknum:  6<br />ranking: 13<br />boyname: 민희"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(163,165,0,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(163,165,0,1)"}},"hoveron":"points","name":"민희","legendgroup":"민희","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,8,9,11,6,7,5],"y":[-20,-17,-20,-20,-20,-20,-20],"text":["boyname: 세진<br />alpha: 1<br />weeknum: 10<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  8<br />ranking: 17<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  9<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum: 11<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  6<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  7<br />ranking: 20<br />boyname: 세진","boyname: 세진<br />alpha: 1<br />weeknum:  5<br />ranking: 20<br />boyname: 세진"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(124,174,0,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(124,174,0,1)"}},"hoveron":"points","name":"세진","legendgroup":"세진","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,9,7,6,8,5],"y":[-1,-1,-2,-2,-5,-5,-3],"text":["boyname: 승연<br />alpha: 1<br />weeknum: 11<br />ranking:  1<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum: 10<br />ranking:  1<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  9<br />ranking:  2<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  7<br />ranking:  2<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  6<br />ranking:  5<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  8<br />ranking:  5<br />boyname: 승연","boyname: 승연<br />alpha: 1<br />weeknum:  5<br />ranking:  3<br />boyname: 승연"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(57,182,0,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(57,182,0,1)"}},"hoveron":"points","name":"승연","legendgroup":"승연","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,9,7,6,8,5],"y":[-7,-8,-8,-11,-12,-10,-9],"text":["boyname: 승우<br />alpha: 1<br />weeknum: 10<br />ranking:  7<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum: 11<br />ranking:  8<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  9<br />ranking:  8<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  7<br />ranking: 11<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  6<br />ranking: 12<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  8<br />ranking: 10<br />boyname: 승우","boyname: 승우<br />alpha: 1<br />weeknum:  5<br />ranking:  9<br />boyname: 승우"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,187,78,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,187,78,1)"}},"hoveron":"points","name":"승우","legendgroup":"승우","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,8,9,11,7,6,5],"y":[-9,-4,-5,-10,-6,-6,-6],"text":["boyname: 요한<br />alpha: 1<br />weeknum: 10<br />ranking:  9<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  8<br />ranking:  4<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  9<br />ranking:  5<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum: 11<br />ranking: 10<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  7<br />ranking:  6<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  6<br />ranking:  6<br />boyname: 요한","boyname: 요한<br />alpha: 1<br />weeknum:  5<br />ranking:  6<br />boyname: 요한"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,125,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,125,1)"}},"hoveron":"points","name":"요한","legendgroup":"요한","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[8,9,10,7,6,11,5],"y":[-1,-1,-2,-1,-1,-4,-1],"text":["boyname: 우석<br />alpha: 1<br />weeknum:  8<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  9<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum: 10<br />ranking:  2<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  7<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  6<br />ranking:  1<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum: 11<br />ranking:  4<br />boyname: 우석","boyname: 우석<br />alpha: 1<br />weeknum:  5<br />ranking:  1<br />boyname: 우석"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,193,163,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,193,163,1)"}},"hoveron":"points","name":"우석","legendgroup":"우석","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,5,6,7,9,8],"y":[-19,-19,-15,-15,-14,-18,-20],"text":["boyname: 원진<br />alpha: 1<br />weeknum: 11<br />ranking: 19<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum: 10<br />ranking: 19<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  5<br />ranking: 15<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  6<br />ranking: 15<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  7<br />ranking: 14<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  9<br />ranking: 18<br />boyname: 원진","boyname: 원진<br />alpha: 1<br />weeknum:  8<br />ranking: 20<br />boyname: 원진"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"원진","legendgroup":"원진","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,8,6,9,5,7],"y":[-17,-18,-16,-16,-17,-18,-19],"text":["boyname: 유빈<br />alpha: 1<br />weeknum: 11<br />ranking: 17<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum: 10<br />ranking: 18<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  8<br />ranking: 16<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  6<br />ranking: 16<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  9<br />ranking: 17<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  5<br />ranking: 18<br />boyname: 유빈","boyname: 유빈<br />alpha: 1<br />weeknum:  7<br />ranking: 19<br />boyname: 유빈"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,224,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,186,224,1)"}},"hoveron":"points","name":"유빈","legendgroup":"유빈","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,6,9,8,7,5],"y":[-11,-13,-11,-11,-13,-15,-17],"text":["boyname: 윤성<br />alpha: 1<br />weeknum: 10<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum: 11<br />ranking: 13<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  6<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  9<br />ranking: 11<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  8<br />ranking: 13<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  7<br />ranking: 15<br />boyname: 윤성","boyname: 윤성<br />alpha: 1<br />weeknum:  5<br />ranking: 17<br />boyname: 윤성"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,176,246,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,176,246,1)"}},"hoveron":"points","name":"윤성","legendgroup":"윤성","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,8,9,7,11,5,6],"y":[-6,-3,-4,-4,-7,-7,-9],"text":["boyname: 은상<br />alpha: 1<br />weeknum: 10<br />ranking:  6<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  8<br />ranking:  3<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  9<br />ranking:  4<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  7<br />ranking:  4<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum: 11<br />ranking:  7<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  5<br />ranking:  7<br />boyname: 은상","boyname: 은상<br />alpha: 1<br />weeknum:  6<br />ranking:  9<br />boyname: 은상"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(53,162,255,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(53,162,255,1)"}},"hoveron":"points","name":"은상","legendgroup":"은상","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,6,7,5,9,8],"y":[-2,-3,-2,-5,-4,-7,-7],"text":["boyname: 정모<br />alpha: 1<br />weeknum: 11<br />ranking:  2<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum: 10<br />ranking:  3<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  6<br />ranking:  2<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  7<br />ranking:  5<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  5<br />ranking:  4<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  9<br />ranking:  7<br />boyname: 정모","boyname: 정모<br />alpha: 1<br />weeknum:  8<br />ranking:  7<br />boyname: 정모"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(149,144,255,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(149,144,255,1)"}},"hoveron":"points","name":"정모","legendgroup":"정모","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,7,8,5,9,6],"y":[-12,-16,-13,-11,-11,-14,-17],"text":["boyname: 준호<br />alpha: 1<br />weeknum: 11<br />ranking: 12<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum: 10<br />ranking: 16<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  7<br />ranking: 13<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  8<br />ranking: 11<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  5<br />ranking: 11<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  9<br />ranking: 14<br />boyname: 준호","boyname: 준호<br />alpha: 1<br />weeknum:  6<br />ranking: 17<br />boyname: 준호"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(199,124,255,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(199,124,255,1)"}},"hoveron":"points","name":"준호","legendgroup":"준호","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6,11,7,10,8,9,5],"y":[-4,-9,-7,-12,-12,-15,-14],"text":["boyname: 진혁<br />alpha: 1<br />weeknum:  6<br />ranking:  4<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum: 11<br />ranking:  9<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  7<br />ranking:  7<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum: 10<br />ranking: 12<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  8<br />ranking: 12<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  9<br />ranking: 15<br />boyname: 진혁","boyname: 진혁<br />alpha: 1<br />weeknum:  5<br />ranking: 14<br />boyname: 진혁"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(231,107,243,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(231,107,243,1)"}},"hoveron":"points","name":"진혁","legendgroup":"진혁","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,9,8,5,7,6],"y":[-13,-15,-16,-15,-16,-18,-19],"text":["boyname: 토니<br />alpha: 1<br />weeknum: 10<br />ranking: 13<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum: 11<br />ranking: 15<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  9<br />ranking: 16<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  8<br />ranking: 15<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  5<br />ranking: 16<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  7<br />ranking: 18<br />boyname: 토니","boyname: 토니<br />alpha: 1<br />weeknum:  6<br />ranking: 19<br />boyname: 토니"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(250,98,219,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(250,98,219,1)"}},"hoveron":"points","name":"토니","legendgroup":"토니","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11,10,9,5,6,7,8],"y":[-18,-17,-12,-12,-14,-16,-19],"text":["boyname: 한결<br />alpha: 1<br />weeknum: 11<br />ranking: 18<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum: 10<br />ranking: 17<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  9<br />ranking: 12<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  5<br />ranking: 12<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  6<br />ranking: 14<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  7<br />ranking: 16<br />boyname: 한결","boyname: 한결<br />alpha: 1<br />weeknum:  8<br />ranking: 19<br />boyname: 한결"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,98,188,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(255,98,188,1)"}},"hoveron":"points","name":"한결","legendgroup":"한결","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,11,6,5,7,9,8],"y":[-8,-11,-7,-5,-9,-9,-8],"text":["boyname: 형준<br />alpha: 1<br />weeknum: 10<br />ranking:  8<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum: 11<br />ranking: 11<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  6<br />ranking:  7<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  5<br />ranking:  5<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  7<br />ranking:  9<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  9<br />ranking:  9<br />boyname: 형준","boyname: 형준<br />alpha: 1<br />weeknum:  8<br />ranking:  8<br />boyname: 형준"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,106,152,1)","opacity":0.55,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(255,106,152,1)"}},"hoveron":"points","name":"형준","legendgroup":"형준","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[8,11,10,9,10,9,8,7,11,6,11,11,10,5,10,10,10,8,7,10,9,10,6,11,11,10,7,10,6,8,9,7,11,11,9,6,5,11,10,6,7,8,11,8,7,5,7,10,11,11,10,6,5,7,6,9,5,5,5,6,9,11,7,6,9,8,6,10,11,9,10,9,11,11,11,5,11,10,7,10,8,7,8,11,7,6,10,6,9,7,10,8,5,8,9,9,5,5,5,8,9,5,10,8,8,9,9,5,6,6,5,8,6,8,7,6,8,7,6,6,7,5,8,9,7,5,8,5,9,9,9,11,7,7,8,6,6,7,5,5],"y":[-1,-1,-1,-1,-2,-2,-2,-1,-2,-1,-3,-4,-3,-1,-4,-5,-6,-3,-2,-7,-3,-8,-2,-5,-6,-9,-3,-10,-3,-4,-4,-4,-7,-8,-5,-4,-2,-9,-11,-5,-5,-5,-10,-6,-6,-3,-7,-12,-11,-12,-13,-6,-4,-8,-7,-6,-5,-6,-7,-8,-7,-13,-9,-9,-8,-7,-10,-14,-14,-9,-15,-10,-15,-16,-17,-8,-18,-16,-10,-17,-8,-11,-9,-19,-12,-11,-18,-12,-11,-13,-19,-10,-9,-11,-12,-13,-10,-11,-12,-12,-14,-13,-20,-13,-14,-15,-16,-14,-13,-14,-15,-15,-15,-16,-14,-16,-17,-15,-17,-18,-16,-16,-18,-17,-17,-17,-19,-18,-18,-19,-20,-20,-18,-19,-20,-19,-20,-20,-19,-20],"text":["weeknum:  8<br />ranking:  1<br />boyname: 우석","weeknum: 11<br />ranking:  1<br />boyname: 승연","weeknum: 10<br />ranking:  1<br />boyname: 승연","weeknum:  9<br />ranking:  1<br />boyname: 우석","weeknum: 10<br />ranking:  2<br />boyname: 우석","weeknum:  9<br />ranking:  2<br />boyname: 승연","weeknum:  8<br />ranking:  2<br />boyname: 민규","weeknum:  7<br />ranking:  1<br />boyname: 우석","weeknum: 11<br />ranking:  2<br />boyname: 정모","weeknum:  6<br />ranking:  1<br />boyname: 우석","weeknum: 11<br />ranking:  3<br />boyname: 민규","weeknum: 11<br />ranking:  4<br />boyname: 우석","weeknum: 10<br />ranking:  3<br />boyname: 정모","weeknum:  5<br />ranking:  1<br />boyname: 우석","weeknum: 10<br />ranking:  4<br />boyname: 민규","weeknum: 10<br />ranking:  5<br />boyname: 민희","weeknum: 10<br />ranking:  6<br />boyname: 은상","weeknum:  8<br />ranking:  3<br />boyname: 은상","weeknum:  7<br />ranking:  2<br />boyname: 승연","weeknum: 10<br />ranking:  7<br />boyname: 승우","weeknum:  9<br />ranking:  3<br />boyname: 민규","weeknum: 10<br />ranking:  8<br />boyname: 형준","weeknum:  6<br />ranking:  2<br />boyname: 정모","weeknum: 11<br />ranking:  5<br />boyname: 민희","weeknum: 11<br />ranking:  6<br />boyname: 도현","weeknum: 10<br />ranking:  9<br />boyname: 요한","weeknum:  7<br />ranking:  3<br />boyname: 민규","weeknum: 10<br />ranking: 10<br />boyname: 도현","weeknum:  6<br />ranking:  3<br />boyname: 민규","weeknum:  8<br />ranking:  4<br />boyname: 요한","weeknum:  9<br />ranking:  4<br />boyname: 은상","weeknum:  7<br />ranking:  4<br />boyname: 은상","weeknum: 11<br />ranking:  7<br />boyname: 은상","weeknum: 11<br />ranking:  8<br />boyname: 승우","weeknum:  9<br />ranking:  5<br />boyname: 요한","weeknum:  6<br />ranking:  4<br />boyname: 진혁","weeknum:  5<br />ranking:  2<br />boyname: 민규","weeknum: 11<br />ranking:  9<br />boyname: 진혁","weeknum: 10<br />ranking: 11<br />boyname: 윤성","weeknum:  6<br />ranking:  5<br />boyname: 승연","weeknum:  7<br />ranking:  5<br />boyname: 정모","weeknum:  8<br />ranking:  5<br />boyname: 승연","weeknum: 11<br />ranking: 10<br />boyname: 요한","weeknum:  8<br />ranking:  6<br />boyname: 도현","weeknum:  7<br />ranking:  6<br />boyname: 요한","weeknum:  5<br />ranking:  3<br />boyname: 승연","weeknum:  7<br />ranking:  7<br />boyname: 진혁","weeknum: 10<br />ranking: 12<br />boyname: 진혁","weeknum: 11<br />ranking: 11<br />boyname: 형준","weeknum: 11<br />ranking: 12<br />boyname: 준호","weeknum: 10<br />ranking: 13<br />boyname: 토니","weeknum:  6<br />ranking:  6<br />boyname: 요한","weeknum:  5<br />ranking:  4<br />boyname: 정모","weeknum:  7<br />ranking:  8<br />boyname: 민희","weeknum:  6<br />ranking:  7<br />boyname: 형준","weeknum:  9<br />ranking:  6<br />boyname: 도현","weeknum:  5<br />ranking:  5<br />boyname: 형준","weeknum:  5<br />ranking:  6<br />boyname: 요한","weeknum:  5<br />ranking:  7<br />boyname: 은상","weeknum:  6<br />ranking:  8<br />boyname: 도현","weeknum:  9<br />ranking:  7<br />boyname: 정모","weeknum: 11<br />ranking: 13<br />boyname: 윤성","weeknum:  7<br />ranking:  9<br />boyname: 형준","weeknum:  6<br />ranking:  9<br />boyname: 은상","weeknum:  9<br />ranking:  8<br />boyname: 승우","weeknum:  8<br />ranking:  7<br />boyname: 정모","weeknum:  6<br />ranking: 10<br />boyname: 동표","weeknum: 10<br />ranking: 14<br />boyname: 동표","weeknum: 11<br />ranking: 14<br />boyname: 동표","weeknum:  9<br />ranking:  9<br />boyname: 형준","weeknum: 10<br />ranking: 15<br />boyname: 동현","weeknum:  9<br />ranking: 10<br />boyname: 민희","weeknum: 11<br />ranking: 15<br />boyname: 토니","weeknum: 11<br />ranking: 16<br />boyname: 동현","weeknum: 11<br />ranking: 17<br />boyname: 유빈","weeknum:  5<br />ranking:  8<br />boyname: 도현","weeknum: 11<br />ranking: 18<br />boyname: 한결","weeknum: 10<br />ranking: 16<br />boyname: 준호","weeknum:  7<br />ranking: 10<br />boyname: 도현","weeknum: 10<br />ranking: 17<br />boyname: 한결","weeknum:  8<br />ranking:  8<br />boyname: 형준","weeknum:  7<br />ranking: 11<br />boyname: 승우","weeknum:  8<br />ranking:  9<br />boyname: 민희","weeknum: 11<br />ranking: 19<br />boyname: 원진","weeknum:  7<br />ranking: 12<br />boyname: 동표","weeknum:  6<br />ranking: 11<br />boyname: 윤성","weeknum: 10<br />ranking: 18<br />boyname: 유빈","weeknum:  6<br />ranking: 12<br />boyname: 승우","weeknum:  9<br />ranking: 11<br />boyname: 윤성","weeknum:  7<br />ranking: 13<br />boyname: 준호","weeknum: 10<br />ranking: 19<br />boyname: 원진","weeknum:  8<br />ranking: 10<br />boyname: 승우","weeknum:  5<br />ranking:  9<br />boyname: 승우","weeknum:  8<br />ranking: 11<br />boyname: 준호","weeknum:  9<br />ranking: 12<br />boyname: 한결","weeknum:  9<br />ranking: 13<br />boyname: 동표","weeknum:  5<br />ranking: 10<br />boyname: 동표","weeknum:  5<br />ranking: 11<br />boyname: 준호","weeknum:  5<br />ranking: 12<br />boyname: 한결","weeknum:  8<br />ranking: 12<br />boyname: 진혁","weeknum:  9<br />ranking: 14<br />boyname: 준호","weeknum:  5<br />ranking: 13<br />boyname: 민희","weeknum: 10<br />ranking: 20<br />boyname: 세진","weeknum:  8<br />ranking: 13<br />boyname: 윤성","weeknum:  8<br />ranking: 14<br />boyname: 동표","weeknum:  9<br />ranking: 15<br />boyname: 진혁","weeknum:  9<br />ranking: 16<br />boyname: 토니","weeknum:  5<br />ranking: 14<br />boyname: 진혁","weeknum:  6<br />ranking: 13<br />boyname: 민희","weeknum:  6<br />ranking: 14<br />boyname: 한결","weeknum:  5<br />ranking: 15<br />boyname: 원진","weeknum:  8<br />ranking: 15<br />boyname: 토니","weeknum:  6<br />ranking: 15<br />boyname: 원진","weeknum:  8<br />ranking: 16<br />boyname: 유빈","weeknum:  7<br />ranking: 14<br />boyname: 원진","weeknum:  6<br />ranking: 16<br />boyname: 유빈","weeknum:  8<br />ranking: 17<br />boyname: 세진","weeknum:  7<br />ranking: 15<br />boyname: 윤성","weeknum:  6<br />ranking: 17<br />boyname: 준호","weeknum:  6<br />ranking: 18<br />boyname: 동현","weeknum:  7<br />ranking: 16<br />boyname: 한결","weeknum:  5<br />ranking: 16<br />boyname: 토니","weeknum:  8<br />ranking: 18<br />boyname: 동현","weeknum:  9<br />ranking: 17<br />boyname: 유빈","weeknum:  7<br />ranking: 17<br />boyname: 동현","weeknum:  5<br />ranking: 17<br />boyname: 윤성","weeknum:  8<br />ranking: 19<br />boyname: 한결","weeknum:  5<br />ranking: 18<br />boyname: 유빈","weeknum:  9<br />ranking: 18<br />boyname: 원진","weeknum:  9<br />ranking: 19<br />boyname: 동현","weeknum:  9<br />ranking: 20<br />boyname: 세진","weeknum: 11<br />ranking: 20<br />boyname: 세진","weeknum:  7<br />ranking: 18<br />boyname: 토니","weeknum:  7<br />ranking: 19<br />boyname: 유빈","weeknum:  8<br />ranking: 20<br />boyname: 원진","weeknum:  6<br />ranking: 19<br />boyname: 토니","weeknum:  6<br />ranking: 20<br />boyname: 세진","weeknum:  7<br />ranking: 20<br />boyname: 세진","weeknum:  5<br />ranking: 19<br />boyname: 동현","weeknum:  5<br />ranking: 20<br />boyname: 세진"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,255,255,1)","opacity":1,"size":3.77952755905512,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(255,255,255,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"y":[-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20],"text":["우석","민규","승연","정모","형준","요한","은상","도현","승우","동표","준호","한결","민희","진혁","원진","토니","윤성","유빈","동현","세진"],"hovertext":["x: 4.5<br />boyname: 우석<br />weeknum: 4.5<br />ranking:  1<br />boyname: 우석","x: 4.5<br />boyname: 민규<br />weeknum: 4.5<br />ranking:  2<br />boyname: 민규","x: 4.5<br />boyname: 승연<br />weeknum: 4.5<br />ranking:  3<br />boyname: 승연","x: 4.5<br />boyname: 정모<br />weeknum: 4.5<br />ranking:  4<br />boyname: 정모","x: 4.5<br />boyname: 형준<br />weeknum: 4.5<br />ranking:  5<br />boyname: 형준","x: 4.5<br />boyname: 요한<br />weeknum: 4.5<br />ranking:  6<br />boyname: 요한","x: 4.5<br />boyname: 은상<br />weeknum: 4.5<br />ranking:  7<br />boyname: 은상","x: 4.5<br />boyname: 도현<br />weeknum: 4.5<br />ranking:  8<br />boyname: 도현","x: 4.5<br />boyname: 승우<br />weeknum: 4.5<br />ranking:  9<br />boyname: 승우","x: 4.5<br />boyname: 동표<br />weeknum: 4.5<br />ranking: 10<br />boyname: 동표","x: 4.5<br />boyname: 준호<br />weeknum: 4.5<br />ranking: 11<br />boyname: 준호","x: 4.5<br />boyname: 한결<br />weeknum: 4.5<br />ranking: 12<br />boyname: 한결","x: 4.5<br />boyname: 민희<br />weeknum: 4.5<br />ranking: 13<br />boyname: 민희","x: 4.5<br />boyname: 진혁<br />weeknum: 4.5<br />ranking: 14<br />boyname: 진혁","x: 4.5<br />boyname: 원진<br />weeknum: 4.5<br />ranking: 15<br />boyname: 원진","x: 4.5<br />boyname: 토니<br />weeknum: 4.5<br />ranking: 16<br />boyname: 토니","x: 4.5<br />boyname: 윤성<br />weeknum: 4.5<br />ranking: 17<br />boyname: 윤성","x: 4.5<br />boyname: 유빈<br />weeknum: 4.5<br />ranking: 18<br />boyname: 유빈","x: 4.5<br />boyname: 동현<br />weeknum: 4.5<br />ranking: 19<br />boyname: 동현","x: 4.5<br />boyname: 세진<br />weeknum: 4.5<br />ranking: 20<br />boyname: 세진"],"textfont":{"size":18.8976377952756,"color":"rgba(136,136,136,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5,11.5],"y":[-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20],"text":["승연","정모","민규","우석","민희","도현","은상","승우","진혁","요한","형준","준호","윤성","동표","토니","동현","유빈","한결","원진","세진"],"hovertext":["x: 11.5<br />boyname: 승연<br />weeknum: 11.5<br />ranking:  1<br />boyname: 승연","x: 11.5<br />boyname: 정모<br />weeknum: 11.5<br />ranking:  2<br />boyname: 정모","x: 11.5<br />boyname: 민규<br />weeknum: 11.5<br />ranking:  3<br />boyname: 민규","x: 11.5<br />boyname: 우석<br />weeknum: 11.5<br />ranking:  4<br />boyname: 우석","x: 11.5<br />boyname: 민희<br />weeknum: 11.5<br />ranking:  5<br />boyname: 민희","x: 11.5<br />boyname: 도현<br />weeknum: 11.5<br />ranking:  6<br />boyname: 도현","x: 11.5<br />boyname: 은상<br />weeknum: 11.5<br />ranking:  7<br />boyname: 은상","x: 11.5<br />boyname: 승우<br />weeknum: 11.5<br />ranking:  8<br />boyname: 승우","x: 11.5<br />boyname: 진혁<br />weeknum: 11.5<br />ranking:  9<br />boyname: 진혁","x: 11.5<br />boyname: 요한<br />weeknum: 11.5<br />ranking: 10<br />boyname: 요한","x: 11.5<br />boyname: 형준<br />weeknum: 11.5<br />ranking: 11<br />boyname: 형준","x: 11.5<br />boyname: 준호<br />weeknum: 11.5<br />ranking: 12<br />boyname: 준호","x: 11.5<br />boyname: 윤성<br />weeknum: 11.5<br />ranking: 13<br />boyname: 윤성","x: 11.5<br />boyname: 동표<br />weeknum: 11.5<br />ranking: 14<br />boyname: 동표","x: 11.5<br />boyname: 토니<br />weeknum: 11.5<br />ranking: 15<br />boyname: 토니","x: 11.5<br />boyname: 동현<br />weeknum: 11.5<br />ranking: 16<br />boyname: 동현","x: 11.5<br />boyname: 유빈<br />weeknum: 11.5<br />ranking: 17<br />boyname: 유빈","x: 11.5<br />boyname: 한결<br />weeknum: 11.5<br />ranking: 18<br />boyname: 한결","x: 11.5<br />boyname: 원진<br />weeknum: 11.5<br />ranking: 19<br />boyname: 원진","x: 11.5<br />boyname: 세진<br />weeknum: 11.5<br />ranking: 20<br />boyname: 세진"],"textfont":{"size":18.8976377952756,"color":"rgba(136,136,136,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":55.7953867223633,"r":7.55905511811024,"b":34.9168309129478,"l":36.8065946924754},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":19.9252801992528},"title":{"text":"<b> [PRODUCEX101 GALLARY] WEEKLY BUMPCHART <\/b>","font":{"color":"rgba(34,33,29,1)","family":"","size":26.5670402656704},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.1,11.9],"tickmode":"array","ticktext":[null],"categoryorder":"array","categoryarray":[null],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.9813200498132,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(34,33,29,1)","family":"","size":13.2835201328352},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.905694554511491,"zeroline":false,"anchor":"y","title":{"text":"<b> episode <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-20.95,-0.0499999999999999],"tickmode":"array","ticktext":[null],"categoryorder":"array","categoryarray":[null],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.9813200498132,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(34,33,29,1)","family":"","size":13.2835201328352},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"<b> ranking <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":18.5969281859693}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(255,255,255,1)","width":0.905694554511491,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":2.57695060844667,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"y":0.911417322834646},"annotations":[{"text":"<br />","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":19.9252801992528},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"31c428fe22d4":{"colour":{},"alpha":{},"x":{},"y":{},"type":"scatter"},"31c42a4b716d":{"colour":{},"alpha":{},"x":{},"y":{}},"31c4168e205f":{"x":{},"y":{}},"31c444823b6c":{"x":{},"label":{},"x.1":{},"y":{}},"31c4cd8585f":{"x":{},"label":{},"x.1":{},"y":{}}},"cur_data":"31c428fe22d4","visdat":{"31c428fe22d4":["function (y) ","x"],"31c42a4b716d":["function (y) ","x"],"31c4168e205f":["function (y) ","x"],"31c444823b6c":["function (y) ","x"],"31c4cd8585f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script></code></pre>
+<br>
+<center>
+<em> 이름을 더블클릭하면 추세를 명확하게 확인할 수 있습니다. </em>
+</center>
+<p><br></p>
+<p>Bumpchart는 특별히 <code>plotly</code>를 활용하여 반응형 차트를 제작해 보았습니다. 마우스액션을 통해 좀더 세분화되게 차트를 탐색해 볼 수 있습니다.</p>
+<p><br></p>
+<hr />
+<p><br>
+지금까지 데이터를 수집부터, 시각화 분석까지의 전반적인 과정들을 한번 훝어보았습니다. 예전에 취미삼아 혼자서만 분석하고 묵혀만 두었던 프로젝트였는데 블로그를 구축하고, 많은 분들께 공유할 수 있게 되어서 감회가 새롭네요. R 유저로서 <code>blogdown</code> 패키지로 한번 블로그를 만들어 보고 싶었는데 올해가 넘어가기 전에 그 일을 끝마칠수 있어서 개인적으로 뿌듯합니다.</p>
+<p>처음 작성한 글이라 미흡한 글이긴 하지만 도움이나 흥미가 있었기를 바라며 이만 마무리 짓도록 하겠습니다. 지금까지 긴글 읽어주셔서 감사합니다.</p>
+<p><br></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="eda.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_sample.pdf", "bookdown_sample.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
