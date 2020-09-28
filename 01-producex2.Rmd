@@ -1,4 +1,4 @@
-# 데이터 수집 {#intro}
+# 데이터 수집
 
 ```{r, message=FALSE, include=FALSE}
 library(tidyverse)
