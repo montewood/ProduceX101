@@ -14,6 +14,7 @@ description: "This is a minimal example of using the bookdown package to write a
 knitr::include_graphics('./img_source/producex1/final.jpg')
 ```
 
+<center><em>사진출처 : 엠넷</em></center>
 
  조금은 시간이 지났지만 지난 여름 프로듀스X 101이 한참 방영했던 당시 진행했던 텍스트 분석입니다.
 <br>
