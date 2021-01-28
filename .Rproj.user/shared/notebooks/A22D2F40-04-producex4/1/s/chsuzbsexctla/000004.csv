@@ -1,5 +1,0 @@
-"0","pxdata <- readRDS(str_glue(""{dir}/pxdata_total.rds""))
-"
-"2","¾ÐÃàµÈ ÆÄÀÏ 'C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/2020ver/pxdata_total.rds'¸¦ ¿­ ¼ö ¾ø½À´Ï´Ù.  ±× ÀÌÀ¯´Â ¾Æ¸¶µµ 'No such file or directory'ÀÔ´Ï´Ù"
-"2","Error in gzfile(file, ""rb"") : ì»¤ë„¥ì…˜ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤
-"
