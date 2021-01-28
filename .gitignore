@@ -51,3 +51,6 @@ vignettes/*.pdf
 
 # ignore Rmd file 
 *.Rmd
+
+# ignore GA script 
+GA_Script.html

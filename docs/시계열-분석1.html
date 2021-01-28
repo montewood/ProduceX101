@@ -65,6 +65,15 @@
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NYSBNPQH3H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NYSBNPQH3H');
+</script>
 
 
 <style type="text/css">
@@ -331,7 +340,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## season6     -13061.72    1446.32  -9.031 2.68e-11 ***
 ## season7      -9896.89    1449.19  -6.829 2.87e-08 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2694 on 41 degrees of freedom
 ## Multiple R-squared:  0.8255,	Adjusted R-squared:  0.7957 
@@ -340,14 +350,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-분석1.html#cb93-1"></a><span class="co"># 예측값 도출 </span></span>
 <span id="cb93-2"><a href="시계열-분석1.html#cb93-2"></a>mod_tslm_pred &lt;-<span class="st"> </span>mod_tslm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> <span class="dv">7</span>)</span>
 <span id="cb93-3"><a href="시계열-분석1.html#cb93-3"></a>mod_tslm_pred</span></code></pre></div>
-<pre><code>##          Point Forecast    Lo 80    Hi 80     Lo 95    Hi 95
-## 8.000000       28729.98 24847.59 32612.37 22710.491 34749.47
-## 8.142857       18009.41 14127.02 21891.80 11989.920 24028.90
-## 8.285714       17535.69 13653.30 21418.08 11516.205 23555.18
-## 8.428571       16695.98 12813.59 20578.37 10676.491 22715.47
-## 8.571429       15053.27 11170.88 18935.65  9033.777 21072.75
-## 8.714286       16846.27 12963.88 20728.65 10826.777 22865.75
-## 8.857143       20246.69 16364.30 24129.08 14227.205 26266.18</code></pre>
+<pre><code>##          Point Forecast    Lo 80    Hi 80     Lo 95
+## 8.000000       28729.98 24847.59 32612.37 22710.491
+## 8.142857       18009.41 14127.02 21891.80 11989.920
+## 8.285714       17535.69 13653.30 21418.08 11516.205
+## 8.428571       16695.98 12813.59 20578.37 10676.491
+## 8.571429       15053.27 11170.88 18935.65  9033.777
+## 8.714286       16846.27 12963.88 20728.65 10826.777
+## 8.857143       20246.69 16364.30 24129.08 14227.205
+##             Hi 95
+## 8.000000 34749.47
+## 8.142857 24028.90
+## 8.285714 23555.18
+## 8.428571 22715.47
+## 8.571429 21072.75
+## 8.714286 22865.75
+## 8.857143 26266.18</code></pre>
 <p> 모델을 통한 예측값의 점추정 값과 신뢰구간을 계산해 줌을 볼 수 있습니다. 이렇게 계산된 예측값을 시각화하여 볼 수 있습니다.</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-분석1.html#cb95-1"></a><span class="co"># 예측값 시각화 </span></span>
 <span id="cb95-2"><a href="시계열-분석1.html#cb95-2"></a>mod_tslm_pred <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
@@ -355,8 +373,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p> 최종적으로 모델을 사용하기 이전에 모델의 성능을 측정하여 해당 모델이 다른 모델에 비해 성능적으로 우위가 있는지를 판단할 수 있습니다. 모델의 성능을 측정하는 방법에는 다양한 방법들이 존재합니다. 함수 <code>accuracy()</code>를 사용하면 주요 성능을 계산하여 보여줌으로서 모델의 성능을 파악하는데 용이합니다.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="시계열-분석1.html#cb96-1"></a><span class="co"># 모델 정확성 </span></span>
 <span id="cb96-2"><a href="시계열-분석1.html#cb96-2"></a>mod_tslm_pred <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>()</span></code></pre></div>
-<pre><code>##                         ME     RMSE      MAE       MPE     MAPE      MASE      ACF1
-## Training set -1.949778e-13 2463.901 1914.331 -2.689877 17.70896 0.7446207 0.3114162</code></pre>
+<pre><code>##                         ME     RMSE      MAE
+## Training set -1.949778e-13 2463.901 1914.331
+##                    MPE     MAPE      MASE      ACF1
+## Training set -2.689877 17.70896 0.7446207 0.3114162</code></pre>
 </div>
 <div id="ets" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> ETS</h3>
@@ -391,8 +411,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="시계열-분석1.html#cb101-1"></a><span class="co"># ETS 모델 성능 </span></span>
 <span id="cb101-2"><a href="시계열-분석1.html#cb101-2"></a>mod_ets_pred <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">accuracy</span>()</span></code></pre></div>
-<pre><code>##                    ME     RMSE      MAE         MPE     MAPE     MASE      ACF1
-## Training set 366.2466 2238.365 1732.237 -0.02427324 14.99357 0.673791 0.1015756</code></pre>
+<pre><code>##                    ME     RMSE      MAE         MPE
+## Training set 366.2466 2238.365 1732.237 -0.02427324
+##                  MAPE     MASE      ACF1
+## Training set 14.99357 0.673791 0.1015756</code></pre>
 </div>
 <div id="arima" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> ARIMA</h3>
