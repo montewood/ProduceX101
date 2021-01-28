@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 연습생별 적용 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 연습생별 적용 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 연습생별 적용 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="JDW" />
+
+
+<meta name="date" content="2019-12-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="시계열-분석.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
+<li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
+<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
+<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
+<li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
+<li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
+<li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
+<li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
+<li class="chapter" data-level="7.2.4" data-path="다중회귀분석.html"><a href="다중회귀분석.html#등분산성"><i class="fa fa-check"></i><b>7.2.4</b> 등분산성</a></li>
+<li class="chapter" data-level="7.2.5" data-path="다중회귀분석.html"><a href="다중회귀분석.html#다중공선성"><i class="fa fa-check"></i><b>7.2.5</b> 다중공선성</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="시계열-분석.html"><a href="시계열-분석.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석</a><ul>
+<li class="chapter" data-level="8.1" data-path="시계열-분석.html"><a href="시계열-분석.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
+<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="시계열-분석.html"><a href="시계열-분석.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
+<li class="chapter" data-level="8.2.2" data-path="시계열-분석.html"><a href="시계열-분석.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
+<li class="chapter" data-level="8.2.3" data-path="시계열-분석.html"><a href="시계열-분석.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="시계열-분석.html"><a href="시계열-분석.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
+<li class="chapter" data-level="8.4" data-path="시계열-분석.html"><a href="시계열-분석.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="시계열-분석.html"><a href="시계열-분석.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
+<li class="chapter" data-level="8.4.2" data-path="시계열-분석.html"><a href="시계열-분석.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
+<li class="chapter" data-level="8.4.3" data-path="시계열-분석.html"><a href="시계열-분석.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
+<li class="chapter" data-level="8.4.4" data-path="시계열-분석.html"><a href="시계열-분석.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="연습생별-적용.html"><a href="연습생별-적용.html"><i class="fa fa-check"></i><b>9</b> 연습생별 적용</a><ul>
+<li class="chapter" data-level="9.1" data-path="연습생별-적용.html"><a href="연습생별-적용.html#모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 모델링 함수 생성</a></li>
+<li class="chapter" data-level="9.2" data-path="연습생별-적용.html"><a href="연습생별-적용.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
+<li class="chapter" data-level="9.3" data-path="연습생별-적용.html"><a href="연습생별-적용.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="연습생별-적용" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> 연습생별 적용</h1>
+<p> 지금까지 연습생들의 언급량을 총 합산한 데이터를 토대로 시계열 예측 과정을 진행하였습니다. 이 과정을 개별 연습생에 대한 언급량 데이터에 적용하여 각각의 연습생들에 적법한 모델을 찾고 그 모델을 토대로 바로 다음 시점의 언급량을 추정, 이를 대조하여 언습생들의 인기를 추측해 보겠습니다.</p>
+<div id="모델링-함수-생성" class="section level2">
+<h2><span class="header-section-number">9.1</span> 모델링 함수 생성</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="연습생별-적용.html#cb36-1"></a><span class="co"># 연습생별 최적 성능 모델 생성 함수 </span></span>
+<span id="cb36-2"><a href="연습생별-적용.html#cb36-2"></a>boy_model &lt;-<span class="st"> </span><span class="cf">function</span>(total, final_boy){</span>
+<span id="cb36-3"><a href="연습생별-적용.html#cb36-3"></a>    <span class="co"># 연습생 언급량 필터링 &amp; ts 객체 변환 </span></span>
+<span id="cb36-4"><a href="연습생별-적용.html#cb36-4"></a>    boy_ts &lt;-<span class="st"> </span>total <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-5"><a href="연습생별-적용.html#cb36-5"></a><span class="st">        </span><span class="kw">filter</span>(boy <span class="op">==</span><span class="st"> </span>final_boy) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-6"><a href="연습생별-적용.html#cb36-6"></a><span class="st">        </span><span class="kw">ts</span>(<span class="dt">frequency =</span> <span class="dv">7</span>)</span>
+<span id="cb36-7"><a href="연습생별-적용.html#cb36-7"></a>    </span>
+<span id="cb36-8"><a href="연습생별-적용.html#cb36-8"></a>    <span class="co"># 시계열 교차검증용 모델 지정 </span></span>
+<span id="cb36-9"><a href="연습생별-적용.html#cb36-9"></a>    forecast_arima &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
+<span id="cb36-10"><a href="연습생별-적용.html#cb36-10"></a>        <span class="kw">auto.arima</span>(x, <span class="dt">stepwise =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
+<span id="cb36-11"><a href="연습생별-적용.html#cb36-11"></a>    }</span>
+<span id="cb36-12"><a href="연습생별-적용.html#cb36-12"></a>    forecast_tslm &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
+<span id="cb36-13"><a href="연습생별-적용.html#cb36-13"></a>        <span class="kw">tslm</span>(x <span class="op">~</span><span class="st"> </span>trend <span class="op">+</span><span class="st"> </span>season, <span class="dt">data =</span> x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
+<span id="cb36-14"><a href="연습생별-적용.html#cb36-14"></a>    }</span>
+<span id="cb36-15"><a href="연습생별-적용.html#cb36-15"></a>    forecast_ets &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
+<span id="cb36-16"><a href="연습생별-적용.html#cb36-16"></a>        <span class="kw">ets</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
+<span id="cb36-17"><a href="연습생별-적용.html#cb36-17"></a>    }</span>
+<span id="cb36-18"><a href="연습생별-적용.html#cb36-18"></a>    </span>
+<span id="cb36-19"><a href="연습생별-적용.html#cb36-19"></a>    <span class="co"># 모델 평가 매트릭 함수 지정(RMSE)</span></span>
+<span id="cb36-20"><a href="연습생별-적용.html#cb36-20"></a>    RMSE &lt;-<span class="st"> </span><span class="cf">function</span>(y){</span>
+<span id="cb36-21"><a href="연습생별-적용.html#cb36-21"></a>        <span class="kw">mean</span>(y<span class="op">^</span><span class="dv">2</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)<span class="op">^</span><span class="fl">0.5</span></span>
+<span id="cb36-22"><a href="연습생별-적용.html#cb36-22"></a>    }</span>
+<span id="cb36-23"><a href="연습생별-적용.html#cb36-23"></a>    </span>
+<span id="cb36-24"><a href="연습생별-적용.html#cb36-24"></a>    <span class="co"># 시계열 교차검증 </span></span>
+<span id="cb36-25"><a href="연습생별-적용.html#cb36-25"></a>    tslm_cv_residual  &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_tslm, <span class="dt">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-26"><a href="연습생별-적용.html#cb36-26"></a>    ets_cv_residual   &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_ets, <span class="dt">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-27"><a href="연습생별-적용.html#cb36-27"></a>    arima_cv_residual &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_arima, <span class="dt">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-28"><a href="연습생별-적용.html#cb36-28"></a>    </span>
+<span id="cb36-29"><a href="연습생별-적용.html#cb36-29"></a>    <span class="co"># 최적 성능순 모델 이름 추출   </span></span>
+<span id="cb36-30"><a href="연습생별-적용.html#cb36-30"></a>    models &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&#39;tslm&#39;</span>, <span class="st">&#39;ets&#39;</span>, <span class="st">&#39;arima&#39;</span>), </span>
+<span id="cb36-31"><a href="연습생별-적용.html#cb36-31"></a>                         <span class="dt">score =</span> <span class="kw">c</span>(<span class="kw">RMSE</span>(tslm_cv_residual), <span class="kw">RMSE</span>(ets_cv_residual), <span class="kw">RMSE</span>(arima_cv_residual))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-32"><a href="연습생별-적용.html#cb36-32"></a><span class="st">        </span><span class="kw">arrange</span>(score) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb36-33"><a href="연습생별-적용.html#cb36-33"></a><span class="st">        </span>.<span class="op">$</span>model</span>
+<span id="cb36-34"><a href="연습생별-적용.html#cb36-34"></a>    </span>
+<span id="cb36-35"><a href="연습생별-적용.html#cb36-35"></a>    <span class="co"># 모델 적용 함수 </span></span>
+<span id="cb36-36"><a href="연습생별-적용.html#cb36-36"></a>    select_model &lt;-<span class="st"> </span><span class="cf">function</span>(type){</span>
+<span id="cb36-37"><a href="연습생별-적용.html#cb36-37"></a>        </span>
+<span id="cb36-38"><a href="연습생별-적용.html#cb36-38"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;tslm&#39;</span>){</span>
+<span id="cb36-39"><a href="연습생별-적용.html#cb36-39"></a>            final_model &lt;-<span class="st"> </span><span class="kw">tslm</span>(sum_mention <span class="op">~</span><span class="st"> </span>trend <span class="op">+</span><span class="st"> </span>season, <span class="dt">data =</span> boy_ts)</span>
+<span id="cb36-40"><a href="연습생별-적용.html#cb36-40"></a>        }</span>
+<span id="cb36-41"><a href="연습생별-적용.html#cb36-41"></a>        </span>
+<span id="cb36-42"><a href="연습생별-적용.html#cb36-42"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;ets&#39;</span>){</span>
+<span id="cb36-43"><a href="연습생별-적용.html#cb36-43"></a>            final_model &lt;-<span class="st"> </span><span class="kw">ets</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>]) </span>
+<span id="cb36-44"><a href="연습생별-적용.html#cb36-44"></a>        }</span>
+<span id="cb36-45"><a href="연습생별-적용.html#cb36-45"></a>        </span>
+<span id="cb36-46"><a href="연습생별-적용.html#cb36-46"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;arima&#39;</span>){</span>
+<span id="cb36-47"><a href="연습생별-적용.html#cb36-47"></a>            final_model &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], <span class="dt">stepwise =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb36-48"><a href="연습생별-적용.html#cb36-48"></a>        }</span>
+<span id="cb36-49"><a href="연습생별-적용.html#cb36-49"></a>        </span>
+<span id="cb36-50"><a href="연습생별-적용.html#cb36-50"></a>        <span class="kw">return</span>(final_model)</span>
+<span id="cb36-51"><a href="연습생별-적용.html#cb36-51"></a>    }</span>
+<span id="cb36-52"><a href="연습생별-적용.html#cb36-52"></a>    </span>
+<span id="cb36-53"><a href="연습생별-적용.html#cb36-53"></a>    <span class="co"># 최적 모델 적용 </span></span>
+<span id="cb36-54"><a href="연습생별-적용.html#cb36-54"></a>    <span class="cf">for</span>(model <span class="cf">in</span> models){</span>
+<span id="cb36-55"><a href="연습생별-적용.html#cb36-55"></a>        <span class="co"># print(model)</span></span>
+<span id="cb36-56"><a href="연습생별-적용.html#cb36-56"></a>        final_model &lt;-<span class="st"> </span><span class="kw">select_model</span>(<span class="dt">type =</span> model)</span>
+<span id="cb36-57"><a href="연습생별-적용.html#cb36-57"></a>        </span>
+<span id="cb36-58"><a href="연습생별-적용.html#cb36-58"></a>        <span class="co"># 잔차검정 </span></span>
+<span id="cb36-59"><a href="연습생별-적용.html#cb36-59"></a>        <span class="cf">if</span>(<span class="kw">checkresiduals</span>(final_model, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>p.value <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.05</span>){</span>
+<span id="cb36-60"><a href="연습생별-적용.html#cb36-60"></a>            <span class="co"># 테스트 통과시 for문 종료</span></span>
+<span id="cb36-61"><a href="연습생별-적용.html#cb36-61"></a>            <span class="cf">break</span></span>
+<span id="cb36-62"><a href="연습생별-적용.html#cb36-62"></a>        }</span>
+<span id="cb36-63"><a href="연습생별-적용.html#cb36-63"></a>    }</span>
+<span id="cb36-64"><a href="연습생별-적용.html#cb36-64"></a>    </span>
+<span id="cb36-65"><a href="연습생별-적용.html#cb36-65"></a>    <span class="co"># 모든 모델이 잔차검정 통과 못할 시 </span></span>
+<span id="cb36-66"><a href="연습생별-적용.html#cb36-66"></a>    <span class="co"># 차선책으로 가장 좋은 성능을 내는 첫번째 모델 선택</span></span>
+<span id="cb36-67"><a href="연습생별-적용.html#cb36-67"></a>    <span class="cf">if</span>(<span class="kw">checkresiduals</span>(final_model, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>p.value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">&amp;&amp;</span><span class="st"> </span>model <span class="op">==</span><span class="st"> </span>models[<span class="dv">3</span>]){</span>
+<span id="cb36-68"><a href="연습생별-적용.html#cb36-68"></a>        </span>
+<span id="cb36-69"><a href="연습생별-적용.html#cb36-69"></a>        model &lt;-<span class="st"> </span>models[<span class="dv">1</span>]</span>
+<span id="cb36-70"><a href="연습생별-적용.html#cb36-70"></a>        </span>
+<span id="cb36-71"><a href="연습생별-적용.html#cb36-71"></a>        final_model &lt;-<span class="st"> </span><span class="kw">select_model</span>(<span class="dt">type =</span> model)</span>
+<span id="cb36-72"><a href="연습생별-적용.html#cb36-72"></a>    }</span>
+<span id="cb36-73"><a href="연습생별-적용.html#cb36-73"></a>    </span>
+<span id="cb36-74"><a href="연습생별-적용.html#cb36-74"></a>    <span class="co"># 최적 모델, 사용된 모델명 반환 </span></span>
+<span id="cb36-75"><a href="연습생별-적용.html#cb36-75"></a>    boy_model &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb36-76"><a href="연습생별-적용.html#cb36-76"></a>        <span class="dt">model     =</span> final_model, </span>
+<span id="cb36-77"><a href="연습생별-적용.html#cb36-77"></a>        <span class="dt">use_model =</span> model</span>
+<span id="cb36-78"><a href="연습생별-적용.html#cb36-78"></a>    )</span>
+<span id="cb36-79"><a href="연습생별-적용.html#cb36-79"></a>    </span>
+<span id="cb36-80"><a href="연습생별-적용.html#cb36-80"></a>    <span class="kw">return</span>(boy_model)</span>
+<span id="cb36-81"><a href="연습생별-적용.html#cb36-81"></a>}</span>
+<span id="cb36-82"><a href="연습생별-적용.html#cb36-82"></a></span>
+<span id="cb36-83"><a href="연습생별-적용.html#cb36-83"></a>final &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb36-84"><a href="연습생별-적용.html#cb36-84"></a>final_boy &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb36-85"><a href="연습생별-적용.html#cb36-85"></a><span class="cf">for</span>(final_boy <span class="cf">in</span> boylist){</span>
+<span id="cb36-86"><a href="연습생별-적용.html#cb36-86"></a>    <span class="kw">print</span>(final_boy)</span>
+<span id="cb36-87"><a href="연습생별-적용.html#cb36-87"></a>    final[[final_boy]] &lt;-<span class="st"> </span><span class="kw">boy_model</span>(total, final_boy)</span>
+<span id="cb36-88"><a href="연습생별-적용.html#cb36-88"></a>}</span></code></pre></div>
+<p> 연습생 개개인의 상황에 맞는 우수한 성능 모델을 찾아 잔차검정까지 마친 최적의 모델을 찾아 반환하는 <code>boy_model()</code>함수를 사용하여 그 결과물을 <code>final</code> 객체에 저장하였습니다.</p>
+</div>
+<div id="사용-모델-확인" class="section level2">
+<h2><span class="header-section-number">9.2</span> 사용 모델 확인</h2>
+<p> 연습생들에 적용된 최적의 모델이 무엇인지 확인하겠습니다.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="연습생별-적용.html#cb37-1"></a>final <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-2"><a href="연습생별-적용.html#cb37-2"></a><span class="st">    </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="cf">function</span>(x){x<span class="op">$</span>use_model}) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-3"><a href="연습생별-적용.html#cb37-3"></a><span class="st">    </span><span class="kw">do.call</span>(rbind, .) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-4"><a href="연습생별-적용.html#cb37-4"></a><span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-5"><a href="연습생별-적용.html#cb37-5"></a><span class="st">    </span>kableExtra<span class="op">::</span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-6"><a href="연습생별-적용.html#cb37-6"></a><span class="st">    </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&#39;V1&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb37-7"><a href="연습생별-적용.html#cb37-7"></a><span class="st">    </span>shiny<span class="op">::</span><span class="kw">HTML</span>()</span></code></pre></div>
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">  </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 김요한 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 김우석 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 이진혁 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 한승우 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 김민규 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 조승연 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 남도현 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 송형준 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 이은상 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 금동현 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 차준호 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 손동표 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 황윤성 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 강민희 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 구정모 </td>
+   <td style="text-align:left;"> ets </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 이한결 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 송유빈 </td>
+   <td style="text-align:left;"> tslm </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 함원진 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 토니 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 이세진 </td>
+   <td style="text-align:left;"> arima </td>
+  </tr>
+</tbody>
+</table>
+<p> 연습생별 최적 모델을 찾는 함수에서 지정한 <code>use_model</code>변수는 개별 모델을 적용할 때 사용한 모델의 이름을 저장한 변수입니다. 이 변수만을 별도로 보니 연습생별로 모델을 적용하는데 있어서 대체로 arima 모델과 시계열 회귀모델이 선택되고 ets 모델은 상대적으로 덜 선택된 것을 볼 수 있습니다. 이처럼 언급량 데이터는 성격과 형태가 유사한 데이터 이지만 데이터가 지닌 시계열적 특징에 따라 적용된 모델이 상이한 것을 확인할 수 있었습니다.</p>
+</div>
+<div id="모델-시각화" class="section level2">
+<h2><span class="header-section-number">9.3</span> 모델 시각화</h2>
+<p> 개개인의 데이터에 맞춘 모델을 이전장에서 했던 유사한 시각화 방식으로 파악할 수 있습니다. 생성된 모델과 실제 데이터를 모델에 적합한 값 그리고 모델이 예측한 값을 연습생별로 시각화하여 살펴보도록 하겠습니다.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="연습생별-적용.html#cb38-1"></a><span class="co"># 모델 시각화 함수 생성  </span></span>
+<span id="cb38-2"><a href="연습생별-적용.html#cb38-2"></a><span class="kw">library</span>(tidyquant)</span>
+<span id="cb38-3"><a href="연습생별-적용.html#cb38-3"></a>boy_plot &lt;-<span class="st"> </span><span class="cf">function</span>(boy){</span>
+<span id="cb38-4"><a href="연습생별-적용.html#cb38-4"></a>    <span class="kw">forecast</span>(final[[boy]]<span class="op">$</span>model, <span class="dt">h =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-5"><a href="연습생별-적용.html#cb38-5"></a><span class="st">        </span><span class="kw">autoplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-6"><a href="연습생별-적용.html#cb38-6"></a><span class="st">        </span><span class="kw">autolayer</span>(<span class="kw">fitted</span>(final[[<span class="dv">1</span>]]<span class="op">$</span>model), <span class="dt">series =</span> <span class="st">&#39;fitted&#39;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-7"><a href="연습생별-적용.html#cb38-7"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>), </span>
+<span id="cb38-8"><a href="연습생별-적용.html#cb38-8"></a>                           <span class="dt">labels =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{(seq(1, 7) + 4) %&gt;% append(c(&#39;final&#39;, &#39;predict&#39;))}&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-9"><a href="연습생별-적용.html#cb38-9"></a><span class="st">        </span><span class="kw">theme_tq</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-10"><a href="연습생별-적용.html#cb38-10"></a><span class="st">        </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> boy, <span class="dt">x =</span> <span class="st">&#39;episode&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;sum_mention&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-11"><a href="연습생별-적용.html#cb38-11"></a><span class="st">        </span><span class="kw">theme</span>(<span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>)) </span>
+<span id="cb38-12"><a href="연습생별-적용.html#cb38-12"></a>}</span>
+<span id="cb38-13"><a href="연습생별-적용.html#cb38-13"></a></span>
+<span id="cb38-14"><a href="연습생별-적용.html#cb38-14"></a><span class="co"># 연습생별 모델 그래프 저장 </span></span>
+<span id="cb38-15"><a href="연습생별-적용.html#cb38-15"></a>i =<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb38-16"><a href="연습생별-적용.html#cb38-16"></a>final_plot &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb38-17"><a href="연습생별-적용.html#cb38-17"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)){</span>
+<span id="cb38-18"><a href="연습생별-적용.html#cb38-18"></a>    final_plot[[i]] &lt;-<span class="st"> </span><span class="kw">boy_plot</span>(boylist[i])</span>
+<span id="cb38-19"><a href="연습생별-적용.html#cb38-19"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="연습생별-적용.html#cb39-1"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb39-2"><a href="연습생별-적용.html#cb39-2"></a><span class="kw">do.call</span>(<span class="st">&#39;grid.arrange&#39;</span>, <span class="kw">c</span>(final_plot, <span class="dt">ncol =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-1.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-2.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-3.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-4.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-5.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-6.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-20-7.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="시계열-분석.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_sample.pdf", "bookdown_sample.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

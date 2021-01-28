@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="데이터-수집.html"/>
-<link rel="next" href="eda.html"/>
+<link rel="next" href="데이터-시각화.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,24 +50,27 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.7/datatables.js"></script>
-<link href="libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -76,14 +79,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -92,9 +97,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -143,32 +148,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 프롤로그</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
+<li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
 <li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
-<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#code"><i class="fa fa-check"></i><b>2.1</b> code</a></li>
+<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
-<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-전처리-1"><i class="fa fa-check"></i><b>3.1</b> 데이터 전처리</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#mixedsort-함수"><i class="fa fa-check"></i><b>3.1.1</b> mixedsort() 함수</a></li>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#변수열-생성"><i class="fa fa-check"></i><b>3.2</b> 변수열 생성</a></li>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> EDA</a><ul>
-<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#dataset"><i class="fa fa-check"></i><b>4.1</b> dataset</a></li>
-<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 회차별 게시글 수 비교</a></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 요일별 게시글 수 비교</a></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.4</b> 일자별 게시글 수 비교</a></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
+<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="시각화.html"><a href="시각화.html"><i class="fa fa-check"></i><b>5</b> 시각화</a><ul>
-<li class="chapter" data-level="5.1" data-path="시각화.html"><a href="시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
-<li class="chapter" data-level="5.2" data-path="시각화.html"><a href="시각화.html#범위-설정"><i class="fa fa-check"></i><b>5.2</b> 범위 설정</a></li>
-<li class="chapter" data-level="5.3" data-path="시각화.html"><a href="시각화.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a></li>
-<li class="chapter" data-level="5.4" data-path="시각화.html"><a href="시각화.html#시각화-1"><i class="fa fa-check"></i><b>5.4</b> 시각화</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="시각화.html"><a href="시각화.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
-<li class="chapter" data-level="5.4.2" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode"><i class="fa fa-check"></i><b>5.4.2</b> Barchart(Split by episode)</a></li>
-<li class="chapter" data-level="5.4.3" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode-and-reordered"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(Split by episode and reordered)</a></li>
-<li class="chapter" data-level="5.4.4" data-path="시각화.html"><a href="시각화.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
+<li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
+<li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
+<li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
+<li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
+<li class="chapter" data-level="7.2.4" data-path="다중회귀분석.html"><a href="다중회귀분석.html#등분산성"><i class="fa fa-check"></i><b>7.2.4</b> 등분산성</a></li>
+<li class="chapter" data-level="7.2.5" data-path="다중회귀분석.html"><a href="다중회귀분석.html#다중공선성"><i class="fa fa-check"></i><b>7.2.5</b> 다중공선성</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a><ul>
+<li class="chapter" data-level="8.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
+<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
+<li class="chapter" data-level="8.2.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
+<li class="chapter" data-level="8.2.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
+<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
+<li class="chapter" data-level="8.4.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
+<li class="chapter" data-level="8.4.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
+<li class="chapter" data-level="8.4.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a><ul>
+<li class="chapter" data-level="9.1" data-path="시계열-분석2.html"><a href="시계열-분석2.html#연습생별-모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 연습생별 모델링 함수 생성</a></li>
+<li class="chapter" data-level="9.2" data-path="시계열-분석2.html"><a href="시계열-분석2.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
+<li class="chapter" data-level="9.3" data-path="시계열-분석2.html"><a href="시계열-분석2.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
+<li class="chapter" data-level="9.4" data-path="시계열-분석2.html"><a href="시계열-분석2.html#결론"><i class="fa fa-check"></i><b>9.4</b> 결론</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -192,204 +233,534 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="데이터-전처리" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> 데이터 전처리</h1>
-<div id="데이터-전처리-1" class="section level2">
-<h2><span class="header-section-number">3.1</span> 데이터 전처리</h2>
-<p>이번 파트는 데이터 전처리 과정을 다룹니다.
-<br>
-<br>
-크롤링한 데이터들은 사용하기 위해서는 적합한 형태로 변환을 해야 하는 과정이 필요합니다. 크롤링한 데이터를 그대로 사용하는 경우는 극히 드물다고 할 수 있습니다.
-<br>
-<br>
-데이터 분석의 과정을 요리에 비유하는 분들이 많이 계시는데요. 크롤링과 같은 수단을 통해서 데이터를 확보하는 과정을 재료 확보라고 생각을 해 보자면 데이터를 정제하고 전처리하는 과정을 요리에선 재료를 다듬고 손질하는 과정으로 생각할 수 있습니다. 마트에서 사온 채소나 고기등을 손질하지 않고서 그대로 요리할순 없듯이 우리가 확보한 데이터를 전처리 하지 않고서 분석을 하는것은 극히 드물다고 할 수 있습니다.
-<br></p>
-<p><br>
-파일들을 R로 불러들이겠습니다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># ---- 패키지 호출 ----</span></a>
-<a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="kw">library</span>(stringr)</a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="kw">library</span>(gtools)</a>
-<a class="sourceLine" id="cb9-8" title="8"></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co"># ---- for문을 활용한 데이터 불러오기 및 취합 ----</span></a>
-<a class="sourceLine" id="cb9-10" title="10"></a>
-<a class="sourceLine" id="cb9-11" title="11">dir &lt;-<span class="st"> &#39;C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/data&#39;</span></a>
-<a class="sourceLine" id="cb9-12" title="12">filelist &lt;-<span class="st"> </span><span class="kw">list.files</span>(dir)</a>
-<a class="sourceLine" id="cb9-13" title="13">filelist &lt;-<span class="st"> </span><span class="kw">mixedsort</span>(filelist, <span class="dt">decreasing =</span> T)</a>
-<a class="sourceLine" id="cb9-14" title="14">pxdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb9-15" title="15">temp &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb9-16" title="16"></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="cf">for</span>(file <span class="cf">in</span> filelist){</a>
-<a class="sourceLine" id="cb9-18" title="18">    <span class="cf">if</span>(<span class="kw">str_sub</span>(file, <span class="dv">-3</span>, <span class="dv">-1</span>) <span class="op">==</span><span class="st"> &#39;csv&#39;</span>){</a>
-<a class="sourceLine" id="cb9-19" title="19">        temp &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="kw">paste</span>(dir, file, <span class="dt">sep =</span> <span class="st">&#39;/&#39;</span>), <span class="dt">header =</span> T, <span class="dt">stringsAsFactors =</span> F)</a>
-<a class="sourceLine" id="cb9-20" title="20">        temp &lt;-<span class="st"> </span>temp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(p_title, p_time)</a>
-<a class="sourceLine" id="cb9-21" title="21">        pxdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(pxdata, temp)</a>
-<a class="sourceLine" id="cb9-22" title="22">        </a>
-<a class="sourceLine" id="cb9-23" title="23">        <span class="kw">rm</span>(temp)</a>
-<a class="sourceLine" id="cb9-24" title="24">    }<span class="cf">else</span>{</a>
-<a class="sourceLine" id="cb9-25" title="25">        <span class="cf">next</span></a>
-<a class="sourceLine" id="cb9-26" title="26">    }</a>
-<a class="sourceLine" id="cb9-27" title="27"></a>
-<a class="sourceLine" id="cb9-28" title="28">}</a></code></pre></div>
-<p><br></p>
-<p>코드의 해석은 다음과 같습니다. 먼저 데이터가 들어있는 폴더의 경로를 <code>dir</code> 객체에 담아 둡니다. <br>
-다음으로 r의 내장함수인 <code>list.files()</code> 함수를 이용하여 폴더에 들어있는 파일들을 파악하고, 이를 <code>filelist</code>라는 이름의 객체에 담았습니다.<br>
-<code>gtools::mixedsort()</code> 함수는 r의 기본 <code>sort()</code>함수가 처리하지 못하는 문자열형태의 숫자를 할 때에 사용되는 함수입니다.
-<code>list.files(dir)</code>로 불러들인 <code>filelist</code> 가 문자열이기 때문에 인간이 상식적으로 생각하는 형태로 정렬을 하지 못합니다. 간단한 예를 들어 설명해 보겠습니다.
-<br>
-<br>
-<br></p>
-<hr />
-<div id="mixedsort-함수" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> mixedsort() 함수</h3>
-<p><br></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.character</span>()</a>
-<a class="sourceLine" id="cb10-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">str</span>(t1)</a></code></pre></div>
-<pre><code>##  chr [1:20] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot; &quot;8&quot; &quot;9&quot; &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; ...</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">str</span>(t2)</a></code></pre></div>
-<pre><code>##  num [1:20] 1 2 3 4 5 6 7 8 9 10 ...</code></pre>
-<p><br>
-<code>t1</code>객체와 <code>t2</code> 객체는 각각 1~20 까지의 데이터가 들어가 있는데요. <code>t1</code>은 문자열로 이루어져 있고, <code>t2</code>는 숫자로 구성되어 있습니다.
-<br>
-<br>
-한번 내장함수인 <code>sort()</code> 사용하여 동일한 결과가 나오는지 비교해 보겠습니다.
-<br>
-<br></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">sort</span>(t1)</a></code></pre></div>
-<pre><code>##  [1] &quot;1&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;2&quot;  &quot;20&quot;
-## [14] &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">sort</span>(t2)</a></code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
-<p><br>
-숫자형으로 되어있는 <code>t2</code> 객체는 정상적으로 정렬이 된 반면 문자형의 <code>t1</code> 은 1 10 11 … 형태처럼 정렬이 안되었네요. <br>
-이번에는 <code>gtools::mixedsort()</code> 함수를 사용해 보겠습니다.
-<br>
-<br></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">library</span>(gtools)</a>
-<a class="sourceLine" id="cb19-2" title="2"></a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="kw">mixedsort</span>(t1)</a></code></pre></div>
-<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot;
-## [14] &quot;14&quot; &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot;</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">mixedsort</span>(t2)</a></code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
-<p><br>
-숫자형인 <code>t2</code>는 이전처럼 정렬이 되었군요. 문자형인 <code>t1</code>은 이번엔 제대로 정렬된 것을 확인할 수 있습니다. <br>
-숫자로 되어진 문자열의 정렬을 위해서 종종 <code>mixedsort()</code> 함수를 사용하곤 합니다.</p>
-<p><br></p>
-<hr />
+<p> 이번 파트는 데이터 전처리 과정을 다룹니다.</p>
+<p> 스크래핑한 데이터들은 사용하기 위해서는 적합한 형태로 변환을 해야 하는 과정이 필요합니다.</p>
+<p> 파일들을 R로 불러들이겠습니다.</p>
+<div id="데이터-취합" class="section level2">
+<h2><span class="header-section-number">3.1</span> 데이터 취합</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="데이터-전처리.html#cb11-1"></a><span class="co"># 사용 패키지 호출 ----</span></span>
+<span id="cb11-2"><a href="데이터-전처리.html#cb11-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb11-3"><a href="데이터-전처리.html#cb11-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb11-4"><a href="데이터-전처리.html#cb11-4"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb11-5"><a href="데이터-전처리.html#cb11-5"></a><span class="kw">library</span>(stringr)</span>
+<span id="cb11-6"><a href="데이터-전처리.html#cb11-6"></a><span class="kw">library</span>(data.table)</span>
+<span id="cb11-7"><a href="데이터-전처리.html#cb11-7"></a></span>
+<span id="cb11-8"><a href="데이터-전처리.html#cb11-8"></a><span class="co"># for문을 활용한 데이터 불러오기 및 취합 ----</span></span>
+<span id="cb11-9"><a href="데이터-전처리.html#cb11-9"></a>filelist &lt;-<span class="st"> </span><span class="kw">list.files</span>(dir) <span class="co"># dir : &quot;저장된 데이터의 폴더 경로&quot;</span></span>
+<span id="cb11-10"><a href="데이터-전처리.html#cb11-10"></a>pxdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb11-11"><a href="데이터-전처리.html#cb11-11"></a>temp &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb11-12"><a href="데이터-전처리.html#cb11-12"></a></span>
+<span id="cb11-13"><a href="데이터-전처리.html#cb11-13"></a><span class="cf">for</span>(file <span class="cf">in</span> filelist){</span>
+<span id="cb11-14"><a href="데이터-전처리.html#cb11-14"></a>    <span class="cf">if</span>(<span class="kw">str_sub</span>(file, <span class="dv">-3</span>, <span class="dv">-1</span>) <span class="op">==</span><span class="st"> &#39;rds&#39;</span>){</span>
+<span id="cb11-15"><a href="데이터-전처리.html#cb11-15"></a>        temp &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste</span>(dir, file, <span class="dt">sep =</span> <span class="st">&#39;/&#39;</span>))</span>
+<span id="cb11-16"><a href="데이터-전처리.html#cb11-16"></a>        temp &lt;-<span class="st"> </span>temp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(p_title,       <span class="co"># 제목 </span></span>
+<span id="cb11-17"><a href="데이터-전처리.html#cb11-17"></a>                                p_comment_num, <span class="co"># 댓글 수  </span></span>
+<span id="cb11-18"><a href="데이터-전처리.html#cb11-18"></a>                                p_time,        <span class="co"># 글 작성 시간 </span></span>
+<span id="cb11-19"><a href="데이터-전처리.html#cb11-19"></a>                                p_count,       <span class="co"># 조회수 </span></span>
+<span id="cb11-20"><a href="데이터-전처리.html#cb11-20"></a>                                p_recommend)   <span class="co"># 추천수</span></span>
+<span id="cb11-21"><a href="데이터-전처리.html#cb11-21"></a>        pxdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(pxdata, temp)</span>
+<span id="cb11-22"><a href="데이터-전처리.html#cb11-22"></a>        </span>
+<span id="cb11-23"><a href="데이터-전처리.html#cb11-23"></a>        <span class="kw">rm</span>(temp)</span>
+<span id="cb11-24"><a href="데이터-전처리.html#cb11-24"></a>    }<span class="cf">else</span>{</span>
+<span id="cb11-25"><a href="데이터-전처리.html#cb11-25"></a>        <span class="cf">next</span></span>
+<span id="cb11-26"><a href="데이터-전처리.html#cb11-26"></a>    }</span>
+<span id="cb11-27"><a href="데이터-전처리.html#cb11-27"></a>}</span></code></pre></div>
+<p> 일간별로 수집했던 데이터들을 불러와 <code>pxdata</code>라는 데이터프레임에 취합 하였습니다. 이를 활용하여 분석을 진행할 예정입니다.</p>
 </div>
-</div>
-<div id="변수열-생성" class="section level2">
-<h2><span class="header-section-number">3.2</span> 변수열 생성</h2>
-<p><br></p>
-<p>데이터 분석에 사용할 변수는 게시물 제목에 해당하는 <code>p_title</code> 변수와, 게시물 작성 시간에 해당하는 <code>p_time</code> 입니다.
-<br></p>
-<p>연습생들의 언급량이 에피소드별로 (1주간격으로) 어떻게-얼마나 변화했는지를 파악하는것이 본 데이터분석의 궁극적인 목적이기 때문에 분석에 대상이 되는 텍스트와 시간 변수를 제외한 나머지 데이터들은 제외해 주겠습니다.
-<br></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">pxdata &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(p_title, p_time)</a></code></pre></div>
-<p><br>
-그런다음 글 작성 시간을 의미하는 <code>p_time</code> 열을 사용하여 ‘년월일’, ‘요일’ 변수열을 생성해 주겠습니다.
-<br></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">pxdata &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">p_ymd =</span> <span class="kw">as.Date</span>(p_time), </a>
-<a class="sourceLine" id="cb24-2" title="2">                            <span class="dt">p_wday =</span> lubridate<span class="op">::</span><span class="kw">wday</span>(<span class="kw">as.Date</span>(p_time), <span class="dt">label =</span> T),</a>
-<a class="sourceLine" id="cb24-3" title="3">                            )</a></code></pre></div>
-<p><br>
-에피소드별로 연습생들의 언급량이 어떻게 변화하였는지를 파악하기 위해서는 데이터를 에피소드별로 구분할 필요가 있습니다. 방송은 매주 금요일 밤 11시에 시작하여 그 다음날 토요일 오전 12시30분즈음 끝마쳤는데요. 그렇기에 토요일을 시작으로 금요일까지의 데이터를 에피소드의 영향력 구간이라고 설정하고, 데이터를 구분지었습니다. <br></p>
-<p>05월31일은 프로듀스X101 5화가 방영된 날이였기 때문에 수집을 시작한 06월01일을 에피소드 5화(<code>p_weeknum</code> = 5)로 설정하고 데이터를 순차적으로 구분지었네요.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">pxdata<span class="op">$</span>p_weeknum &lt;-<span class="st"> </span><span class="kw">week</span>(<span class="kw">as.Date</span>(pxdata<span class="op">$</span>p_time) <span class="op">-</span><span class="st"> </span><span class="dv">5</span>) <span class="op">-</span><span class="st"> </span><span class="dv">17</span> </a></code></pre></div>
-<p><br></p>
-<table>
+<div id="feature-engineering" class="section level2">
+<h2><span class="header-section-number">3.2</span> Feature Engineering</h2>
+<p> 데이터 수집 과정을 통해 <code>p_title</code>, <code>p_time</code>, <code>p_count</code>, <code>p_recommend</code> 의 변수를 생성하였습니다. 그 중 <code>p_time</code> 변수는 게시글의 작성된 시간이 초단위까지 기록된 변수인데, 해당 변수를 활용해서 날짜, 요일과 같은 좀 더 세분화된 시간변수를 생성하도록 하겠습니다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="데이터-전처리.html#cb12-1"></a>pxdata &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">p_ymd   =</span> <span class="kw">as.Date</span>(p_time),                                        <span class="co"># 년-월-일 </span></span>
+<span id="cb12-2"><a href="데이터-전처리.html#cb12-2"></a>                            <span class="dt">p_month =</span> <span class="kw">as.factor</span>(<span class="kw">month</span>(p_time)),                               <span class="co"># 월 </span></span>
+<span id="cb12-3"><a href="데이터-전처리.html#cb12-3"></a>                            <span class="dt">p_day   =</span> <span class="kw">as.factor</span>(<span class="kw">day</span>(p_time)),                                 <span class="co"># 일 </span></span>
+<span id="cb12-4"><a href="데이터-전처리.html#cb12-4"></a>                            <span class="dt">p_hour  =</span> <span class="kw">as.factor</span>(<span class="kw">hour</span>(p_time)),                                <span class="co"># 시간 </span></span>
+<span id="cb12-5"><a href="데이터-전처리.html#cb12-5"></a>                            <span class="dt">p_wday  =</span> <span class="kw">as.factor</span>(lubridate<span class="op">::</span><span class="kw">wday</span>(<span class="kw">as.Date</span>(p_time), <span class="dt">label =</span> T))) <span class="co"># 요일</span></span></code></pre></div>
+<p> “프로듀스 X 101”은 매주 금요일 밤 11시에 시작하여 다음날 토요일 AM 12:30즈음 끝이 났었는데요. 데이터가 에피소드별로(매 주 방송되는 1주 간격으로) 어떻게 그리고 얼마나 변화했는지를 파악하기 위해 <code>lubridate</code>패키지의 <code>week()</code>함수를 사용하여 게시판의 글이 몇 화의 에피소드때 작성되었는지를 알리는 변수인 <code>p_episode</code> 변수를 생성하도록 하겠습니다. 매 화 방송이 끝나는 토요일부터 그 다음주 금요일까지의 기간을 하나의 에피소드 기간으로 취급하여 변수를 생성하였습니다.</p>
+<p> 처음 데이터를 수집하기 시작한 날짜인 2019-06-01은 토요일로 전날 5화가 방영되던 날 이였습니다. 이 정보를 토대로 <code>p_episode</code> 변수를 생성하도록 하겠습니다.</p>
+<p> 새로 생성된 시간과 관련된 변수들은 범주형 속성을 지니고 있으므로 <code>as.factor()</code>함수를 사용하여 범주형 값으로 변환했습니다.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="데이터-전처리.html#cb13-1"></a>pxdata &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">p_episode =</span> <span class="kw">week</span>(p_ymd <span class="op">-</span><span class="st"> </span><span class="dv">5</span>) <span class="op">-</span><span class="st"> </span><span class="dv">17</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="데이터-전처리.html#cb14-1"></a>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 3,157,484
+## Columns: 11
+## $ p_title       &lt;chr&gt; &quot;비율갑 연습생이 있다?&quot;, &quot;디모데 떨어진거 너무 아깝다&quot;, &quot;픽 남는데 추천해 줘&quot;, &quot;투표할때&quot;, &quot;남자 새...
+## $ p_comment_num &lt;chr&gt; &quot;1&quot;, &quot;2&quot;, &quot;23&quot;, &quot;1&quot;, &quot;&quot;, &quot;11&quot;, &quot;&quot;, &quot;&quot;, &quot;1&quot;, &quot;5&quot;, &quot;3&quot;, &quot;2&quot;, &quot;&quot;, ...
+## $ p_time        &lt;chr&gt; &quot;2019-06-01 23:59:50&quot;, &quot;2019-06-01 23:59:48&quot;, &quot;2019-06-01 23:59...
+## $ p_count       &lt;chr&gt; &quot;145&quot;, &quot;117&quot;, &quot;124&quot;, &quot;24&quot;, &quot;42&quot;, &quot;311&quot;, &quot;155&quot;, &quot;103&quot;, &quot;134&quot;, &quot;3...
+## $ p_recommend   &lt;chr&gt; &quot;3&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;3&quot;, &quot;7&quot;, &quot;24&quot;, &quot;3&quot;, &quot;1&quot;, &quot;26&quot;, &quot;0&quot;, &quot;2&quot;, &quot;...
+## $ p_ymd         &lt;date&gt; 2019-06-01, 2019-06-01, 2019-06-01, 2019-06-01, 2019-06-01, 20...
+## $ p_month       &lt;fct&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, ...
+## $ p_day         &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ p_hour        &lt;fct&gt; 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23,...
+## $ p_wday        &lt;ord&gt; 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, 토, ...
+## $ p_episode     &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, ...</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="데이터-전처리.html#cb16-1"></a>pxdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>##    p_title          p_comment_num         p_time            p_count         
+##  Length:3157484     Length:3157484     Length:3157484     Length:3157484    
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  p_recommend            p_ymd            p_month         p_day             p_hour       
+##  Length:3157484     Min.   :2019-06-01   6:1662384   19     : 218520   0      : 325406  
+##  Class :character   1st Qu.:2019-06-16   7:1495100   13     : 180866   1      : 276948  
+##  Mode  :character   Median :2019-06-29               15     : 163486   23     : 263078  
+##                     Mean   :2019-06-27               6      : 150334   22     : 164560  
+##                     3rd Qu.:2019-07-10               5      : 145498   2      : 163446  
+##                     Max.   :2019-07-19               1      : 142934   21     : 150364  
+##                                                      (Other):2155846   (Other):1813682  
+##  p_wday        p_episode     
+##  일:391790   Min.   : 4.000  
+##  월:378178   1st Qu.: 7.000  
+##  화:344190   Median : 8.000  
+##  수:313158   Mean   : 8.201  
+##  목:372724   3rd Qu.:10.000  
+##  금:602086   Max.   :11.000  
+##  토:755358</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="데이터-전처리.html#cb18-1"></a><span class="kw">is.na</span>(pxdata) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">colSums</span>()</span></code></pre></div>
+<pre><code>##       p_title p_comment_num        p_time       p_count   p_recommend         p_ymd 
+##             0        586318             0             0             0             0 
+##       p_month         p_day        p_hour        p_wday     p_episode 
+##             0             0             0             0             0</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">p_title</th>
-<th align="left">p_time</th>
-<th align="left">p_ymd</th>
-<th align="left">p_wday</th>
-<th align="right">p_weeknum</th>
+<tr>
+<th style="text-align:left;">
+p_title
+</th>
+<th style="text-align:left;">
+p_comment_num
+</th>
+<th style="text-align:left;">
+p_time
+</th>
+<th style="text-align:left;">
+p_count
+</th>
+<th style="text-align:left;">
+p_recommend
+</th>
+<th style="text-align:left;">
+p_ymd
+</th>
+<th style="text-align:left;">
+p_month
+</th>
+<th style="text-align:left;">
+p_day
+</th>
+<th style="text-align:left;">
+p_hour
+</th>
+<th style="text-align:left;">
+p_wday
+</th>
+<th style="text-align:right;">
+p_episode
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">비율갑 연습생이 있다?</td>
-<td align="left">2019-06-01 23:59:50</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+비율갑 연습생이 있다?
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:50
+</td>
+<td style="text-align:left;">
+145
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="even">
-<td align="left">디모데 떨어진거 너무 아깝다</td>
-<td align="left">2019-06-01 23:59:48</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+디모데 떨어진거 너무 아깝다
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:48
+</td>
+<td style="text-align:left;">
+117
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="odd">
-<td align="left">픽 남는데 추천해 줘</td>
-<td align="left">2019-06-01 23:59:43</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+픽 남는데 추천해 줘
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:43
+</td>
+<td style="text-align:left;">
+124
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="even">
-<td align="left">투표할때</td>
-<td align="left">2019-06-01 23:59:42</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+투표할때
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:42
+</td>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="odd">
-<td align="left">남자 새끼들이 병신처럼 쳐울거나</td>
-<td align="left">2019-06-01 23:59:31</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+남자 새끼들이 병신처럼 쳐울거나
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:31
+</td>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="even">
-<td align="left">근데 김요한은 운 하나는 존나 좋은거같아서 부럽긔</td>
-<td align="left">2019-06-01 23:59:25</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+근데 김요한은 운 하나는 존나 좋은거같아서 부럽긔
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:25
+</td>
+<td style="text-align:left;">
+311
+</td>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="odd">
-<td align="left">김성현 꼰대기 1도 없고 하찮다&lt;U+270B&gt;</td>
-<td align="left">2019-06-01 23:59:05</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+김성현 꼰대기 1도 없고 하찮다&lt;U+270B&gt;
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 23:59:05
+</td>
+<td style="text-align:left;">
+155
+</td>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="even">
-<td align="left">캔디 롤 찍는 거냐?? 외로워도 슬퍼도 나는 안울어</td>
-<td align="left">2019-06-01 23:58:54</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+캔디 롤 찍는 거냐?? 외로워도 슬퍼도 나는 안울어
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 23:58:54
+</td>
+<td style="text-align:left;">
+103
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="odd">
-<td align="left">남도현 움짤 프추좀 눌러주시긔</td>
-<td align="left">2019-06-01 23:58:52</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+남도현 움짤 프추좀 눌러주시긔
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 23:58:52
+</td>
+<td style="text-align:left;">
+134
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
-<tr class="even">
-<td align="left">어제 상위권애들 왤케 거만했냐? 좆같게</td>
-<td align="left">2019-06-01 23:58:51</td>
-<td align="left">2019-06-01</td>
-<td align="left">토</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+어제 상위권애들 왤케 거만했냐? 좆같게
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+2019-06-01 23:58:51
+</td>
+<td style="text-align:left;">
+352
+</td>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+토
+</td>
+<td style="text-align:right;">
+4
+</td>
 </tr>
 </tbody>
 </table>
-<center>
-<em> 변수열이 생성된 데이터의 모습 </em>
-</center>
+</div>
 <p><br>
-전처리 과정을 통하여 필요없는 변수열들은 제거하고, 분석에 필요한 새로운 변수열 (<code>p_ymd</code>, <code>p_wday</code>, <code>p_weeknum</code>)을 생성하였습니다. <br>
-<br>
-전처리한 데이터를 기반으로 다음장에서 본격적인 분석 및 시각화를 진행해 보도록 하겠습니다.</p>
+ 따로 저장되어 있던 데이터들을 하나로 묶고, 분석에 필요한 새로운 변수열을 생성하였습니다.</p>
+<p> 마지막 에피소드는 <code>2019-07-19</code>에 방영 됐었습니다. 마지막 방송에서 진행된 시청자 문자투표는 방송이 시작한 시각인 밤 8시부터 밤 9시까지 진행이 됐었는데요. 투표가 종료된 이후의 데이터는 의미가 없으므로 데이터의 범위를 문자투표가 끝나는 시간인 <code>2019-07-19</code> 밤 9시까지로 설정하겠습니다.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="데이터-전처리.html#cb20-1"></a><span class="co"># 일간별 데이터 갯수 확인 </span></span>
+<span id="cb20-2"><a href="데이터-전처리.html#cb20-2"></a><span class="kw">table</span>(pxdata<span class="op">$</span>p_ymd)</span></code></pre></div>
+<pre><code>## 
+## 2019-06-01 2019-06-02 2019-06-03 2019-06-04 2019-06-05 2019-06-06 2019-06-07 2019-06-08 
+##      83378      42224      53010      36220      36050      36978      42978      62390 
+## 2019-06-09 2019-06-10 2019-06-11 2019-06-12 2019-06-13 2019-06-14 2019-06-15 2019-06-16 
+##      40998      40272      52476      41564      38440      60706     106806      56074 
+## 2019-06-17 2019-06-18 2019-06-19 2019-06-20 2019-06-21 2019-06-22 2019-06-23 2019-06-24 
+##      53456      41258      42184      40204      61090     134098      56028      46088 
+## 2019-06-25 2019-06-26 2019-06-27 2019-06-28 2019-06-29 2019-06-30 2019-07-01 2019-07-02 
+##      35840      38864      40950      62872     112904      65984      59556      48312 
+## 2019-07-03 2019-07-04 2019-07-05 2019-07-06 2019-07-07 2019-07-08 2019-07-09 2019-07-10 
+##      43126      64786     109448     113356      67502      69116      72502      58764 
+## 2019-07-11 2019-07-12 2019-07-13 2019-07-14 2019-07-15 2019-07-16 2019-07-17 2019-07-18 
+##      86502      88656     142426      62980      56680      57582      52606      64864 
+## 2019-07-19 
+##     176336</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="데이터-전처리.html#cb22-1"></a><span class="co"># 마지막날 문자투표 종료 이후 데이터 삭제 </span></span>
+<span id="cb22-2"><a href="데이터-전처리.html#cb22-2"></a>lastDay &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-3"><a href="데이터-전처리.html#cb22-3"></a><span class="st">    </span><span class="kw">filter</span>(p_ymd <span class="op">==</span><span class="st"> &#39;2019-07-19&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-4"><a href="데이터-전처리.html#cb22-4"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>p_hour <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">24</span>))</span>
+<span id="cb22-5"><a href="데이터-전처리.html#cb22-5"></a></span>
+<span id="cb22-6"><a href="데이터-전처리.html#cb22-6"></a><span class="co"># 데이터 재 접합 </span></span>
+<span id="cb22-7"><a href="데이터-전처리.html#cb22-7"></a>pxdata &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-8"><a href="데이터-전처리.html#cb22-8"></a><span class="st">    </span><span class="kw">filter</span>(p_ymd <span class="op">!=</span><span class="st"> &#39;2019-07-19&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-9"><a href="데이터-전처리.html#cb22-9"></a><span class="st">    </span><span class="kw">rbind</span>(lastDay)</span>
+<span id="cb22-10"><a href="데이터-전처리.html#cb22-10"></a></span>
+<span id="cb22-11"><a href="데이터-전처리.html#cb22-11"></a><span class="co"># 데이터 확인 </span></span>
+<span id="cb22-12"><a href="데이터-전처리.html#cb22-12"></a><span class="kw">table</span>(pxdata<span class="op">$</span>p_ymd)</span></code></pre></div>
+<pre><code>## 
+## 2019-06-01 2019-06-02 2019-06-03 2019-06-04 2019-06-05 2019-06-06 2019-06-07 2019-06-08 
+##      83378      42224      53010      36220      36050      36978      42978      62390 
+## 2019-06-09 2019-06-10 2019-06-11 2019-06-12 2019-06-13 2019-06-14 2019-06-15 2019-06-16 
+##      40998      40272      52476      41564      38440      60706     106806      56074 
+## 2019-06-17 2019-06-18 2019-06-19 2019-06-20 2019-06-21 2019-06-22 2019-06-23 2019-06-24 
+##      53456      41258      42184      40204      61090     134098      56028      46088 
+## 2019-06-25 2019-06-26 2019-06-27 2019-06-28 2019-06-29 2019-06-30 2019-07-01 2019-07-02 
+##      35840      38864      40950      62872     112904      65984      59556      48312 
+## 2019-07-03 2019-07-04 2019-07-05 2019-07-06 2019-07-07 2019-07-08 2019-07-09 2019-07-10 
+##      43126      64786     109448     113356      67502      69116      72502      58764 
+## 2019-07-11 2019-07-12 2019-07-13 2019-07-14 2019-07-15 2019-07-16 2019-07-17 2019-07-18 
+##      86502      88656     142426      62980      56680      57582      52606      64864 
+## 2019-07-19 
+##     103092</code></pre>
+<p> 마지막날의 데이터행이 124790개 에서 51546로 줄어든 것을 확인할 수 있습니다. 이것으로 전처리작업을 마치도록 하겠습니다.</p>
 
 </div>
 </div>
@@ -399,7 +770,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="데이터-수집.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="eda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="데이터-시각화.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
