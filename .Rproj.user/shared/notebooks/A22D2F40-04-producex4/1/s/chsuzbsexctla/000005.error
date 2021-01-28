@@ -1,0 +1,1 @@
+{"frames":[{"func":"readRDS(str_glue(\"{dir}/pxdata_total.rds\"))","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0},{"func":"gzfile(file, \"rb\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in gzfile(file, \"rb\") : 커넥션을 열 수 없습니다\n"}

@@ -1,0 +1,24 @@
+"0","for(file in filelist){
+    if(str_sub(file, -3, -1) == 'rds'){
+        temp <- readRDS(paste(dir, file, sep = '/'))
+        temp <- temp %>% select(p_title,       # 제목 
+                                p_comment_num, # 댓글 수  
+                                p_time,        # 글 작성 시간 
+                                p_count,       # 조회수 
+                                p_recommend)   # 추천수
+        pxdata <- rbind(pxdata, temp)
+        
+        rm(temp)
+    }else{
+        next
+    }
+}
+"
+"2","Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"

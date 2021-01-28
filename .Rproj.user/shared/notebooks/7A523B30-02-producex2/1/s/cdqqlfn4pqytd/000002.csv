@@ -1,0 +1,7 @@
+"0","urls <- NULL
+for(x in 0:1000){
+    urls[x + 1] <- paste0(basic_url, x + 1)
+}
+"
+"2","Error in paste0(basic_url, x + 1) : 객체 'basic_url'를 찾을 수 없습니다
+"

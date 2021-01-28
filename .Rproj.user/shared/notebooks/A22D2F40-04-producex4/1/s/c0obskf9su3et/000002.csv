@@ -1,0 +1,6 @@
+"0","pxdata <- pxdata %>% mutate(p_episode = week(p_ymd - 4) - 17) 
+"
+"2","에러: Problem with `mutate()` input `p_episode`.
+[31mx[39m 객체 'p_ymd'를 찾을 수 없습니다
+[34mi[39m Input `p_episode` is `week(p_ymd - 4) - 17`.
+"

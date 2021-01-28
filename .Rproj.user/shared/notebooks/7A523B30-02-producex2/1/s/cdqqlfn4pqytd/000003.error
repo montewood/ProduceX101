@@ -1,0 +1,1 @@
+{"frames":[{"func":"paste0(basic_url, x + 1)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in paste0(basic_url, x + 1) : 객체 'basic_url'를 찾을 수 없습니다\n"}

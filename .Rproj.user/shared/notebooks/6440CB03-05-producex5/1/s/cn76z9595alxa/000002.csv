@@ -1,0 +1,18 @@
+"0","# 별명 수정 후
+pxdata %>% filter(str_detect(p_title, '욯')) %>% nrow();
+"
+"1","[1]"
+"1"," 0"
+"1","
+"
+"0","# 별명 수정 후"
+"0","pxdata %>% filter(str_detect(p_title, '욯')) %>% nrow();"
+"1","[1]"
+"1"," 0"
+"1","
+"
+"0","pxdata %>% filter(str_detect(p_title, '요한')) %>% nrow()"
+"1","[1]"
+"1"," 38578"
+"1","
+"

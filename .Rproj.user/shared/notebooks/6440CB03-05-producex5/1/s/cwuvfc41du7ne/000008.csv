@@ -1,0 +1,6 @@
+"0","pxdata %>% filter(str_detect(p_title, '요한')) %>% nrow()
+"
+"1","[1]"
+"1"," 38578"
+"1","
+"

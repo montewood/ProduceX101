@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1601186854865.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "946252763",
+    "id" : "89620D27",
+    "lastKnownWriteTime" : 1601188536,
+    "last_content_update" : 1601188536721,
+    "path" : "C:/Users/JDW/Desktop/GIT/produceX101/03-producex4.Rmd",
+    "project_path" : "03-producex4.Rmd",
+    "properties" : {
+        "cursorPosition" : "24,5",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

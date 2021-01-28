@@ -1,0 +1,10 @@
+"0","pxdata %>% 
+    group_by(p_wday) %>% 
+    summarise(n = n()) %>%
+    ggplot(aes(x = as.factor(p_wday), y = n)) + 
+    geom_col() + 
+    geom_text(aes(label = n), size = 3, vjust = -1) + 
+    labs(x = '일', y = '게시글')
+"
+"2","`summarise()` ungrouping output (override with `.groups` argument)
+"

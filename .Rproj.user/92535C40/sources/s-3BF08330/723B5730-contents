@@ -1,0 +1,159 @@
+# 데이터 수집
+
+```{r, message=FALSE, include=FALSE}
+library(tidyverse)
+library(data.table)
+library(knitr)
+library(httr)
+```
+
+&nbsp;데이터 분석을 위해 가장 먼저 진행한 것은 분석의 대상이 될 데이터를 확보 하는 일 입니다.   
+
+&nbsp;이번장에서 진행할 것은 데이터 수집에 관한 전반적인 것들 입니다.   
+
+&nbsp;"프로듀스 X 101"은 당시 인기가 많은 프로그램이었기 때문에 다양한 웹 커뮤니티에서 방송에 대한 많은 의견들이 올라왔었습니다. 물론 이들 모두를 수집하여 분석하면 더욱 좋았겠지만 취미로 진행하였기에 커뮤니티 중 활발히 활성화가 되고 있던 한 곳을 선정하여 데이터 수집을 진행하였습니다.   
+<br>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width = '80%', fig.align='center'}
+knitr::include_graphics('./img_source/producex2/dc_producexgallery.jpg')
+```
+<center>*웹 커뮤니티에 올라오는 글*</center>   
+<br>
+
+&nbsp;해당 커뮤니티는 방송이 인기를 끌었던 시점에는 하루에 대략 4만건의 게시물 까지 올라왔었는데요. 한참 방송이 진행중이던 06/01 부터 마지막 생방송날인 07/19 까지의 데이터를 수집하였었습니다.   
+
+&nbsp;웹 데이터 수집을 위한 여러 방법이 있지만 R 에서 웹페이지를 수집할 때 보편적으로 사용하는 `rvest` 패키지를 주로 활용하여 스크래핑을 진행하였습니다.   
+<br>
+
+::: {.infobox .caution data-latex="{caution}"}
+**주의사항!**
+
+&nbsp;크롤링 혹은 스크래핑을 통한 데이터 수집을 진행할 경우에는 웹사이트 소유권자가 제공하는 [**robot.txt**](https://ko.wikipedia.org/wiki/%EB%A1%9C%EB%B4%87_%EB%B0%B0%EC%A0%9C_%ED%91%9C%EC%A4%80) 를 준수하며 진행해야 합니다. <br>
+&nbsp;비록 의무가 아닌 권고이지만 이를 무시하고 크롤링을 진행할 경우 윤리적 문제뿐만 아니라 심할 경우 _현행법 위반_ 으로 법에 저촉되는 행위가 될 수 있습니다. 
+:::
+<br>
+
+&nbsp;아래부터는 스크래핑 코드 입니다. 
+
+## 웹 스크래핑
+
+```{r, eval = F}
+# 저장 폴더 설정 ---- 
+dataFolder <- '저장폴더경로'
+setwd(dataFolder)
+
+# 사용 패키지 호출 ---- 
+library(rvest)
+library(httr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+```
+   
+&nbsp;먼저 스크래핑한 데이터를 저장할 폴더와 필요한 패키지들을 호출합니다. 
+
+```{r}
+# 주소설정 ----
+basic_url <- 'https://gall.dcinside.com/board/lists/?id=producex&page='
+urls <- NULL
+for(x in 0:999){
+    urls[x + 1] <- paste0(basic_url, x + 1)
+}
+```
+
+&nbsp;웹페이지의 주소를 기반으로 스크래핑을 진행하기 때문에 정보를 가져올 웹페이지의 주소를 for문을 통해서 만들어 줍니다. 
+
+&nbsp;해당 코드를 돌리면 다음과 같은 결과값이 나옵니다. 
+
+```{r, warning=FALSE, message=FALSE}
+head(urls);tail(urls)
+```
+
+&nbsp;for문을 통해 1페이지부터 1000페이지까지 총 1000개의 웹페이지 주소가 생성되었네요.   
+
+&nbsp;만들어진 주소들을 기반으로 스크래핑을 진행합니다. 먼저 스크래핑 정보를 담을 빈객체들을 생성합니다.   
+
+```{r, eval = F}
+
+# 빈 객체 생성 ----
+gallMain      <- NULL
+p_title       <- NULL
+p_comment_num <- NULL
+p_time        <- NULL
+p_count       <- NULL
+p_recommend   <- NULL
+dc            <- NULL
+
+```
+
+&nbsp;본격적으로 for문을 통해 데이터를 페이지순으로 순차적으로 가져옵니다.   
+
+```{r, eval = F }
+# 스크래핑 ---- 
+for(url in urls){
+    
+    gallMain <- GET(url, timeout(10)) %>% read_html() %>% html_nodes('.ub-content.us-post')
+
+    p_title <- sapply(seq(1, length(gallMain)), function(x){
+        gallMain[x] %>%
+            html_nodes('.gall_tit.ub-word') %>%
+            html_node('a') %>%
+            html_text()
+    })
+    p_comment_num <- sapply(seq(1, length(gallMain)), function(x){
+        gallMain[x] %>%
+            html_nodes('.gall_tit.ub-word') %>%
+            html_nodes('.reply_numbox') %>%
+            html_text() %>% str_replace_all(., '[[:punct:]]', '') %>% paste(., collapse = '')
+    })
+    p_time <- sapply(seq(1, length(gallMain)), function(x){
+        gallMain[x] %>%
+            html_nodes('.gall_date') %>%
+            html_attr('title')
+    })
+    p_count <- sapply(seq(1, length(gallMain)), function(x){
+        gallMain[x] %>%
+            html_nodes('.gall_count') %>%
+            html_text()
+    })
+    p_recommend <- sapply(seq(1, length(gallMain)), function(x){
+        gallMain[x] %>%
+            html_nodes('.gall_recommend') %>%
+            html_text()
+    })
+
+}
+```
+
+&nbsp;for문을 돌릴 시 맨 처음 만들었던 주소들 즉, `urls` 객체에 담긴 주소값을 받아서 서버에게 순차적으로 주소에 대한 정보를 요청하게 됩니다. 그렇게 응답받은 정보를 바탕으로 for문 내부에 있는 파싱코드를 수행하는게 되는데요. 각각의 객체에 해당하는 값들을(`p_title`, `p_time`...) 파싱합니다. for문 내 모든 과정을 수행하면 for문은 다음 주소를 요청하여 처음부터 다시 파싱을 진행하게 됩니다.   
+
+```{r, eval = F}
+# 데이터 프레임화 ----  
+dc <- data.frame(p_title, p_comment_num, p_time, p_count, p_recommend)
+
+# 날짜조정 ----
+dc$p_time <- ymd_hms(dc$p_time)
+dc <- dc[day(dc$p_time) == day(today()-1), ]
+```
+
+&nbsp;for문을 통해 수집한 각각의 객체 데이터들을 `dc` 라는 이름의 데이터프레임에 담아주었습니다. 시간을 다루는 `lubridate` 패키지의 `ymd_hms()`함수를 이용하여 글 작성 시간을 의미하는 `p_time` 데이터를 시간 데이터로 변경해 줍니다.   
+
+&nbsp;코드는 `taskscheduleR` 패키지를 활용하여 매일 자정 무렵 자동으로 돌아가게끔 설정 했었는데요. 데이터를 매일 수집하는 것이다 보니 오직 전날에 작성된 글들만을 저장하기 위해서 `dc <- dc[day(dc$p_time) == day(today()-1), ]` 필터링 코드를 만들었습니다. 코드를 짧막하게 설명하자면 글 작성 시간을 의미하는 `dc$p_time` 이 수집하는 날 바로 하루 전 `today() - 1` 의 값과 동일한 값만을 dc객체로 새로이 담아낸 것입니다.   
+
+```{r echo = FALSE, results = 'asis'}
+
+dc <-readRDS('C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/2020ver/2019-06-01.rds')
+dc %>% 
+    select(p_title, p_comment_num, p_time, p_count, p_recommend) %>% 
+    tail() %>% 
+    kable()
+```
+<center>*스크래핑을 마친 데이터의 구조*</center>   
+<br>
+
+```{r eval = FALSE}
+# 파일저장 ----
+write.csv(dc, paste0(ymd(today()-1), ".rds"))
+```
+
+&nbsp;마지막으로 필터링까지 완료된 데이터를 `rds`파일로 저장합니다. 

@@ -1,0 +1,3103 @@
+
+library(tidyverse)
+library(lubridate)
+library(data.table)
+library(knitr)
+library(gtools)
+library(widgetframe)
+library(stringr)
+library(dlookr)
+
+dir <- 'C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/data'
+filelist <- list.files(dir)
+filelist <- mixedsort(filelist, decreasing = T)
+pxdata <- data.frame()
+temp <- NULL
+
+for(file in filelist){
+    if(str_sub(file, -3, -1) == 'csv'){
+        temp <- fread(paste(dir, file, sep = '/'), header = T, stringsAsFactors = F)
+        temp <- temp %>% select(p_title, p_time)
+        pxdata <- rbind(pxdata, temp)
+
+        rm(temp)
+    }else{
+        next
+    }
+
+}
+
+
+
+pxdata <- pxdata %>% mutate(p_ymd = as.Date(p_time),
+                            p_wday = lubridate::wday(as.Date(p_time), label = T),
+                            p_weeknum = week(as.Date(p_time) - 5) - 17
+)
+# saveRDS(pxdata, 'C:/Users/JDW/Desktop/PROJECT/PRODUCEX/pxdata.rds')
+pxdata <- readRDS('C:/Users/JDW/Desktop/PROJECT/PRODUCEX/pxdata.rds')
+
+boylist <- readLines('C:/Users/JDW/Desktop/PROJECT/PRODUCEX/final_boylist.txt')
+boylist2 <- str_sub(boylist, -2, -1)
+
+boys <- NULL
+for(i in 1:length(boylist2)){
+    boys[i] <- nrow(pxdata[grep(boylist2[i], pxdata$p_title), ]) #연습생별 언급게시글 수를 boys 리스트에 저장
+}
+
+boys_comment <- data.frame(cbind(boylist, boys), stringsAsFactors = F) # 연습생 - 연습생 언급게시글 수 데이터프레임화
+boys_comment$boys <- as.numeric(boys_comment$boys) # 숫자형으로 변환
+
+str(boys_comment)
+
+boyname <- NULL
+temp <- NULL
+total <- NULL
+for(i in 1:7){
+    assign(paste0('episode_', i + 4), data.frame()) # 빈 객체 생성
+    assign(paste0('episode_', i + 4), pxdata %>% filter(p_weeknum == i + 4)) # 회차별로 데이터 나누기
+    boyname <- NULL
+    temp <- NULL
+    for(x in 1:length(boylist2)){
+        boyname[x] <- nrow(get(paste0('episode_', i + 4))[grep(boylist2[x], get(paste0('episode_', i + 4))$p_title), ])
+    }
+    temp <- as.data.frame(cbind(boylist2, boyname))
+    temp$weeknum <- i + 4
+    total <- rbind(total, temp)
+}
+
+colnames(total) <- c('boyname', 'mention', 'weeknum')
+total$mention <- as.numeric(as.character(total$mention))
+
+total %>% glimpse()
+head(total)
+episode_10 %>% head()
+
+
+# 연습생별 언급 게시물 추출
+# 5주차 에피소드에서 추출
+yohan <- pxdata %>%
+    filter(str_detect(p_title, '요한'))
+yohan %>% View
+
+boys_name <- c('yohan', 'wooseok', 'jinhyuk', 'seungwoo',
+               'minkyu', 'seungyeon', 'dohyeon', 'hyungjoon',
+               'eunsang', 'donghyun', 'joonho', 'dongpyo',
+               'yoonsung', 'minhui', 'jeongmo', 'hangyeol',
+               'yoobin', 'wonjin', 'tony', 'sejin')
+boys <- boylist2
+names(boys) <- boys_name
+names(boys)
+
+# 각 연습생별 언급 게시물 구분
+for(i in seq(1, length(boylist2))){
+    print(i)
+    assign(names(boys)[i], pxdata %>% filter(str_detect(p_title, as.character(boys[i]))))
+}
+
+# 각 연습생별 일간 언급량 집계
+yohan %>% glimpse()
+yohan %>%
+    group_by(p_ymd) %>%
+    summarise(sum_n = n()) %>%
+    ggplot(aes(x = p_ymd, y = sum_n)) +
+    geom_line() +
+    geom_smooth(method = 'lm') +
+    theme(axis.text.x = element_text(angle = 45))
+
+# 에피소드간 언급량 집계
+yohan %>%
+    group_by(p_weeknum) %>%
+    summarise(sum_n = n()) %>%
+    ggplot(aes(x = p_weeknum, y = sum_n)) +
+    geom_line() +
+    geom_smooth(method = 'lm')
+
+
+# 일반 선형회귀 모델
+yohan %>%
+    group_by(p_ymd) %>%
+    summarise(sum_n = n()) %>%
+    lm(sum_n ~ p_ymd, data = .) %>%
+    summary()
+
+
+get(names(boys)[1])
+
+# 상관관계 분석
+glimpse(pxdata)
+
+testdata <- paste0(dir, '/', filelist[1]) %>%
+    fread(header = T, stringsAsFactors = F) %>%
+    select(p_title, p_count, p_recommend, p_time, p_wtime, p_day)
+
+testdata_cor <- cor(testdata$p_count, testdata$p_recommend)
+testdata_cor
+cor.test(testdata$p_count, testdata$p_recommend)
+shapiro.test(testdata$p_count, testdata$p_recommend)
+
+
+# 12/24 ----
+# 연습생 리스트
+boylist <- readLines('C:/Users/JDW/Desktop/PROJECT/PRODUCEX/final_boylist.txt')
+boylist2 <- str_sub(boylist, -2, -1)
+
+# 데이터 취합
+dir <- 'C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/data'
+filelist <- list.files(dir)
+filelist <- mixedsort(filelist, decreasing = T)
+filelist <- filelist[!filelist %in% "2019-07-19.csv"]
+pxdata <- data.frame()
+temp <- NULL
+
+for(file in filelist){
+    print(file)
+    if(str_sub(file, -3, -1) == 'csv'){
+        temp <- fread(paste(dir, file, sep = '/'), header = T, stringsAsFactors = F)
+        temp <- temp %>% select(p_title, p_count, p_recommend, p_time)
+        pxdata <- rbind(pxdata, temp)
+
+        rm(temp)
+    }else{
+        next
+    }
+}
+glimpse(pxdata)
+
+final_day <- fread(paste(dir, '2019-07-19.csv', sep = '/'), header = T, stringsAsFactors = F)
+final_day <- final_day %>% filter(!hour(p_time) %in% c(21, 22, 23)) %>% select(p_title, p_count, p_recommend, p_time)
+final_day %>% glimpse()
+final_day$p_time %>% hour() %>% table()
+
+pxdata <- rbind(pxdata, final_day) # 2019-06-01 ~ 2019-07-19 21시(투표마감시간)
+
+
+
+# 조회수 x 추천수 상관관계
+cor(pxdata$p_count, pxdata$p_recommend) # [1] 0.8612868
+## 귀무가설 H0 : 두 변수간의 상관성은 존재하지 않을 수 있다. 대립가설 H1 : 두 변수간 상관계수는 존재 할 수 있다.
+cor.test(pxdata$p_count, pxdata$p_recommend)  # p-value < 2.2e-16 -> 상관계수는 유의하다고 해석할 수 있음
+"
+	Pearson's product-moment correlation
+
+data:  pxdata$p_count and pxdata$p_recommend
+t = 2059.8, df = 1476746, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8608698 0.8617026
+sample estimates:
+      cor
+0.8612868
+"
+
+# 연습생별 일간 언급수, 조회수, 추천수 도출
+pxdata <- pxdata %>% mutate(p_ymd = str_sub(p_time, 1, 10) %>% ymd())
+temp <- c()
+total <- c()
+for(i in seq(1, length(boylist2))){
+    print(i)
+    temp <- pxdata %>%
+        filter(str_detect(p_title, boylist2[i])) %>%
+        group_by(p_ymd) %>%
+        summarise(sum_mention = n(),
+                  sum_count = sum(p_count),
+                  sum_recommend = sum(p_recommend)) %>%
+        mutate(boy = boylist[i])
+
+    total <- rbind(total, temp)
+}
+
+total$boy <-total$boy %>% as.factor()
+total %>% glimpse()
+
+## 언급량, 조회수, 추천수간 상관성
+total_cor <- psych::corr.test(total[c('sum_mention', 'sum_count', 'sum_recommend')])
+# psych::corr.test(total[c('sum_mention', 'sum_count', 'sum_recommend')]) %>% print(short = F)
+total_cor # 모든 변수간의 t-test p값이 0에 상회. ( p_value < 0.05 : 대립가설채택(각 변수간 상관성은 유의하다고 볼 수 있다.) )
+
+# 파이널(마지막날) 데이터 제외
+glimpse(total)
+total2 <- total %>% filter(p_ymd != '2019-07-19')
+glimpse(total2)
+
+# 정규분포 선
+par(mfrow = c(1,1))
+library (rcompanion)
+plotNormalHistogram(total$sum_mention)
+qqnorm(total$sum_mention);qqline(total$sum_mention)
+
+# 로그변환 -> 그나마 정규분포에 가까운 형태
+plotNormalHistogram(total$sum_mention %>% log())
+plotNormalHistogram(total$sum_count %>% log())
+plotNormalHistogram(total$sum_recommend %>% log())
+
+# 표준화 변환 -> 꼬리가 오른쪽으로 치우침
+plotNormalHistogram(total$sum_mention %>% scale())
+plotNormalHistogram(total$sum_count %>% scale())
+plotNormalHistogram(total$sum_recommend %>% scale())
+
+# 제곱근 변환 -> 표준화 변환보단 낫지만 꼬리가 오른쪽으로 치우침
+plotNormalHistogram(total$sum_mention %>% sqrt())
+plotNormalHistogram(total$sum_count %>% sqrt())
+plotNormalHistogram(total$sum_recommend %>% sqrt())
+
+# Box-Cox 변환
+library(MASS)
+Box = boxcox(total$sum_mention  ~ 1,
+             lambda = seq(-6,6,0.1))
+Cox = data.frame(Box$x, Box$y)
+Cox2 = Cox[with(Cox, order(-Cox$Box.y)),]
+Cox2[1,]
+lambda = Cox2[1, "Box.x"]
+MECPP_4 = (total$sum_mention ^ lambda - 1)/lambda
+plotNormalHistogram (MECPP_4)
+
+# 파이널(마지막날) 데이터 제외 모델링
+total2_lm <- lm(sum_mention ~ sum_count * sum_recommend, data = total2)
+total2_lm2 <- lm(sum_mention ~ sum_count + sum_recommend, data = total2)
+total2_lm3 <- lm(scale(sum_mention) ~ scale(sum_count) * scale(sum_recommend), data = total2) # 스케일링
+total2_lm4 <- lm(scale(sum_mention) ~ scale(sum_count) + scale(sum_count):scale(sum_recommend), data = total2)
+total2_lm5 <- lm(log(sum_mention) ~ log(sum_count) * log(sum_recommend), data = total2)
+total2_lm5 %>% summary()
+total2_lm5 %>% step(direction = 'both')
+
+AIC(total2_lm, total2_lm2, total2_lm3, total2_lm4,total2_lm5) # total2_lm4  4  1151.008 -> 가장 좋은 성능
+total2_lm4 %>% summary()
+par(mfrow = c(2,2))
+
+total2_lm4 %>% plot()
+qqnorm(total_lm4$residuals); qqline(total_lm4$residuals)
+
+step(total_lm4) %>% summary()
+
+# 잔차 검증
+library(car)
+total_lm4$residuals
+total_lm4_res <- residuals(total_lm4)
+durbinWatsonTest(total_lm4_res)
+total_lm4$residuals %>% shapiro.test()
+total_lm4$residuals %>% hist()
+shapiro.test(total_lm4$residuals) %>% str()
+
+
+# 변수간 다중공선성 확인
+library(car)
+car::vif(total2_lm4) #  1.584647, 1.584647 -> 양호하게 나옴.
+
+
+# 최종 정리
+final_data <- total %>%
+    filter(p_ymd == '2019-07-19')
+final_data
+final_data %>% glimpse()
+
+final_data$pred <- predict(total2_lm4, newdata = final_data)
+final_data %>% arrange(desc(pred)) %>% View()
+
+final_data <- final_data %>%
+    arrange(desc(pred)) %>%
+    mutate(rank = seq(1,20))
+final_data %>% View()
+
+# 방송 발표 순위
+final_result <- c('김요한', '김우석', '한승우', '송형준', '조승연', '손동표', '이한결', '남도현', '차준호', '강민희', '이은상', '이진혁', '구정모', '금동현', '황윤성', '송유빈', '김민규', '이세진', '함원진', '토니')
+
+cbind(final_data[1:11, ], final_result) %>% View()
+final_data[1:11, ]$boy[!final_data[1:11, ]$boy %in% final_result]
+final_data[1:11, ]$boy
+
+final_result[final_result %in% final_data[1:11, ]$boy]
+final_result[!final_result %in% final_data[1:11, ]$boy]
+
+final_data[1:11, ]$boy[!final_data[1:11, ]$boy %in% final_result]
+
+# 최종 예측 데이터와 발표된 최종 순위 비교
+cbind(final_data, final_result) %>% View()
+
+final_data[1:11, ]$boy[final_data[1:11, ]$boy %in% final_result[1:11]] # 모델 예측 데이터와 방송 발표인원 일치하는 연습생들
+final_data[1:11, ]$boy[!final_data[1:11, ]$boy %in% final_result[1:11]] # 모델 예측 데이터와 방송 발표인원 일치하지 않는 연습생들
+
+final_result[1:11][final_result[1:11] %in% final_data[1:11,]$boy] # 방송 발표인원 중 모델예측이 포함된 연습생
+final_result[1:11][!final_result[1:11] %in% final_data[1:11,]$boy] # 방송 발표인원 중 모델예측이 포함되어 있지 않은 연습생 .........
+
+# 실제 피해 연습생                    : 구정모 이진혁 금동현
+# 모델 예측과 대조해 나온 피해 연습생 : 구정모 이진혁 김민규 황윤성
+
+
+
+# 12/26
+# 이상치 제거
+total2 %>% glimpse()
+total3 <- total2[-c(111, 220, 77, 91, 645, 283), ]
+total3 %>% glimpse()
+
+total3_lm <- lm(sum_mention ~ sum_count * sum_recommend, data = total3)
+total3_lm2 <- lm(sum_mention ~ sum_count + sum_recommend, data = total3)
+total3_lm3 <- lm(scale(sum_mention) ~ scale(sum_count) * scale(sum_recommend), data = total3) # 스케일링
+total3_lm4 <- lm(scale(sum_mention) ~ scale(sum_count) + scale(sum_count):scale(sum_recommend), data = total3)
+total3_lm5 <- lm(log(sum_mention) ~ log(sum_count) * log(sum_recommend), data = total3)
+
+AIC(total3_lm, total3_lm2, total3_lm3, total3_lm4,total3_lm5)
+total3_lm %>% summary()
+total3_lm2 %>% summary()
+total3_lm3 %>% summary()
+total3_lm4 %>% summary()
+total3_lm5 %>% summary()
+par(mfrow = c(2,2))
+total3_lm5 %>% plot()
+
+final_data
+
+# 회귀모델의 4가지 기본 가정
+# 1. 선형성, 2. 독립성, 3. 등분산성, 4. 정규성
+
+# 1. 선형성
+total3_lm5 %>% summary() # 절편 제외 모두 유의한 것으로
+# 2. 독립성
+vif(total3_lm5)
+
+
+######
+# 패널티 회귀분석
+model.matrix(medv ~ ., data = Boston.train)[, -1]
+
+total3 %>% select(p_ymd)
+total3 %>% glimpse()
+library(dplyr)
+total3 <- total3 %>% dplyr::select(-p_ymd)
+
+train <- caret::createDataPartition(y = total3$sum_mention, # 결과변수 지정
+                                    p = 0.7,         # 훈련비율 지정
+                                    list = F,        # 리스트형 (FALSE = matrix형)
+)
+
+total3.train <- total3[train, ]
+total3.test <- total3[-train, ]
+nrow(total3.train); nrow(total3.test)
+
+x <- model.matrix(sum_mention ~ ., data = total3.train)[, -1]
+x %>% head()
+y <- total3.train$sum_mention
+
+total3.cv <- glmnet::cv.glmnet(x = x, y = y, family = "gaussian", alpha = 0)
+total3.cv
+par(mfrow = c(1,1))
+total3.cv %>% plot()
+total3.cv$lambda.1se
+total3.cv$lambda.min
+
+total3.gnet <- glmnet::glmnet(x = x, y = y,
+                              family = "gaussian",           # gaussian : 결과변수가 연속형변수인 표준적인 선형회귀를 수행
+                              alpha = 0,                     # alpha = 0 : 릿지, alpha = 1 : 라쏘
+                              lambda = total3.cv$lambda.min)
+total3.gnet %>% coef()
+
+total3.test.x <- model.matrix(sum_mention ~ ., data = total3.test)[, -1] # test dataset
+total3.pred <- predict(total3.gnet, newx = total3.test.x) # 예측모델링
+total3.pred %>% head()
+
+caret::postResample(pred = total3.pred, obs = total3.test$sum_mention)
+
+
+######
+
+
+
+
+# 최종 정리
+final_data <- total %>%
+  filter(p_ymd == '2019-07-19')
+final_data
+final_data %>% glimpse()
+
+final_data$pred <- predict(total3_lm5, newdata = final_data)
+final_data %>% arrange(desc(pred)) %>% View()
+
+final_data <- final_data %>%
+  arrange(desc(pred)) %>%
+  mutate(rank = seq(1,20))
+final_data %>% View()
+
+# 방송 발표 순위
+final_result <- c('김요한', '김우석', '한승우', '송형준', '조승연', '손동표', '이한결', '남도현', '차준호', '강민희', '이은상', '이진혁', '구정모', '금동현', '황윤성', '송유빈', '김민규', '이세진', '함원진', '토니')
+
+final_data[1:11, ]$boy[final_data[1:11, ]$boy %in% final_result[1:11]] # 모델 예측 데이터와 방송 발표인원 일치하는 연습생들
+final_data[1:11, ]$boy[!final_data[1:11, ]$boy %in% final_result[1:11]] # 모델 예측 데이터와 방송 발표인원 일치하지 않는 연습생들
+
+final_result[1:11][final_result[1:11] %in% final_data[1:11,]$boy] # 방송 발표인원 중 모델예측이 포함된 연습생
+final_result[1:11][!final_result[1:11] %in% final_data[1:11,]$boy] # 방송 발표인원 중 모델예측이 포함되어 있지 않은 연습생 .........
+
+# 깨달은 점
+# 1. 어찌어찌 해도 모델은 나온다 -> 기본 가정에 충실하지 모델의 결과를 보고 기뻐하지 말자.
+# 2. 선형회귀의 기본 가정을 충족해야 한다. 특히 독립성은 각 독립변수가 서로간에 영향을 끼치지 않는다는 가정인데
+#    조회수와 추천수는 상관성이 크다. 그러므로 선형회귀의 조건에는 맞지 않는다.
+# 3. 범주별(연습생) 시계열분석으로 접근하는게 더 나을수도 있겠다. 각 연습생별로 시계열데이터를 생성, ARIMA 모형을 통한 예측을 진행해보자.
+
+
+# 12/27 ----
+library(dplyr)
+library(stringr)
+library(lubridate)
+library(TTR)
+library(forecast)
+total %>% summary()
+
+total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts() %>%
+  ts.plot()
+
+# 이동평균
+total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts() %>%
+  SMA(n = 3) %>%
+  ts.plot()
+
+# 언급량만 추출
+boy_ts <- total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts(frequency = 7)
+
+boy_ts
+
+# 분해 시계열
+boy_ts_decompose <- boy_ts %>% decompose()
+boy_ts_decompose
+boy_ts_decompose %>% plot()
+
+# 계절요인 제거
+boy_ts_compose_adj <- boy_ts - boy_ts_decompose$seasonal
+boy_ts_compose_adj %>% plot()
+
+# ARIMA 모형 (비정상시계열)
+# 비정상시계열(정상성을 충족시키지 못한 시계열 : 평균이 일정하지 않는 시계열)의 경우는 차분을 통해 비정상성을 해결한다.
+# 분산이 일정하지 못한 시계열의 경우는 변환을 통해 비정상성을 해결한다.
+boy_ts_diff1 <- boy_ts %>% diff(differences = 1)
+boy_ts_diff1 %>% plot()
+
+boy_ts_diff2 <- boy_ts %>% diff(differences = 2)
+boy_ts_diff2 %>% plot()
+
+boy_ts_diff3 <- boy_ts %>% diff(differences = 3)
+boy_ts_diff3 %>% plot()
+
+boy_ts_diff4 <- boy_ts %>% diff(differences = 4)
+boy_ts_diff4 %>% plot()
+
+# auto.arima
+boy_ts_autoArima <- boy_ts %>% auto.arima()
+boy_ts_autoArima %>% summary()
+boy_ts_autoArima %>% str()
+
+boy_ts_forecast <- forecast(boy_ts_autoArima, h = 1)
+boy_ts_forecast
+boy_ts_forecast %>% plot()
+boy_ts_forecast %>% summary()
+boy_ts_forecast %>% str()
+boy_ts_forecast$lower
+boy_ts_forecast$upper
+boy_ts_forecast$level
+
+forecast(boy_ts_autoArima, h = 7) %>% plot()
+forecast(boy_ts_autoArima, h = 14) %>% plot()
+
+# 연습생별 예측치 도출
+
+# auto.arima 제안값 적용
+boy_arima <- arima(boy_ts, order = c(0,1,0))
+boy_arima %>% summary()
+boy_arima_forecast <- boy_arima %>% forecast(h = 1) %>% as.data.frame()
+
+
+# 함수화
+boy_ts <- total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts(frequency = 7)
+
+producex_ts <- function(boy){
+  total %>%
+    filter(boy == boylist[1]) %>%
+    .$sum_count %>%
+    ts(frequency = 7) %>%
+    auto.arima() %>%
+    forecast(h = 1)
+}
+
+boy_forecast <- c()
+total_forecast <- c()
+
+for(b in boylist){
+  print(b)
+
+  boy_forecast <- total %>%
+    filter(boy == b) %>%
+    .$sum_mention %>%
+    ts(frequency = 7) %>%
+    auto.arima() %>%
+    forecast(h = 1) %>%
+    as.data.frame() %>%
+    mutate(boy = b)
+
+  total_forecast <- rbind(total_forecast, boy_forecast)
+}
+
+total_forecast %>% View()
+
+total_forecast$boy <- boylist
+
+total %>% View()
+
+total %>%
+  group_by(boy) %>%
+  summarise(mean_mention = mean(sum_mention)) %>%
+  arrange(desc(mean_mention))
+
+
+# 언급량
+for(i in 1:length(boylist2)){
+  boys[i] <- nrow(pxdata[grep(boylist2[i], pxdata$p_title), ]) # 연습생별 언급게시글 수를 boys 리스트에 저장
+}
+
+
+
+
+pxdata %>% glimpse()
+
+
+pxdata %>% filter(p_episode == 12) %>% .$p_ymd %>% table()
+pxdata %>% filter(p_ymd == '2019-07-15')
+pxdata %>% filter(p_ymd == '2019-07-14')
+pxdata %>% filter(p_ymd == '2019-07-13')
+
+
+pxdata %>% group_by(p_ymd, p_episode) %>%
+  summarise(sum_n = n()) %>% View()
+
+# 12/28 ----
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+library(data.table)
+library(DT)
+
+pxdata %>%
+  filter(p_ymd == '2019-07-05') %>%
+  group_by(p_hour) %>%
+  summarise(sum_n = n())
+pxdata %>%
+  filter(p_ymd == '2019-07-06') %>% nrow()
+
+
+pxdata %>%
+  group_by(p_ymd) %>%
+  summarise(sum_n = n()) %>% View()
+
+dir <- 'C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA/data'
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+library(data.table)
+library(DT)
+
+# for문을 활용한 데이터 불러오기 및 취합 ----
+filelist <- list.files(dir) # dir : "저장폴더경로"
+pxdata <- data.frame()
+temp <- NULL
+
+for(file in filelist){
+  if(str_sub(file, -3, -1) == 'csv'){
+    temp <- fread(paste(dir, file, sep = '/'), header = T, stringsAsFactors = F)
+    temp <- temp %>% select(p_title,     # 게시글 제목
+                            p_time,      # 글 작성 시간
+                            p_count,     # 조회수
+                            p_recommend) # 추천수
+    pxdata <- rbind(pxdata, temp)
+
+    rm(temp)
+  }else{
+    next
+  }
+}
+
+pxdata <- pxdata %>% mutate(p_ymd   = as.Date(p_time),                                        # 년-월-일
+                            p_month = as.factor(month(p_time)),                               # 월
+                            p_day   = as.factor(day(p_time)),                                 # 일
+                            p_hour  = as.factor(hour(p_time)),                                # 시간
+                            p_wday  = as.factor(lubridate::wday(as.Date(p_time), label = T))) # 요일
+
+pxdata <- pxdata %>% mutate(p_episode = lubridate::week(p_ymd - 4) - 17)
+pxdata %>%
+  group_by(p_ymd, p_episode) %>%
+  summarise(sum_n = n()) %>%
+  View()
+
+
+# 에피소드별 언급량
+temp_mention <- c()
+episode_mention <- c()
+
+for(b in boylist2){
+  print(b)
+  temp_mention <- pxdata %>%
+    filter(str_detect(p_title, b)) %>%
+    group_by(p_episode) %>%
+    summarise(mention =n()) %>%
+    mutate(boy = b)
+
+  episode_mention <- rbind(episode_mention, temp_mention)
+}
+
+episode_mention %>% View()
+episode_mention %>% glimpse()
+
+episode_mention %>%
+  ggplot(aes(x = as.factor(p_episode), y = mention)) +
+  geom_col() +
+  geom_text(aes(label = mention), vjust = -1, size = 2) +
+  facet_wrap( ~ boy) +
+  labs(x = '에피소드', y = '언급량')
+
+
+episode_level <- episode_mention %>%
+  filter(p_episode == 11) %>%
+  arrange(desc(mention)) %>%
+  .$boy
+
+transform(episode_mention, boy = factor(boy, levels = episode_level)) %>%
+  ggplot(aes(x = as.factor(p_episode), y = mention)) +
+  geom_col() +
+  geom_text(aes(label = mention), vjust = -1, size = 2) +
+  facet_wrap( ~ boy) +
+  labs(x = '에피소드', y = '언급량')
+
+episode_mention %>%
+  mutate(boy = factor(boy, levels = episode_level)) %>%
+  ggplot(aes(x = as.factor(p_episode), y = mention)) +
+  geom_col() +
+  geom_text(aes(label = mention), vjust = -1, size = 2) +
+  facet_wrap( ~ boy) +
+  labs(x = '에피소드', y = '언급량')
+
+
+# bump chart
+pxdata_bump <- pxdata %>%
+  group_by(p_episode) %>%
+  arrange(-mention) %>%
+  mutate(ranking = row_number()) %>%
+  as.data.frame()
+
+my_theme <- function() {
+
+  # Colors
+  color.background = "white"
+  color.text = "#22211d"
+
+  # Begin construction of chart
+  theme_bw(base_size=15) +
+
+    # Format background colors
+    theme(panel.background = element_rect(fill=color.background, color=color.background)) +
+    theme(plot.background  = element_rect(fill=color.background, color=color.background)) +
+    theme(panel.border     = element_rect(color=color.background)) +
+    theme(strip.background = element_rect(fill=color.background, color=color.background)) +
+
+    # Format the grid
+    theme(panel.grid.major.y = element_blank()) +
+    theme(panel.grid.minor.y = element_blank()) +
+    theme(axis.ticks       = element_blank()) +
+
+    # Format the legend
+    # theme(legend.position = "none") +
+
+    # Format title and axis labels
+    theme(plot.title       = element_text(color=color.text, size=20, face = "bold")) +
+    theme(axis.title.x     = element_text(size=14, color="black", face = "bold")) +
+    theme(axis.title.y     = element_text(size=14, color="black", face = "bold", vjust=1.25)) +
+    theme(axis.text.x      = element_text(size=10, vjust=0.5, hjust=0.5, color = color.text)) +
+    theme(axis.text.y      = element_text(size=10, color = color.text)) +
+    theme(strip.text       = element_text(face = "bold")) +
+
+    # Plot margins
+    theme(plot.margin = unit(c(0.35, 0.2, 0.3, 0.35), "cm")) +
+
+    # Legend
+    theme(legend.position = 'none')
+}
+
+pxdata_bump <- episode_mention %>%
+  group_by(p_episode) %>%
+  arrange(-mention) %>%
+  mutate(ranking = row_number())
+
+pxdata_plotly <- pxdata_bump %>%
+  ggplot(aes(x = p_episode, y = ranking, group = boy)) +
+  geom_line(aes(color = boy, alpha = 1), size = 2) +
+  geom_point(aes(color = boy, alpha = 1), size = 4) +
+  geom_point(color ='#FFFFFF', size = 1) +
+  scale_x_continuous(breaks = 5: 11, minor_breaks = 5:11, expand = c(.05, .05)) +
+  scale_y_reverse(breaks = 1:20) +
+  geom_text(data = pxdata_bump %>% filter(p_episode == 5),
+            aes(label = boy, x = 4.5), hjust = 2, fontface = 'bold', color = '#888888', size = 5) +
+  geom_text(data = pxdata_bump %>% filter(p_episode == 11),
+            aes(label = boy, x = 11.5), hjust = 2, fontface = 'bold', color = '#888888', size = 5) +
+  labs(title = '[PRODUCE X 101] WEEKLY BUMPCHART',
+       subtitle = 'separated by episode',
+       x = '에피소드', y = '언급량 순위', alpha = "", color = "") +
+  my_theme()
+
+ggplotly(pxdata_plotly) %>%
+  layout(title = list(text = paste0('<b>',
+                                    '[PRODUCE X 101] WEEKLY BUMPCHART',
+                                    '<br>',
+                                    '<sup>',
+                                    'separated by episode',
+                                    '</sup>',
+                                    '</b>')))
+
+library(plotly)
+
+
+test1 <- readRDS("C:/Users/JDW/OneDrive/R/tempScraping/July_15000.rds")
+glimpse(test1)
+test1 %>%
+  group_by(ymd(as.Date(p_time))) %>%
+  summarise(sum_n = n())
+
+# 12/29
+
+dir <- "C:/Users/JDW/OneDrive/R/tempScraping"
+
+filelist <- list.files(dir) # dir : "저장폴더경로"
+pxdata <- data.frame()
+temp <- NULL
+
+for(file in filelist){
+  if(str_sub(file, -3, -1) == 'csv'){
+    temp <- fread(paste(dir, file, sep = '/'), header = T, stringsAsFactors = F)
+    temp <- temp %>% select(p_title,     # 게시글 제목
+                            p_time,      # 글 작성 시간
+                            p_count,     # 조회수
+                            p_recommend) # 추천수
+    pxdata <- rbind(pxdata, temp)
+
+    rm(temp)
+  }else{
+    next
+  }
+}
+
+library(data.table)
+library(dplyr)
+library(stringr)
+library(lubridate)
+
+july <- c()
+temp <- c()
+
+filelist <- list.files(dir, pattern = '.rds')
+for(file in filelist){
+  temp <- readRDS(str_glue('{dir}/{file}'))
+  july <- rbind(july, temp)
+}
+
+glimpse(july)
+july <- july %>% mutate(p_ymd   = as.Date(p_time),                                        # 년-월-일
+                        p_month = as.factor(month(p_time)),                               # 월
+                        p_day   = as.factor(day(p_time)),                                 # 일
+                        p_hour  = as.factor(hour(p_time)),                                # 시간
+                        p_wday  = as.factor(lubridate::wday(as.Date(p_time), label = T))) # 요일
+
+july <- july %>% mutate(p_episode = lubridate::week(p_ymd - 5) - 17)
+
+glimpse(july)
+
+final_boys <- c()
+
+# 연습생별 언급게시글의 개수 `final_boys` 리스트에 저장
+for(i in 1:length(boylist2)){
+  final_boys[i] <- nrow(july[grep(boylist2[i], july$p_title), ])
+}
+
+# 연습생 - 연습생 언급게시 개수 데이터프레임화
+boys <- data.frame(boy = boylist,
+                   mention = as.numeric(final_boys),
+                   stringsAsFactors = F)
+
+str(boys)
+library(ggplot2)
+boys %>%
+  ggplot(aes(x = boy, y = mention)) +
+  geom_col() +
+  geom_text(aes(label = mention), vjust = -.5, size = 2) +
+  theme(axis.text.x = element_text(angle = 45))
+# 에피소드별 언급량
+temp_mention <- c()
+episode_mention <- c()
+
+for(b in boylist2){
+  print(b)
+  temp_mention <- july %>%
+    filter(str_detect(p_title, b)) %>%
+    group_by(p_episode) %>%
+    summarise(mention =n()) %>%
+    mutate(boy = b)
+
+  episode_mention <- rbind(episode_mention, temp_mention)
+}
+
+
+# 연습생별 별명
+library(stringr)
+library(stringi)
+
+boylist <- readLines('C:/Users/JDW/Desktop/PROJECT/PRODUCEX/final_boylist.txt')
+boy_nickname <- list(
+  c('욯'), # 김요한
+  c('짤랑이'), # 김우석
+  c('지녁'), # 이진혁
+  c('스누피', '식빵맨'),  # 한승우
+  c('밍규', '밍구'),  # 김민규
+  c('조골무'),  # 조승연
+  c('도깅', '도옵'),  # 남도현
+  c('형깅'),  # 송형준
+  c('트리케라톱스'),  # 이은상
+  c('금동'),  # 금동현
+  c(),  # 차준호
+  c('표동'),  # 손동표
+  c('쁘띠'),  # 황윤성
+  c('말티쥬', '강미니'),  # 강민희
+  c(),  # 구정모
+  c(),  # 이한결
+  c('유넨'),  # 송유빈
+  c('함옵', '함깅'),  # 함원진
+  c('토카츄'),  # 토니
+  c('마리몽')   # 이세진
+)
+
+names(boy_nickname) <- boylist
+
+boy_nickname
+boy_nickname %>% length()
+boy_nickname
+
+july %>%
+  head() %>%
+  mutate(p_title = str_replace_all(p_title, ))
+
+
+
+pxdata %>%
+  filter(str_detect(p_title, paste(unlist(boy_nickname[18]), collapse = '|'))) %>%
+  mutate(p_title = stri_replace_all_fixed(p_title, paste(unlist(boy_nickname[18])), names(boy_nickname[18]), vectorize_all = F)) %>%
+  View()
+
+pxdata %>%
+  filter(str_detect(p_title, paste(unlist(boy_nickname[18]), collapse = '|'))) %>%
+  View()
+
+pxdata %>%
+  filter(str_detect(p_title, paste(unlist(boy_nickname[14]), collapse = '|'))) %>%
+  mutate(p_title = stri_replace_all_fixed(p_title, paste(unlist(boy_nickname[14])), names(boy_nickname[14]), vectorize_all = F)) %>%
+  View()
+
+boy_nickname %>% str()
+boy_nickname %>% nchar()
+boy_nickname %>% is.null()
+boy_nickname
+
+
+# 별명 수정
+for(i in seq(1, length(boylist))){
+  if(length(unlist(boy_nickname[boylist[i]])) != 0){
+    july <- july %>%
+      mutate(p_title = stri_replace_all_fixed(p_title, paste(unlist(boy_nickname[i])), names(boy_nickname[i]), vectorize_all = F))
+  }
+}
+# before
+july %>% filter(str_detect(p_title, '김요한')) %>% View() # 11,660
+july %>% filter(str_detect(p_title, '욯')) %>% View() # 363
+
+# after
+july %>% filter(str_detect(p_title, '김요한')) %>% View() # 12,011
+july %>% filter(str_detect(p_title, '욯')) %>% View() # 0 : 확인완료
+
+
+
+
+# 12/30 ----
+pxdata %>% glimpse()
+pxdata <- pxdata %>% mutate(p_comment_num = as.numeric(p_comment_num),
+                            p_count = as.numeric(p_count),
+                            p_recommend = as.numeric(p_recommend),
+                            p_episode = as.factor(p_episode))
+
+
+# 연습생별 일간 언급수, 조회수, 추천수, 획득댓글수 도출
+temp <- c()
+total <- c()
+for(i in seq(1, length(boylist2))){
+  print(i)
+  temp <- pxdata %>%
+    filter(str_detect(p_title, boylist2[i])) %>%
+    group_by(p_ymd) %>%
+    summarise(sum_mention   = n(),
+              sum_count     = sum(p_count),
+              sum_recommend = sum(p_recommend),
+              sum_comment   = sum(p_comment_num, na.rm = T)) %>%
+    mutate(boy = as.factor(boylist[i]))
+
+  total <- rbind(total, temp)
+}
+total %>% glimpse()
+total %>% View()
+
+## 언급량, 조회수, 추천수간 상관성
+total_cor <- psych::corr.test(total[c('sum_mention', 'sum_count', 'sum_recommend', 'sum_comment')])
+total_cor
+total_cor %>% print(short = F)
+total_cor # 모든 변수간의 t-test p값이 0에 상회. ( p_value < 0.05 : 대립가설채택(각 변수간 상관성은 유의하다고 볼 수 있다.) )
+
+# 패널티 회귀분석
+train <- caret::createDataPartition(y = total$sum_mention, # 결과변수 지정
+                                    p = 0.7,               # 훈련비율 지정
+                                    list = F               # 리스트형 (FALSE = matrix형)
+)
+
+total_train <- total %>% filter(p_ymd != '2019-07-19') # 마지막날 이전 데이터
+total_test <-  total %>% filter(p_ymd == '2019-07-19') # 마지막날 데이터
+
+x <- model.matrix(sum_mention ~ ., data = total_train)[, -1]
+y <- total_train$sum_mention
+
+total_cv <- glmnet::cv.glmnet(x = x, y = y, family = 'gaussian', alpha = 0)
+total_cv %>% plot()
+total_cv$lambda.1se
+total_cv$lambda.min
+
+# 람다 최소값으로 릿지회귀모델 생성
+total_gnet <- glmnet::glmnet(x = x, y = y,
+                             family = 'gaussian',
+                             alpha = 0,
+                             lambda = total_cv$lambda.min)
+total_gnet %>% coef()
+
+total_test_x <- model.matrix(sum_mention ~ ., data = total_test)[, -1]
+total_pred <- predict(total_gnet, newx = total_test_x) # 예측
+total_pred
+
+caret::postResample(pred = total_pred, obs = total_test$sum_mention) # RMSE : 399.6707548, Rsquared : 0.7229445, MAE : 276.8194641
+
+total %>% glimpse()
+
+
+cbind(round(total_pred, 3), boylist) %>%
+  as.data.frame()
+
+ridge <- data.frame(boy   = boylist,
+                    score = as.numeric(total_pred)) %>%
+  arrange(desc(score))
+
+# 라쏘 회귀모델
+total_cv <- glmnet::cv.glmnet(x = x, y = y, family = 'gaussian', alpha = 1)
+
+total_gnet <- glmnet::glmnet(x = x, y = y,
+                             family = 'gaussian',
+                             alpha = 1,
+                             lambda = total_cv$lambda.min)
+
+
+coef(total_cv, total_cv$lambda.1se)
+coef(total_cv, total_cv$lambda.min)
+total_pred <- predict(total_gnet, newx = total_test_x)
+lasso <- data.frame(boy   = boylist,
+                    score = as.numeric(total_pred)) %>%
+  arrange(desc(score))
+
+lasso %>% View()
+
+caret::postResample(pred = total_pred, obs = total_test$sum_mention) # RMSE : 333.5793441, Rsquared : 0.8044725, MAE : 263.3824817
+
+
+
+###
+library(caret)
+library(glmnet)
+
+# 탐색할 lambda의 범위 지정
+lambda <- 10^seq(-5, 5, length = 100) # 10^-5 ~ 10^5 까지의 100개의 lambda값 생성
+lambda
+
+# carat::train() 패키지를 사용해서 이들 100개의 lambda에 대한 교차검증을 수행하고, 이를 바탕으로 최적의 릿지회귀모델을 생성
+# ridge
+ridge <- train(form = sum_mention ~ .,     # fomula 지정
+               data = total_train,
+               method = "glmnet",    # 모델의 함수이름 지정
+               trControl = trainControl(method = "cv",
+                                        number = 10),
+               tuneGrid = expand.grid(alpha = 0, lambda = lambda)) # 가능한 모든 값을 grid 형식으로 생성
+
+coef(ridge$finalModel, ridge$bestTune$lambda) # 최적 모델의 회귀계수
+
+ridge.pred <- predict(ridge, total_test)
+postResample(pred = ridge.pred, obs = total_test$sum_mention) # 성능평가 : 5.2697535 0.7078302 3.3430299
+
+# lasso
+lasso <- train(form = sum_mention ~ .,     # fomula 지정
+               data = total_train,
+               method = "glmnet",    # 모델의 함수이름 지정
+               trControl = trainControl(method = "cv",
+                                        number = 10),
+               tuneGrid = expand.grid(alpha = 1, lambda = lambda)) # 가능한 모든 값을 grid 형식으로 생성
+
+coef(lasso$finalModel, lasso$bestTune$lambda) # 최적 모델의 회귀계수
+
+lasso.pred <- predict(lasso, total_test)
+postResample(pred = lasso.pred, obs = total_test$sum_mention) # 성능평가 : 5.1328377 0.7184223 3.3111153
+
+# elastic
+elastic <- train(form = sum_mention ~ .,     # fomula 지정
+                 data = total_train,
+                 method = "glmnet",    # 모델의 함수이름 지정
+                 trControl = trainControl(method = "cv",
+                                          number = 10),
+                 tuneLength = 10)
+
+coef(elastic$finalModel, elastic$bestTune$lambda) # 최적 모델의 회귀계수
+
+elastic.pred <- predict(elastic, total_test)
+postResample(pred = elastic.pred, obs = total_test$sum_mention) # 성능평가 : 5.1346441 0.7182171 3.3083474
+
+models <- list(ridge = ridge, lasso = lasso, elastic = elastic)
+models %>% resamples() # caret::resamples() 함수를 사용하면 10개씩의 표본을 추출하여 성능지표를 산출
+models %>% resamples() %>% summary() # 성능지표의 분포
+models %>% resamples() %>% summary(metric = 'RMSE')
+
+# 엘라스틱넷 모델의 지표가 (그나마) 가장 양호하게 나옴 : 엘라스틱넷 예측값 사용
+elastic.score <- data.frame(boy = boylist,
+                            score = as.numeric(elastic.pred)) %>%
+  arrange(desc(score))
+
+elastic.score
+
+# 선형회귀모델링
+library(car)
+total %>% glimpse()
+
+## `sum_mention`을 예측변수로 하는 모델링
+total_lm <- lm(sum_mention ~ ., data = total)
+total_lm %>% anova()
+
+lm(sum_mention ~ sum_count + sum_recommend + boy, data = total) %>% anova() # sum_recommend 분산이 일정치 않다.
+lm(sum_mention ~ sum_count + sum_comment + boy, data = total) %>% anova() # sum_comment 분산이 일정치 않다.
+total %>%
+  mutate(sum_mention = sum_mention %>% log() %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  lm(sum_mention ~ ., data = .) %>% summary()
+
+# 전진선택법
+total %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  step(direction = 'forward') %>% summary()
+
+# 후진선택법
+total %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  step(direction = 'backward') %>% summary()
+
+# 양측
+total %>%
+  filter(p_ymd != '2019-07-17') %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  step(direction = 'both') %>% summary()
+
+
+# 일반 : sum_recommend, sum_comment 변수열 유의성 통과 실패
+total %>%
+  filter(p_ymd != '2019-07-17') %>%
+  # mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+  #        sum_count = sum_count %>% log() %>% as.numeric(),
+  #        sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+  #        sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  summary()
+
+# 표준화 : 절편항, sum_recommend, sum_comment 변수열 유의성 통과 실패
+total %>%
+  filter(p_ymd != '2019-07-17') %>%
+  mutate(sum_mention = sum_mention %>% scale() %>% as.numeric(),
+         sum_count = sum_count %>% scale() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% scale() %>% as.numeric(),
+         sum_comment = sum_comment %>% scale() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  summary()
+
+# 로그 : 모든 변수 유의성 통과 , anova : sum_recommend 약간 미흡(0.06015)
+total %>%
+  filter(p_ymd != '2019-07-17') %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .) %>%
+  summary
+
+total_lm <- total %>%
+  filter(p_ymd != '2019-07-17') %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .)
+
+par(mfrow = c(2,2))
+total_lm %>% plot() # 양호
+total_lm %>% vif() # 다중공선성 문제 심각
+
+# sum_count 변수 제거 후 다시
+total_lm2 <- total %>%
+  filter(p_ymd != '2019-07-19') %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  select(-c(p_ymd, boy)) %>%
+  lm(sum_mention ~ ., data = .)
+
+total_lm2 %>% summary()
+total_lm2 %>% vif()
+total_lm2 %>% plot()
+
+# 계수가 통계적으로 유의하다면 vif 초과하여도 특별히 대처할 필요가 없다고 한다
+
+total_newData <- total %>%
+  filter(p_ymd == '2019-07-19') %>%
+  mutate(sum_mention = sum_mention %>% log %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric())
+
+predict(total_lm2, newdata = total_newData)
+
+# 예측값
+total_pred <- data.frame(predict = predict(total_lm2, newdata = total_newData),
+                         boy = boylist) %>%
+  arrange(desc(predict)) %>%
+  mutate(ranking = row_number())
+
+total_pred
+
+total_lm2 %>% accuracy()
+total_lm %>% summary()
+total_lm %>% accuracy()
+total_lm %>% checkresiduals()
+total_lm$residuals %>% shapiro.test()
+total_lm$residuals %>% ggAcf()
+total_lm$residuals %>% ggPacf()
+
+
+
+
+# auto.arima() 진행
+
+# 12/31 ----
+# 시계열분석 예제
+library(astsa)
+library(fpp)
+library(tidyverse)
+data("AirPassengers")
+
+ap_ts <- window(AirPassengers, start=1949, end=1958.99)
+ap_ts %>% class()
+ap_ts_test <- window(AirPassengers, start=1959)
+
+boy_ts <- total %>%
+  filter(boy == '강민희') %>%
+  filter(p_ymd != '2019-07-19') %>%
+  .$sum_count %>%
+  ts(frequency = 7)
+boy_ts_test <- total %>%
+  filter(boy == '강민희') %>%
+  filter(p_ymd == '2019-07-19') %>%
+  .$sum_count %>%
+  ts()
+
+boy_ts %>% plot(type = 'c')
+boy_ts %>% text(cex = .7) # 회차별 time series 그래프
+
+boy_ts %>% decompose() %>% plot()
+boy_ts %>% decompose(type = 'multiplicative') %>% plot()
+boy_ts %>% decompose(type = 'multiplicative') %>% autoplot() %>% plotly::ggplotly()
+
+# modeling
+models <- list (
+  mod_arima = auto.arima(boy_ts, ic='aicc', stepwise=FALSE),
+  mod_exponential = ets(boy_ts, ic='aicc', restrict=FALSE),
+  mod_neural = nnetar(boy_ts, p=7, size=25),
+  mod_tbats = tbats(boy_ts, ic='aicc', seasonal.periods=7),
+  mod_bats = bats(boy_ts, ic='aicc', seasonal.periods=7),
+  mod_stl = stlm(boy_ts, s.window=7, ic='aicc', robust=TRUE, method='ets'),
+  mod_sts = StructTS(boy_ts)
+)
+
+forecasts <- models %>% lapply(forecast, 1)
+forecasts$naive <- naive(boy_ts, 1)
+
+windows()
+par(mfrow=c(4, 2))
+par(mar=c(2, 2, 1.5, 2), xaxs='i', yaxs='i')
+for(f in forecasts){
+  plot(f, main="", xaxt="n")
+  points(boy_ts_test, col='red')
+}
+
+acc <- lapply(forecasts, function(f){
+  accuracy(f, boy_ts_test)[2,drop=FALSE]
+})
+
+acc <- Reduce(rbind, acc)
+row.names(acc) <- names(forecasts)
+acc <- acc[order(acc[,'MASE']),]
+round(acc, 2)
+
+
+# 01/04 ----
+#* 시계열 시각화
+#*  - 연습생별 시계열 시각화
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(lmtest)
+library(tidyr)
+library(reshape2)
+boy_ts
+
+# 언급량만 추출
+boy_ts <- total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts(frequency = 7)
+boy_ts %>% autoplot()
+
+
+library(tidyr)
+total %>%
+  spread(data= ., key = boy, value = sum_mention)
+
+total %>%
+  select(p_ymd, sum_mention, boy) %>%
+  spread(key = boy, value = sum_mention) %>%
+  ts(frequency = 7) %>%
+  autoplot(facet = TRUE) +
+  geom_smooth(method = 'lm')
+
+p1 <- total %>%
+  ggplot(aes(x = p_ymd, y = sum_mention)) +
+  geom_line() +
+  geom_smooth(method = 'lm') +
+  facet_wrap(~ boy)
+
+p2 <- total %>%
+  ggplot(aes(x = p_ymd, y = sum_mention)) +
+  geom_line() +
+  geom_smooth(method = 'lm') +
+  facet_wrap(~ boy, scales = 'free')
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+
+ggAcf(boy_ts) # 자기상관함수 시각화
+boy_ts %>% diff(1) %>% ggAcf() # 1차분 자기상관함수 시각화
+boy_ts %>% diff(2) %>% ggAcf() # 2차분 자기상관함수 시각화
+boy_ts %>% diff(3) %>% ggAcf() # 1차분 자기상관함수 시각화
+
+# 단순한 예측기법들
+## 평균기법 : 예측한 모든 값은 과거값의 평균
+meanf(boy_ts, h = 1)
+meanf(boy_ts, h = 7) %>% plot()
+## 단순기법 : 모든 예측값을 단순하게 마지막에 둠
+naive(boy_ts, h = 1)
+naive(boy_ts, h = 7) %>% plot()
+## 계절성 단순 기법 : 각 예측값을 연도의 같은 계절의 마지막 관측값으로 설정(계절성이 아주 뚜렷할때 사용)
+snaive(boy_ts, h = 1)
+snaive(boy_ts, h = 7) %>% plot()
+## 표류기법 : 시간에 따른 변화량을 과거데이터에 나타나는 평균 변화량으로 설정
+rwf(boy_ts, h = 1, drift = TRUE)
+rwf(boy_ts, h = 7, drift = TRUE) %>% plot()
+
+# 단위변환
+BoxCox.lambda(boy_ts) # (변동이 클 시) 수학적 변환에 필요한 최적 람다값
+
+BoxCox(boy_ts, BoxCox.lambda(boy_ts)) %>%
+  autoplot() # x축 변환(Box-Cox 변환)을 통한 시계열 그래프 시각화
+
+# 잔차진단
+boy_ts %>% naive() %>% residuals() %>% ggAcf()       # 단순기법에서의 잔차의 자기상관함수(상관성이 없다는것은 예측값이 좋다는 의미)
+boy_ts %>% naive() %>% residuals() %>% gghistogram() # 단순기법에서의 잔차의 히스토그램(정규분포성 확인용)
+boy_ts %>% naive() %>% residuals() %>% checkresiduals()
+boy_ts %>% naive() %>% residuals() %>% Box.test(lag=10, fitdf=0, type="Lj")
+
+# 예측정확성 측정
+boy_ts
+boy_ts_training <- boy_ts %>% window(start = c(1, 1), end = c(6, 6))
+boy_ts_test <- boy_ts %>% window(start = c(7, 0), end = c(7, 6))
+
+boy_fit1 <- meanf(boy_ts_training, h = 7)
+boy_fit2 <- naive(boy_ts_training, h = 7)
+boy_fit3 <- snaive(boy_ts_training, h = 7)
+
+accuracy(beerfit1, beer3)
+accuracy(beerfit2, beer3)
+accuracy(beerfit3, beer3)
+
+accuracy(boy_fit1, boy_ts_test)['Test set',][c('RMSE', 'MAE', 'MAPE', 'MASE')] %>% round(2)
+accuracy(boy_fit2, boy_ts_test)['Test set',][c('RMSE', 'MAE', 'MAPE', 'MASE')] %>% round(2) # 가장 좋은 성능
+accuracy(boy_fit3, boy_ts_test)['Test set',][c('RMSE', 'MAE', 'MAPE', 'MASE')] %>% round(2)
+
+# 시계열 교차검증
+tsCV(boy_ts, meanf, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 229.9357
+tsCV(boy_ts, naive, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 55.44
+tsCV(boy_ts, snaive, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 171.91
+tsCV(boy_ts, rwf, drift = T, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 43.58 -> 가장좋은 성능
+
+# 01/05 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+# 각 변수간의 산점도 행렬
+head(total)
+total %>%
+  select(sum_mention, sum_count, sum_recommend, sum_comment) %>%
+  GGally::ggpairs() # 각 변수간 상관성이 매우 높게 나옴을 확인
+
+# 로그스케일 산점도 행렬
+total %>%
+  select(sum_mention, sum_count, sum_recommend, sum_comment) %>%
+  mutate(sum_mention = sum_mention %>% log() %>% as.numeric(),
+         sum_count = sum_count %>% log() %>% as.numeric(),
+         sum_recommend = sum_recommend %>% log() %>% as.numeric(),
+         sum_comment = sum_comment %>% log() %>% as.numeric()) %>%
+  GGally::ggpairs() # 분포는 정규분포의 형태이나 상관성은 여전히 높게 나옴
+
+
+library(reshape2)
+library(tidyr)
+total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention = sum(sum_mention),
+    sum_count = sum(sum_count),
+    sum_recommend = sum(sum_recommend),
+    sum_comment = sum(sum_comment)
+  ) %>%
+  melt(id.vars = 'p_ymd') %>%
+  ggplot(aes(x = p_ymd, y = value, group = variable)) +
+  geom_line() +
+  facet_wrap( ~ variable, scales = 'free', ncol = 1, strip.position="right")
+
+fpp2::uschange %>% class()
+fpp2::uschange %>% str()
+fpp2::uschange
+
+# tslm() forecast 연습
+total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention = sum(sum_mention),
+    sum_count = sum(sum_count),
+    sum_recommend = sum(sum_recommend),
+    sum_comment = sum(sum_comment)
+  ) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_count + sum_recommend + sum_comment, data = .) %>%
+  summary()
+
+total_tsfit <- total %>%
+  filter(p_ymd != '2019-07-19', boy == '김요한') %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_count, data = .)
+
+total_tsfit %>% summary()
+
+total_testdata <- total %>%
+  filter(p_ymd == '2019-07-19', boy == '김요한')
+
+forecast(total_tsfit, newdata = total_testdata)
+forecast(total_tsfit, newdata = total_testdata) %>%
+  as.data.frame() %>%
+  mutate(boy = boylist) %>%
+  arrange(desc(`Point Forecast`)) %>%
+  select('Point Forecast', boy)
+
+## 모델평가
+mean(total_tsfit %>% residuals()) # [1] -9.644629e-15 -> 0이 아님 -> 예측모델에 반영되지 않은 요인이 남아있다 -> 좋은 모델이 아님.
+
+checkresiduals(total_tsfit) # 잔차의 자기상관성이 높고 정규분포에 따르지 않는 모습, 로그스케일을 취해보일 필요가 있어보인다.
+                            # 브로이쉬-갓프레이 테스트 결과 p-value가 매우 낮은것으로 보아 자기상관이 여전히 존재하는것으로 판별
+
+### 잔차의 자기상관이 존재할 경우 : 추정된 모델 오차에서 자기상관관계가 없다는 가정을 위배하여 예측이 비효율적일 수 있다.
+###                                 이것은 더 나은 예측을 위해 모델에서 고려해야 할 정보가 더 있다는 것을 의미.
+###                                 자기상관을 가지는 오차가 있는 모델로 낸 예측치는 여전히 편향되어 있지는 않아서 잘못된 것은 아님
+###                                 그렇지만 보통 필요한 것보다 더 큰 예측구간을 가질 것임.
+
+### 잔차산점도확인 -> 무작위성일 필요.
+p1 <- total %>%
+  filter(p_ymd != '2019-07-19', boy == '김요한') %>%
+  ts(frequency = 7) %>%
+  as.data.frame() %>%
+  mutate(Residuals = total_tsfit %>% residuals() %>% as.numeric()) %>%
+  ggplot(aes(x = sum_mention, y = Residuals)) +
+  geom_point()
+
+p2 <- total %>%
+  filter(p_ymd != '2019-07-19', boy == '김요한') %>%
+  ts(frequency = 7) %>%
+  as.data.frame() %>%
+  mutate(Residuals = total_tsfit %>% residuals() %>% as.numeric()) %>%
+  ggplot(aes(x = sum_count, y = Residuals)) +
+  geom_point()
+
+p3 <- total %>%
+  filter(p_ymd != '2019-07-19', boy == '김요한') %>%
+  ts(frequency = 7) %>%
+  as.data.frame() %>%
+  mutate(Residuals = total_tsfit %>% residuals() %>% as.numeric()) %>%
+  ggplot(aes(x = sum_recommend, y = Residuals)) +
+  geom_point()
+
+p4 <- total %>%
+  filter(p_ymd != '2019-07-19', boy == '김요한') %>%
+  ts(frequency = 7) %>%
+  as.data.frame() %>%
+  mutate(Residuals = total_tsfit %>% residuals() %>% as.numeric()) %>%
+  ggplot(aes(x = sum_comment, y = Residuals)) +
+  geom_point()
+
+gridExtra::grid.arrange(p1, p2, p3, p4, nrow = 2)
+
+CV(total_tsfit) %>% round(2) # 모델 예측변수 선택의 기준 # AdjR^2 : 자유도를 고려한 R^2값
+
+# 01/06 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+# 이동평균
+boy_ts
+boy_ts %>% ma(7)
+boy_ts %>% ma(7) %>% plot() # 이동평균 그래프(7-ma)
+boy_ts %>% autoplot()
+boy_ts %>% autoplot(series = '데이터') +
+  autolayer(ma(boy_ts, 7), series = '7-MA') +
+  scale_color_manual(values = c('데이터' = 'black', '7-MA' = 'red'),
+                     breaks = c('데이터', '7-MA')) +
+  labs(x = '시간', y = '언급량',
+       title = '7-MA를 언급량에 적용한 것')
+
+# 고전적 시계열 분해
+boy_ts %>% decompose(type = 'multiplicative') %>% autoplot()
+
+# X11 분해
+library(seasonal)
+boy_ts %>% seas(x11="") # 연간시계열이 필요함.
+
+# STL 분해
+boy_ts %>% decompose()
+boy_ts %>% stl(s.window = 'periodic', robust = T) %>% autoplot()
+boy_ts %>% stl(s.window = 13, robust = T) %>% autoplot()
+boy_ts %>% mstl() %>% autoplot()
+boy_ts %>% mstl() %>% seasonal() # 계절성분
+boy_ts %>% mstl() %>% trendcycle() # 추세-주기 성분
+boy_ts %>% mstl() %>% remainder() # 나머지 성분
+boy_ts %>% mstl() %>% seasadj() # 계절성으로 조정된 시계열
+boy_ts %>% autoplot(series = 'Original') +
+  autolayer(boy_ts %>% mstl() %>% seasadj(), series = 'Season Adj') +
+  scale_color_manual(values = c("Original" = 'black', 'Season Adj' = 'red'),
+                     breaks = c('Original', 'Season Adj')) +
+  labs(x = '시간', y = '언급량',
+       title = 'mstl() 계절성 조정 시계열 비교')
+
+# 분해법으로 예측하기
+boy_ts %>%
+  stl(s.window = 'periodic', robust = T) %>%
+  seasadj() %>%
+  naive() %>%  # 계절성으로 조절한 것의 단순 예측치
+  autoplot()
+
+boy_ts %>%
+  stl(s.window = 'periodic', robust = T) %>%
+  forecast(method= 'naive', h = 7) %>%
+  autoplot()
+
+boy_ts %>%
+  stlf(method = 'naive', h = 7) %>%
+  autoplot()
+
+# 지수평활
+# 단순지수평활
+boy_ts %>% ses(h = 7) %>% accuracy() %>% round(2)
+boy_ts %>% ses(h = 7) %>% autoplot() + autolayer(fitted(boy_ts %>% ses(h = 7)))
+
+# 추세기법
+# 홀트의 선형 추세기법
+boy_ts %>% holt(h = 7)
+boy_ts %>% holt(h = 7) %>% autoplot()
+boy_ts %>% holt(h = 7, damped = T, pch = 0.9)
+boy_ts %>% holt(h = 7, damped = T, pch = 0.9) %>% autoplot()
+boy_ts %>%
+  autoplot() +
+  autolayer(boy_ts %>% holt(h = 7), series = '홀트기법', PI = F) +
+  autolayer(boy_ts %>% holt(h = 7, damped = T, pch = 0.9), series = '감쇠홀트기법', PI = F)
+
+# 시계열 교차검증
+ts1 <- tsCV(boy_ts, ses, h = 1)
+ts2 <- tsCV(boy_ts, holt, h = 1)
+ts3 <- tsCV(boy_ts, holt, h = 1, damped = T)
+
+## compare MSE
+MSE <- function(ts){
+  return(mean(ts^2, na.rm = T))
+}
+MSE(ts1); MSE(ts2); MSE(ts3) # ts3(감쇠홀트기법)이 가장 좋은 수치
+
+## compare RMSE
+MSE(ts1) %>% sqrt(); MSE(ts2) %>% sqrt(); MSE(ts3) %>% sqrt() #  # ts3(감쇠홀트기법)이 가장 좋은 수치
+
+## compare MAE
+MAE <- function(ts){
+  return(mean(abs(ts), na.rm = T))
+}
+MAE(ts1); MAE(ts2); MAE(ts3) # ts1(단순지수평활)이 가장 좋은 수치
+
+## 감쇠홀트기법 예측
+boy_ts %>% holt(damped = T)
+boy_ts %>% holt(damped = T) %>% autoplot()
+
+# 01/07 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+# 홀트 윈터스 계절성 기법 : 계절성을 잡아내기 위함
+boy_ts
+boy_ts %>% hw(seasonal = 'additive') # 덧셈법칙
+boy_ts %>% hw(seasonal = 'additive', h = 7) %>% autoplot()
+boy_ts %>% hw(seasonal = 'multiplicative') # 곱셈법칙
+boy_ts %>% hw(seasonal = 'multiplicative', h = 7) %>% autoplot()
+
+tsCV(boy_ts, hw, h = 1) %>% MSE() # 4963497224
+tsCV(boy_ts, hw, h = 1) %>% MAE() # 51880.72
+
+# 홀트 윈터스 감쇠 기법
+boy_ts %>% hw(damped = T, seasonal = 'multiplicative')
+boy_ts %>% hw(damped = T, seasonal = 'multiplicative', h = 7) %>% autoplot()
+boy_ts %>% hw(damped = T, seasonal = 'multiplicative', h = 7) %>% checkresiduals()
+boy_ts %>% hw(damped = T, seasonal = 'multiplicative', h = 7) %>% residuals() %>% shapiro.test()
+
+# 모델선택
+# `ets()`함수 : AICc를 사용하여 최적의 적절한 모델을 반환(기본값)
+ets(boy_ts)
+ets(boy_ts) %>% coef() # 매개변수
+ets(boy_ts) %>% accuracy() # 정확도 측정값
+ets(boy_ts) %>% summary() # 요약 정보
+ets(boy_ts) %>% autoplot() # 시간그래프
+ets(boy_ts) %>% residuals() # 추정한 모델에서 잔차를 반환
+ets(boy_ts) %>% fitted() # 학습데이터에 대한 한 단계 예측값
+ets(boy_ts) %>% simulate() # 적합 모델에서 미래 표본 경로를 모사
+boy_ts %>% autoplot(series = 'origin') +
+  autolayer(ets(boy_ts) %>% simulate(), series = 'fitted')
+ets(boy_ts) %>% forecast() # 점 예측값과 예측구간을 계산
+
+cbind('잔차' = ets(boy_ts) %>% residuals(),                           # 잔차      : 실제값 - 예측값
+      '예측 오차' = ets(boy_ts) %>% residuals(type = 'response')) %>% # 예측 오차 : 실제값 - 한 단계 이전 값
+  autoplot(facet = T)
+
+# `ets()`모델로 예측하기
+ets(boy_ts) %>% forecast(h = 7) %>% autoplot()
+
+# ARIMA 모델
+## 지수평활모델(ets)은 데이터의 추세와 계절성에 대한 설명에 기초하고
+## ARIMA모델은 데이터에 나타나는 자기상관을 표현하는데 목적이 있다.
+## 정상성 : 주기성 행동은 있지만 추세나 계절성은 없다.
+## 주기는 있지만 (그 주기가)불규칙적이다. -> 정상성
+## 기간이 일정한 주기다 -> 비정상성(계절성)
+## 정상성을 나타내지 않는 시계열은 '차분'을 통해 정상성을 나타내도록 만들 수 있다.(또는 자연로그)
+### 차분 : 평균의 정상화, 자연로그 : 분산안정화
+boy_ts %>% Box.test(lag = 10, type = 'Ljung-Box')
+boy_ts %>% diff() %>% Box.test(lag = 10, type = 'Ljung-Box')
+boy_ts %>% diff(7) %>% Box.test(lag = 10, type = 'Ljung-Box') # 계절성 차분(주기 7)
+
+boy_ts %>% autoplot()
+boy_ts %>% autoplot() + geom_smooth(method = 'lm')
+
+cbind(origin = boy_ts,
+      log = log(boy_ts),
+      log_seasonal = diff(log(boy_ts), 7)) %>%
+  autoplot(facet = T) +
+  geom_smooth(method= 'lm') # 로그변환과 (계절성)차분을 통해 시계열일 정상성을 나타내는것처럼 보임
+
+cbind(origin = boy_ts,
+      log = log(boy_ts),
+      log_seasonal = diff(log(boy_ts), 7),
+      log_seasonal_diff = diff(diff(log(boy_ts), 7), 1)) %>%  # 차분을 한번 더 함으로서(2차분) 정상성을 더욱 뚜렷하게 만듬
+  autoplot(facet = T) +
+  geom_smooth(method = 'lm')
+
+# 단위근검정(KPSS검정)
+## 더 객관적으로 차분을 구하는 것이 필요할지 결정하기 위해 사용함
+## KPSS검정은 데이터에 정상성이 나타난다는 것이 귀무가설이고, 귀무가설이 거짓이라는 증거를 찾으려고 합니다.
+library(urca)
+boy_ts %>% ur.kpss() %>% summary() # 검정통계량 값이 0.9이며, 임계값인 1pct(0.739)보다 크므로 귀무가설 채택 -> 정상성을 가지고 있지 않음
+boy_ts %>% diff() %>%  ur.kpss() %>% summary() # 검정통계량 값이 0.353이며, 임계값인 1pct(0.739)보다 작으므로 귀무가설 기각 -> 정상성을 가지고 있음
+ndiffs(boy_ts) # 정상성을 갖기 위한 적정 차분 횟수 계산 : 1
+boy_ts %>% nsdiffs() # 정상성을 갖기위한 적정 (계절성) 차분 횟수 계산 : 0
+boy_ts %>% log() %>% nsdiffs()
+boy_ts %>% log() %>% diff() %>% ndiffs()
+boy_ts %>% log() %>% diff(lag = 7) %>% ndiffs()
+
+# 비-계절성 ARIMA 모델
+ggAcf(boy_ts)
+ggPacf(boy_ts)
+boy_ts %>% ggtsdisplay()
+boy_ts %>% diff(lag = 7) %>% ggtsdisplay()
+boy_ts %>% auto.arima()
+boy_ts %>% auto.arima(seasonal = F)
+boy_ts %>% auto.arima(seasonal = F, stepwise = F)
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F) # 미묘하게 더 좋음
+
+# 추정과 차수 선택
+## 모델의 차수를 찾은다음 매개변수를 추정할 필요가 있다. R에서 ARIMA 모델을 계산할때는 최대 가능도 추정 (MLE)을 사용한다.
+## 이 방법은 관찰한 데이터를 얻는 확률을 최대화 하는 매개변수의 값을 찾는다.
+## MLE(maximum likelihood estimator) = 최대 가능도
+## AIC, AICc, BIC를 최소화하여 좋은 모델을 얻는다. AICc를 사용
+
+# ARIMA 모델링
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F)
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F) %>% checkresiduals()
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F) %>% forecast(h = 7)
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F) %>% forecast(h = 7) %>% accuracy()
+boy_ts %>% auto.arima(seasonal = F, stepwise = F, approximation = F) %>% forecast(h = 7) %>% autoplot()
+## 실제 상황에서, 보통은 모델이 잔차 검정과 같은 검정을 통과하지 못하더라도 찾을 수 있었던 가장 좋은 모델을 사용함.
+
+# 비-계절성 데이터에서 auto.arima()와 ets() 비교하기 -> 이 방법을 사용하기.
+forecast_ets <- function(x, h){
+  forecast(ets(x), h = h)
+}
+forecast_arima <- function(x, h){
+  forecast(auto.arima(x), h = h)
+}
+forecast_arima2 <- function(x, h, seasonal = T, stepwise = T, approximation = T){
+  forecast(auto.arima(x, seasonal = seasonal, stepwise = stepwise, approximation = approximation), h = h)
+}
+e1 <- tsCV(boy_ts, forecast_ets, h = 1)
+e2 <- tsCV(boy_ts, forecast_arima, h = 1)
+e3 <- tsCV(boy_ts, forecast_arima2, seasonal = F, stepwise = F, approximation = F)
+
+## compare RMSE
+MSE(e1) %>% sqrt(); MSE(e2) %>% sqrt(); MSE(e3) %>% sqrt()  # e2(auto.arima)값이 제일 우수
+
+## auto.arima() 예측
+boy_ts %>% auto.arima() %>% forecast(h = 7) %>% autoplot()
+boy_ts %>% auto.arima() %>% forecast(h = 7) %>% checkresiduals()
+boy_ts %>% auto.arima() %>% forecast(h = 7) %>% accuracy()
+
+boy_ts %>% nnetar() %>% forecast(h = 7, PI = T) %>% autoplot() # 신경망 예측 모델
+
+# 01/08 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+# 정상시계열
+# (정상시계열은 시계열 분석의 기본이 되는 중요한 개념이다.) 시계열의 평균과 분산이 일정하고 일정한 추세가 없으면 정상시계열이다.
+
+# ARIMA
+# ARIMA 모형은 비정상적 시계열 자료에 대해 분석하는 방법이다. 시계열의 변동형태를 파악하고 이를 통해 예측하는 방식
+
+# 비정상적 시계열은 시간에 따른 확률분포가 큰 값이다.
+# 그렇기 때문에 그 값들의 평균이나 분산은 의미가 없다
+# 반대로 말하자면 정상성을 지닌 시계열은 평균이나 분산이 의미가 있다.
+
+# 그래프를 정상화 시키는 가장 좋은 방법은 시계열 변수들을 백색화 시키는 것. (백색잡음)
+
+# 비록 시계열이지만 계절성 패턴이 나타나지 않는 경우 비-계절성 ARIMA모델을 사용
+
+# 이동평균은 ACF를, 자기회귀는 PACF를
+
+# 01/10 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+boy_ts %>% autoplot()
+boy_ts %>% ggAcf()
+boy_ts %>% ggPacf()
+
+gridExtra::grid.arrange(autoplot(boy_ts), ggAcf(boy_ts), ggPacf(boy_ts))
+gridExtra::grid.arrange(autoplot(diff(boy_ts)), ggAcf(diff(boy_ts)), ggPacf(diff(boy_ts)))
+
+arima(boy_ts, order = c(0,1,1))
+arima(boy_ts, order = c(0,1,1)) %>% summary()
+arima(boy_ts, order = c(0,1,1)) %>% forecast(h = 7) %>% autoplot()
+
+auto.arima(boy_ts, seasonal = F)
+auto.arima(boy_ts, seasonal = F) %>% forecast(h = 7) %>% autoplot()
+
+# 01/10 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+
+boy_ts %>% autoplot(series = 'origin') +
+  autolayer(ets(boy_ts) %>% simulate(), series = 'fitted')
+
+# 예측하기
+# 평가하기
+
+# 01/11 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(sweep)
+library(tidyquant)
+library(timetk)
+
+boy_ts <- total %>%
+  filter(boy == '강민희') %>%
+  .$sum_count %>%
+  ts(frequency = 7, start = '2019-06-01', end = '2019-07-19')
+
+total %>%
+  filter(boy == '강민희') %>%
+  select(sum_mention) %>%
+  ts(frequency = 7)
+
+total %>%
+  filter(boy == '강민희') %>%
+  ggplot(aes(x = p_ymd, y = sum_mention)) +
+  geom_line(col = palette_light()[1]) +
+  geom_point(col = palette_light()[1]) +
+  geom_ma(ma_fun = SMA, n = 7, size = 1) +
+  theme_tq() +
+  scale_x_date(date_breaks = '1 day') +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "'강민희' 언급량 및 이동평균 [ 2019-06-01 ~ 2019-07-19 ]")
+
+
+test_boy_ts <- total %>%
+  filter(boy == '김요한') %>%
+  select(p_ymd, sum_mention) %>%
+  tk_ts(freq = 7, start = c(1, 1))
+
+test_boy_arima <- auto.arima(test_boy_ts)
+
+sw_tidy(test_boy_arima)
+
+sw_glance(test_boy_arima)
+
+sw_augment(test_boy_arima, timetk_idx = T)
+
+sw_augment(test_boy_arima, timetk_idx = T) %>%
+  ggplot(aes(x = index, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = 'red') +
+  scale_x_date(date_breaks = '1 day') +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 90))
+
+test_boy_arima %>%
+  forecast(h = 7) %>%
+  sw_sweep(timetk_idx = T)
+
+left_join()
+
+# 마지막 7일 데이터를 테스트 데이터로 설정.
+# 그렇기 때문에 2019-07-13 ~ 2019-07-19 데이터를 제외한 뒤 auto.arima 모델링 진행
+# 모델링이 마친 뒤 모델의 2019-07-13 ~ 2019-07-19 7일 예측값과 실제 2019-07-13 ~ 2019-07-19값의 비교 (left_join)
+
+train_boy_ts <- total %>%
+  filter(boy == '김요한',
+         p_ymd < as.Date('2019-07-13')) %>%
+  select(p_ymd, sum_mention) %>%
+  tk_ts(freq = 7)
+
+train_boy_arima <- auto.arima(train_boy_ts)
+
+# 잔차 플룻
+sw_augment(train_boy_arima, timetk_idx = T) %>%
+  ggplot(aes(x = index, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = 'red') +
+  scale_x_date(date_breaks = '1 day') +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 90))
+
+fcast_tbl <- train_boy_arima %>%
+  forecast(h = 7) %>%
+  sw_sweep(timetk_idx = T)
+
+actual_tbl <- total %>%
+  filter(boy == '김요한',
+         p_ymd >= as.Date('2019-07-13')) %>%
+  select(p_ymd, sum_mention)
+
+# 예측값
+error_tbl <- left_join(actual_tbl, fcast_tbl, by = c('p_ymd' = 'index')) %>%
+  rename(actual = sum_mention.x,
+         pred   = sum_mention.y,
+         date   = p_ymd) %>%
+  select(date, actual, pred) %>%
+  mutate(
+    error     = actual - pred,
+    error_pct = error / actual
+    )
+
+error_tbl
+error_tbl$error
+error_tbl$error_pct * 100
+
+test_residuals <- error_tbl$error
+test_error_pct <- error_tbl$error_pct * 100
+
+me   <- mean(test_residuals, na.rm = T)
+rmse <- mean(test_residuals^2, na.rm = T) %>% sqrt()
+mae  <- mean(abs(test_residuals), na.rm = T)
+mape <- mean(abs(test_error_pct), na.rm = T)
+mpe  <- mean(test_error_pct, na.rm = T)
+
+tibble(me, rmse, mae, mape, mpe) %>% glimpse()
+
+
+# 진행방향
+#*  - 시계열을 예측할 모델을 지정한다
+#*  - 시계열은 교차검증 방식으로 진행한다. ( tsCV() )
+#*   ex) naive, ets, auto.arima, regression etc..
+#*  - 지정한 모델들의 정확도를 계산한다
+#*  - 정확도 측정 기법들 중 적합하다 생각이 드는 정확도를 선정하여 계산한다.
+#*   ex) AIC, AICc, BIC, ME, RMSE, MAE, MPE, MAPE, MASE, etc...
+#*  - 정확도 지표를 기반한 적정 모델을 대상으로 실제 값과 예측값을 비교한다.
+#*  - 각 연습생별 적정 모델 및 예측값과 신뢰구간, 정확도 등을 한 객체에 저장한다.
+#*  - 연습생별 실제값-예측값의 시각화를 진행한다.
+#*  - 예측값에 기반한 순위를 도출한다.
+#*  - 한계점에 대해 서술한다.
+
+fcast_tbl %>% is.forecast()
+
+train_boy_arima %>%
+  forecast(h = 7) %>%
+  is.forecast()
+
+# timetk
+total %>%
+  filter(boy == '김요한') %>%
+  select(p_ymd, sum_mention) %>%
+  tk_index() %>%
+  tk_get_timeseries_summary() %>%
+  glimpse()
+
+# 시계열 데이터 확장
+boy_tbl_aug <- total %>%
+  filter(boy == '김요한',
+         p_ymd < as.Date('2019-07-13')) %>%
+  select(p_ymd, sum_mention) %>%
+  tk_augment_timeseries_signature()
+
+fit_lm <- lm(sum_mention ~ ., data = select(boy_tbl_aug, -c(p_ymd, diff)))
+fit_lm %>% summary()
+
+mention_idx <- total %>%
+  filter(boy == '김요한',
+         p_ymd < as.Date('2019-07-13'))%>%
+  select(p_ymd, sum_mention) %>%
+  tk_index() %>%
+  tk_make_future_timeseries(length_out = 7)
+
+new_data_tbl <- mention_idx %>%
+  tk_get_timeseries_signature()
+
+pred <- predict(fit_lm, newdata = select(new_data_tbl, -c(index, diff)))
+
+predictions_tbl <- tibble(
+  date  = mention_idx,
+  value = pred
+)
+
+predictions_tbl
+
+error_tbl <- total %>%
+  filter(boy == '김요한',
+         p_ymd >= as.Date('2019-07-13')) %>%
+  select(p_ymd, sum_mention) %>%
+  left_join(predictions_tbl, by = c('p_ymd' = 'date')) %>%
+  rename(date = p_ymd,
+         actual = sum_mention,
+         pred = value) %>%
+  mutate(
+    error     = actual - pred,
+    error_pct = error / actual
+  )
+
+test_residuals <- error_tbl$error
+test_error_pct <- error_tbl$error_pct * 100 # Percentage error
+
+me   <- mean(test_residuals, na.rm=TRUE)
+rmse <- mean(test_residuals^2, na.rm=TRUE)^0.5
+mae  <- mean(abs(test_residuals), na.rm=TRUE)
+mape <- mean(abs(test_error_pct), na.rm=TRUE)
+mpe  <- mean(test_error_pct, na.rm=TRUE)
+
+tibble(me, rmse, mae, mape, mpe) %>% glimpse()
+
+
+# h2o package
+# 이전 버전의 h2o    패키지가 있다면, 이전 h2o는 삭제
+if ("package:h2o" %in% search()) { detach("package:h2o", unload=TRUE) }
+if ("h2o" %in% rownames(installed.packages())) { remove.packages("h2o") }
+
+# h2o 설치를 위한    의존성 패키지들    설치
+pkgs <- c("RCurl","jsonlite")
+for (pkg in pkgs) {
+  if (! (pkg %in% rownames(installed.packages()))) { install.packages(pkg) }
+}
+
+# 가장 최신버전의  h2o 설치하기 (source 타입)
+install.packages("h2o", type="source", repos="http://h2o-release.s3.amazonaws.com/h2o/rel-wheeler/4/R")
+
+# 01/13 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(sweep)
+library(tidyquant)
+library(timetk)
+
+fc <- function(y, h, xreg){
+  if(NROW(xreg) < length(y) + h)
+    stop("Not enough xreg data for forecasting")
+  X <- xreg[seq_along(y),]
+  fit <- tslm(y ~ X)
+  X <- xreg[length(y)+seq(h),]
+  forecast(fit, newdata=X)
+}
+
+# 여러 모델 생성
+# 시계열 교차검증을 통한 모델 검증
+# RMSE 기준 가장 성능이 좋은 모델 선택
+#
+
+boy_ts
+boy_ts %>% decompose()
+
+# tslm() forecast 연습
+total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention = sum(sum_mention),
+    sum_count = sum(sum_count),
+    sum_recommend = sum(sum_recommend),
+    sum_comment = sum(sum_comment)
+  ) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_count + sum_recommend + sum_comment + trend + season, data = .) %>%
+  summary()
+
+p1 <- total %>%
+  filter(boy == '김요한') %>%
+  select(-c(p_ymd, boy)) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ trend, data = .) %>%
+  forecast(h = 7) %>%
+  autoplot() +
+  labs(title = 'time series regression model forecast [trend]')
+
+p2 <- total %>%
+  filter(boy == '김요한') %>%
+  select(-c(p_ymd, boy)) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ season, data = .) %>%
+  forecast(h = 7) %>%
+  autoplot() +
+  labs(title = 'time series regression model forecast [season]')
+
+p3 <- total %>%
+  filter(boy == '김요한') %>%
+  select(-c(p_ymd, boy)) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ trend + season, data = .) %>%
+  forecast(h = 7) %>%
+  autoplot() +
+  labs(title = 'time series regression model forecast [trend + season]')
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 1)
+
+# 최근 1주일 테스트 데이터로 설정 -> tslm() 기반 최근 1주일 데이터 예측 및 예측값-실제값 비교
+tslm_testdata <- total %>%
+  filter(boy == '김요한',
+         p_ymd >= as.Date('2019-07-13'))
+
+tslm_pred <- total %>%
+  filter(boy == '김요한',
+         p_ymd < as.Date('2019-07-13')) %>%
+  select(-c(p_ymd, boy)) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ trend + season, data = .) %>%
+  forecast(h = 7)
+
+tslm_model <- total %>%
+  filter(boy == '김요한') %>%
+  select(-c(p_ymd, boy)) %>%
+  ts(frequency = 7) %>%
+  tslm(sum_mention ~ trend + season, data = .)
+
+# 예측값-실제값 비교 시각화
+total %>%
+  filter(boy == '김요한') %>%
+  select(sum_mention) %>%
+  ts(frequency = 7) %>%
+  autoplot(series = 'origin') +
+  autolayer(fitted(tslm_model), series = 'tslm_fitted', PI = F) +
+  theme_tq()
+
+
+# 잔차
+checkresiduals(tslm_model) # 잔차 검정
+boy_ts - fitted(tslm_model)
+tslm_model$residuals %>% shapiro.test() # p-value = 0.0804
+
+# 모델 정확도
+data.frame(
+  ma   = mean(tslm_model$residuals),
+  rmse = mean(tslm_model$residuals^2) %>% sqrt(),
+  mae  = mean(abs(tslm_model$residuals)),
+  mape = mean(abs(tslm_model$residuals / boy_ts)),
+  mpe  = mean(tslm_model$residuals / boy_ts)
+)
+
+total %>%
+  group_by(p_ymd) %>%
+  summarise(sum_mention = sum(sum_mention)) %>%
+  select(p_ymd, sum_mention) %>%
+  tk_ts(freq = 7) %>%
+  ggseasonplot()
+total %>%
+  group_by(p_ymd) %>%
+  summarise(sum_mention = sum(sum_mention)) %>%
+  select(p_ymd, sum_mention) %>%
+  tk_ts(freq = 7) %>%
+  ggseasonplot(polar = T)
+
+
+gridExtra::grid.arrange(total %>%
+                          group_by(p_ymd) %>%
+                          summarise(sum_mention = sum(sum_mention)) %>%
+                          select(sum_mention) %>%
+                          ts(frequency = 7) %>%
+                          ggseasonplot(),
+                        total %>%
+                          group_by(p_ymd) %>%
+                          summarise(sum_mention = sum(sum_mention)) %>%
+                          select(sum_mention) %>%
+                          ts(frequency = 7) %>%
+                          ggseasonplot(polar = T),
+                        ncol = 2)
+
+
+boy_ts <- total %>%
+  filter(boy == '김요한') %>%
+  select(p_ymd, sum_mention) %>%
+  tk_ts(frequency = 7)
+
+# 시계열 교차검증
+ts1 <- tsCV(boy_ts, ses, h = 1)
+ts2 <- tsCV(boy_ts, holt, h = 1)
+ts3 <- tsCV(boy_ts, holt, h = 1, damped = T)
+# tsCV()함수 결과로 나오는 것은 "잔차" 이다. 이 말인 즉슨 tsCV() 함수는 결국 모델의 "성능"을 검정하기 위함이지 결코 모델의 예측을 위한 것이 아니다.
+
+boy_pred <- boy_ts %>%
+  autoplot(series = 'origin') +
+  autolayer(fitted(tslm_model), series = 'tslm_fitted') +
+  autolayer(ts1, series = 'ses') +
+  autolayer(ts2, series = 'holt') +
+  autolayer(ts3, series = 'damped_holt') +
+  theme_tq()
+
+library(plotly)
+
+ggplotly(boy_pred) %>%
+  config(displayModeBar = F) %>%
+  layout(legend = list(y = 0),
+         margin = list(t = 100))
+
+
+sqrt(mean(residuals(tslm_model)^2, na.rm = T))
+sqrt(mean(ts1^2, na.rm = T))
+
+ts1 %>% forecast(h = 7) %>% autoplot()
+ts1 %>% forecast(h = 7) %>% accuracy()
+
+tslm_model %>% forecast(h = 7) %>% accuracy()
+ts1 %>% forecast(h = 7) %>% accuracy()
+ts2 %>% forecast(h = 7) %>% accuracy()
+ts3 %>% forecast(h = 7) %>% accuracy()
+
+# ARIMA 오차를 고려하는 회귀
+boy_ts2 <- total %>%
+  filter(boy == '김요한') %>%
+  select(p_ymd, sum_mention, sum_count, sum_comment, sum_recommend) %>%
+  tk_ts(frequency = 7)
+
+boy_fit <- auto.arima(boy_ts2[, 'sum_mention'],
+           xreg = boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")])
+
+boy_fit %>% summary()
+boy_fit %>% checkresiduals()
+boy_fit$residuals %>% shapiro.test()
+
+boy_fit %>% autoplot()
+fitted(boy_fit)
+
+boy_ts %>%
+  autoplot(series = 'original') +
+  autolayer(fitted(boy_fit), series = 'ARIMA regression')
+
+# tsCV() 함수의 아웃풋은 error(오차)이다.
+
+tsCV_arima <- function(x, h, xreg){
+  auto.arima(x, xreg = xreg) %>%
+    forecast(h = h)
+}
+
+tsCV(boy_ts2[, 'sum_mention'], tsCV_arima, xreg = boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")])
+
+y = boy_ts2[, 'sum_mention']
+xreg = boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")]
+h = 7
+
+NCOL(boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")])
+tsCV_arima <- function(y, h, xreg){
+  ncol <- NCOL(xreg)
+  X <- matrix(xreg[seq_along(y), ], ncol = ncol)
+}
+matrix(boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")][seq_along(boy_ts2[, 'sum_mention'])],
+       ncol = NCOL(boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")]))
+
+
+farma <- function(y, h, xreg) {
+  ncol <- NCOL(xreg)
+  X <- matrix(xreg[seq_along(y), ], ncol = ncol)
+  if (NROW(xreg) < length(y) + h) {
+    stop("Not enough xreg data for forecasting")
+  }
+  newX <- matrix(xreg[length(y) + seq(h), ], ncol = ncol)
+  fit <- auto.arima(y, xreg = X)
+  forecast(fit, xreg = newX, h = h)
+}
+
+tsCV_output <- tsCV(boy_ts2[, 'sum_mention'], farma, h = h, xreg = xreg)
+
+mean(tsCV_output^2, na.rm = T)^.5 # rmse
+
+tsCV_output %>%
+  apply(2, MSE) %>%
+  sqrt()
+
+boy_ts %>%
+  autoplot(series = 'origin') +
+  autolayer(tsCV_output, series = 'tsCV_arima')
+
+# 01/13 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(sweep)
+library(tidyquant)
+library(timetk)
+
+# tsCV() 함수로 잔차의 정확성 측정.
+
+tsCV(boy_ts, meanf, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 229.9357
+tsCV(boy_ts, naive, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 55.44
+tsCV(boy_ts, snaive, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 171.91
+tsCV(boy_ts, rwf, drift = T, h = 1) %>% mean(na.rm = T) %>% sqrt() %>% round(2) # RMSE : 43.58 -> 가장좋은 성능
+
+# 과적합의 위협으로부터 벗어나기 위해 교차검증을 수행(tsCV())
+
+boy_ts
+
+#*  - 시계열은 교차검증 방식으로 진행한다. ( tsCV() )
+#*   ex) naive, ets, auto.arima, regression etc..
+
+tsCV(boy_ts, naive, h = 1)^2 %>% mean(na.rm = T) %>% sqrt()
+tsCV(boy_ts, snaive, h = 1)^2 %>% mean(na.rm = T) %>% sqrt()
+tsCV(boy_ts, meanf, h = 1)^2 %>% mean(na.rm = T) %>% sqrt()
+tsCV(boy_ts, rwf, h = 1)^2 %>% mean(na.rm = T) %>% sqrt()
+tsCV(boy_ts, rwf, drift = T, h = 1)^2 %>% mean(na.rm = T) %>% sqrt()
+tsCV(boy_ts,
+     function(x, h){
+       forecast(nnetar(x), h = h )
+     },
+     h = 1)^2 %>%
+  mean(na.rm = T) %>%
+  sqrt() # [1] 531.2655
+
+tsCV(boy_ts,
+     function(x, h){
+       forecast(ets(x), h = h)
+     },
+     h = 1)^2 %>%
+  mean(na.rm = T) %>%
+  sqrt() # [1] 368.1653
+
+tsCV(boy_ts,
+     function(x, h){
+       forecast(auto.arima(x), h=h)
+     },
+     h = 1)^2 %>%
+  mean(na.rm = T) %>%
+  sqrt() # [1] 409.0001
+
+tsCV(boy_ts2[, 'sum_mention'],
+     function(x, h, xreg){
+       forecast(auto.arima(x, xreg), h=h)
+     },
+     xreg = boy_ts2[, c('sum_count', 'sum_comment', "sum_recommend")],
+     h = 1)
+
+boy_ts %>%
+  autoplot() +
+  autolayer(tsCV(boy_ts,
+                 function(x, h){
+                   forecast(auto.arima(x), h=h)
+                 },
+                 h = 1))
+
+# 01/14 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(sweep)
+library(tidyquant)
+library(timetk)
+
+
+# 방향
+#* 1. 다중회귀분석
+#*  1). 결과 도출
+#*  2). 모델 검증
+#*   * 한계점 설명
+#* 2. 시계열 분석
+#*  1) 시계열 분석 설명
+#*  2) 모델 선정
+#*   * 각 모델의 특징 개괄 안내
+#*  3) 예시 모델링 & 한계점
+#*   * 과적합 (overfitting)
+#*  4) tsCV() 교차검증 & 각 모델별 성능 도출
+#*  5) 최적 모델 선택
+#*  6) 모델링 결과
+
+
+# modeling
+models <- list (
+  mod_arima = auto.arima(boy_ts, ic='aicc', stepwise=FALSE),
+  mod_exponential = ets(boy_ts, ic='aicc', restrict=FALSE),
+  mod_neural = nnetar(boy_ts, p=7, size=25),
+  mod_tbats = tbats(boy_ts, ic='aicc', seasonal.periods=7),
+  mod_bats = bats(boy_ts, ic='aicc', seasonal.periods=7),
+  mod_stl = stlm(boy_ts, s.window=7, ic='aicc', robust=TRUE, method='ets'),
+  mod_sts = StructTS(boy_ts)
+)
+
+# 01/17 ----
+library(astsa)
+library(fpp)
+library(tidyverse)
+library(sweep)
+library(tidyquant)
+library(timetk)
+library(purrr)
+
+models %>%
+  lapply(forecast, h = 7) %>%
+  .$mod_sts %>%
+  autoplot() %>%
+  autolayer(models %>% lapply(forecast, h = 7) %>% .$mod_sts, series = 'mod_sts')
+
+boy_ts %>%
+  autoplot(series = 'origin') %>%
+  autolayer(models %>% lapply(forecast, h = 7) %>% .$mod_sts, series = 'mod_sts')
+
+models %>%
+  lapply(forecast, h = 7) %>%
+  .$mod_arima %>%
+  autoplot()
+boy_ts
+
+# tsCV()함수 결과로 나오는 것은 "잔차" 이다. 이 말인 즉슨 tsCV() 함수는 결국 모델의 "성능"을 검정하기 위함이지 결코 모델의 예측을 위한 것이 아니다.
+
+total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention   = sum_mention %>% sum(),
+    sum_comment   = sum_comment %>% sum(),
+    sum_count     = sum_count %>% sum(),
+    sum_recommend = sum_recommend %>% sum()
+  ) %>%
+  tk_ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_comment + sum_count + sum_recommend + trend + season, data = .) %>%
+  summary() # sum_comment, sum_recommend, trend 변수 유의성 충족이 안되는 것으로 나옴 -> 제외해주기
+
+model_tslm <- total_train %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention   = sum_mention %>% sum(),
+    sum_comment   = sum_comment %>% sum(),
+    sum_count     = sum_count %>% sum(),
+    sum_recommend = sum_recommend %>% sum()
+  ) %>%
+  tk_ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_count + season, data = .)
+
+model_tslm %>% summary()
+model_tslm %>% forecast(newdata = total_test %>%
+                          group_by(p_ymd) %>%
+                          summarise(
+                            sum_mention   = sum_mention %>% sum(),
+                            sum_comment   = sum_comment %>% sum(),
+                            sum_count     = sum_count %>% sum(),
+                            sum_recommend = sum_recommend %>% sum()
+                          ))
+
+total_summarise <- total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention   = sum_mention %>% sum(),
+    sum_comment   = sum_comment %>% sum(),
+    sum_count     = sum_count %>% sum(),
+    sum_recommend = sum_recommend %>% sum()
+  )
+total_summarise_train <- total_summarise %>% filter(p_ymd != as.Date('2019-07-19'))
+total_summarise_test <- total_summarise %>% filter(p_ymd == as.Date('2019-07-19'))
+
+model_tslm <- total_summarise_train %>%
+  tk_ts(frequency = 7) %>%
+  tslm(sum_mention ~ sum_count + season, data = .)
+
+model_tslm %>% forecast(newdata = total_summarise_test) %>% autoplot()
+
+
+plot(total_summarise$sum_mention, total_summarise$sum_count)
+plot(total$sum_mention, total$sum_count) # 선형성 존재(1차항)
+
+total_summarise %>%
+  select(p_ymd, sum_mention, sum_count) %>%
+  tk_ts(frequency = 7) %>%
+  autoplot(facet = T)
+
+cbind(total_summarise[, 'sum_mention'], total_summarise[, 'sum_count'])
+
+# 조회수, 댓글수, 추천수로 언급량을 예측하겠단 발상은 기초부터가 잘못됐다. 애초에 종속변수와 독립변수가 같은 시점에 발생하는데 주어진 독립변수를 가지고 종속변수를 예측하겠단 방법은 시차적으로 맞지 않는다. 요인과 결과가 동시에 발생하면 예측하는것보다 측정하는게 빠를 뿐더러 더 정확하다.
+# 그렇다면 무엇을 해야하나. 과거의 데이터로 미래를 예측하는 형식은 논리적으로 나쁘지 않다. 알수없는 미래 현상을 과거의 (큰 틀에서 말하는)추세로 설명하는 것이기에 말이 된다.
+
+
+# 01/23
+total %>%
+  filter(boy == boylist[7]) %>%
+  .$sum_mention %>%
+  ggAcf(lag.max = 49)
+
+total %>%
+  select(sum_mention) %>%
+  ggAcf(lag.max = 49)
+
+# 01/25 ----
+boy_forecast <- function(total, final_boy){
+  # 연습생 언급량 필터링 & ts 객체 변환
+  boy_ts <- total %>%
+    filter(boy == final_boy) %>%
+    ts(frequency = 7)
+
+  # 시계열 교차검증용 모델 지정
+  forecast_arima <- function(x, h){
+    auto.arima(x, stepwise = FALSE) %>% forecast(h = h)
+  }
+  forecast_tslm <- function(x, h){
+    tslm(x ~ trend + season, data = x) %>% forecast(h = h)
+  }
+  forecast_ets <- function(x, h){
+    ets(x) %>% forecast(h = h)
+  }
+
+  # 모델 평가 매트릭 함수 지정(RMSE)
+  RMSE <- function(y){
+    mean(y^2, na.rm=TRUE)^0.5
+  }
+
+  # 시계열 교차검증
+  tslm_cv_residual  <- tsCV(boy_ts[, 'sum_mention'], forecast_tslm, h = 1)
+  ets_cv_residual   <- tsCV(boy_ts[, 'sum_mention'], forecast_ets, h = 1)
+  arima_cv_residual <- tsCV(boy_ts[, 'sum_mention'], forecast_arima, h = 1)
+
+  # 최적 성능순 모델 이름 추출
+  models <- data.frame(model = c('tslm', 'ets', 'arima'),
+                       score = c(RMSE(tslm_cv_residual), RMSE(ets_cv_residual), RMSE(arima_cv_residual))) %>%
+    arrange(score) %>%
+    .$model
+
+  # 최적 모델 적용
+  for(model in models){
+    print(model)
+    if(model == 'tslm'){
+      final_model <- tslm(sum_mention ~ trend + season, data = boy_ts[, 'sum_mention'])
+    }
+
+    if(model == 'ets'){
+      final_model <- ets(boy_ts[, 'sum_mention'])
+    }
+
+    if(model == 'arima'){
+      final_model <- auto.arima(boy_ts[, 'sum_mention'], stepwise = FALSE)
+    }
+
+    # 잔차검정
+    if(checkresiduals(final_model, plot = FALSE)$p.value < 0.05){
+      # 테스트 통과시 for문 종료
+      break
+    }
+  }
+
+  # 미래 추정값, 신뢰구간, 연습생명, 예측에 사용된 모델 반환
+  final_model_forecast <- list(
+    final_model = final_model %>% forecast(h = 7),
+    boy         = boy,
+    use_model   = model
+  )
+
+  return(final_model_forecast)
+}
+
+final <- c()
+boy <- c()
+for(boy in boylist){
+  print(boy)
+  final[[boy]] <- boy_forecast(total, boy)
+}
+
+## extra ----
+# 시계열 분석
+total %>% glimpse()
+
+# 시계열 데이터 변환
+ts_data <- total %>%
+  group_by(p_ymd) %>%
+  summarise(
+    sum_mention   = sum_mention %>% sum(),
+    sum_comment   = sum_comment %>% sum(),
+    sum_count     = sum_count %>% sum(),
+    sum_recommend = sum_recommend %>% sum()
+  ) %>%
+  ts(frequency = 7)
+
+ts_boy_data <- total %>%
+  filter(boy == '김요한')
+
+# 시계열 데이터 파악
+ts_data %>%
+  autoplot(facet = T) +
+  geom_smooth(method = 'lm')
+
+ts_data %>%
+  as.data.frame() %>%
+  GGally::ggpairs()
+
+ts_data[, c('sum_mention')] %>% ggAcf(lag = 49)
+ts_data[, c('sum_mention')] %>% ggPacf(lag = 49)
+
+ts_boy_data[, c('sum_mention')] %>% ggAcf(lag = 49)
+ts_boy_data[, c('sum_mention')] %>% ggPacf(lag = 49)
+
+ts_boy_data$sum_mention %>% ggAcf()
+ts_data[,'sum_mention']
+
+# 시계열 회귀
+library(forecast)
+ts_data %>% tslm(sum_mention ~ season + trend, data = .) %>% forecast(h = 1)
+
+fc <- function(y, h)
+{
+  if(NROW(xreg) < length(y) + h)
+    stop("Not enough xreg data for forecasting")
+  fit <- tslm(y ~ season + trend)
+  forecast(fit, h)
+}
+
+tsCV(ts_boy_data[, 'sum_mention'] %>% ts(frequency = 7), fc, h = 1) %>% MSE %>% sqrt()
+
+ts_boy_data$sum_mention %>% ets() %>% forecast(h = 7) %>% autoplot()
+ts_boy_data$sum_mention %>% auto.arima() %>% forecast(h = 7) %>% autoplot()
+
+ts_boy_data$sum_mention %>%
+  ts(frequency = 7) %>%
+  ets() %>%
+  forecast(h = 7) %>%
+  autoplot()
+
+ts_boy_data$sum_mention %>%
+  ts(frequency = 7) %>%
+  auto.arima() %>%
+  forecast(h = 7) %>%
+  autoplot()
+
+ts_boy_data$sum_mention %>%
+  tk_ts(frequency = 7)
+
+
+ts_mention <- total %>%
+  group_by(p_ymd) %>%
+  summarise(sum_mention = sum_mention %>% sum()) %>%
+  select(sum_mention) %>%
+  ts(frequency = 7)
+
+ts_mention
+ts_mention %>% class()
+ts_mention %>% decompose()
+forecast_ets <- function(x, h) {
+  forecast(ets(x), h = h)
+}
+
+tsCV(ts_mention, forecast_ets, h = 1)
+
+mod_tslm <- tslm(sum_mention ~ trend + season, data = ts_mention)
+mod_tslm %>% summary()
+mod_tslm_pred <- mod_tslm %>% forecast(h = 7)
+mod_tslm_pred
+
+# ets
+mod_ets <- ets(ts_mention)
+mod_ets
+mod_ets %>% plot()
+ts_mention %>% decompose() %>% plot()
+mod_ets %>% accuracy()
+
+mod_ets_pred <- mod_ets %>% forecast(h = 7)
+mod_ets_pred
+mod_ets_pred <- mod_ets %>% forecast(h = 7)
+mod_ets_pred %>% plot()
+
+# arima
+ts_mention
+ts_mention %>% ggAcf(lag.max = 49)
+ts_mention %>% ggPacf(lag.max = 49)
+
+ts_mention %>% acf(lag.max = 49)
+ts_mention %>% acf(lag.max = 49, plot = F)
+ts_mention %>% pacf(lag.max = 49)
+ts_mention %>% pacf(lag.max = 49, plot = F)
+
+
+mod_arima <- ts_mention %>% auto.arima()
+mod_arima
+mod_arima %>% forecast(h = 7)
+
+mod_arima_pred <- mod_arima %>% forecast(h = 7)
+mod_arima_pred %>% plot()
+
+mod_tslm_accuracy <- mod_tslm %>% accuracy()
+mod_ets_accuracy <- mod_ets %>% accuracy()
+mod_arima_accuracy <- mod_arima %>% accuracy()
+
+dimnames(mod_tslm_accuracy)[[1]] <- 'mod_tslm'
+dimnames(mod_ets_accuracy)[[1]] <- 'mod_ets'
+dimnames(mod_arima_accuracy)[[1]] <- 'mod_arima'
+
+rbind(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) %>%
+  as.data.frame() %>%
+  arrange(RMSE)
+
+rbind(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) %>%
+  as.data.frame() %>%
+  arrange(MAPE)
+
+rbind(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) %>%
+  as.data.frame() %>%
+  arrange(MASE)
+
+rbind(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) %>%
+  as.data.frame() %>%
+  arrange(ACF1)
+
+mod_arima <- auto.arima(ts_mention[, 'sum_mention'], stepwise = FALSE)
+
+mod_arima
+mod_arima %>% checkresiduals()
+t1 <- checkresiduals(mod_arima)
+t1$p.value
+
+# arima 모델 예측값
+mod_arima_pred <- mod_arima %>% forecast(h = 7)
+
+# arima 모델 예측값 시각화
+mod_arima_pred %>% plot()
+
+# arima 모델 성능
+mod_arima_pred %>% accuracy()
+
+mod_tslm %>% checkresiduals()
+mod_ets %>% checkresiduals()
+mod_arima %>% checkresiduals()
+
+forecast_arima <- function(x, h){
+  auto.arima(x, stepwise = FALSE) %>% forecast(h = h)
+}
+forecast_tslm <- function(x, h){
+  tslm(x ~ trend + season, data = x) %>% forecast(h = h)
+}
+forecast_ets <- function(x, h){
+  ets(x) %>% forecast(h = h)
+}
+
+tslm_cv_residual <- tsCV(ts_mention[, 'sum_mention'], forecast_tslm, h = 1)
+ets_cv_residual <- tsCV(ts_mention[, 'sum_mention'], forecast_ets, h = 1)
+arima_cv_residual <- tsCV(ts_mention[, 'sum_mention'], forecast_arima, h = 1)
+
+# 모델 평가 매트릭 함수 생성(RMSE)
+RMSE <- function(y){
+  mean(y^2, na.rm=TRUE)^0.5
+}
+tslm_cv_residual %>% RMSE();
+ets_cv_residual %>% RMSE();
+arima_cv_residual %>% RMSE()
+arima_cv_residual %>% RMSE()
+
+data.frame(
+  tslm  = tslm_cv_residual %>% RMSE(),
+  ets   = ets_cv_residual %>% RMSE(),
+  arima = arima_cv_residual %>% RMSE()
+)
+
+# 최종 모델링
+mod_tslm %>%
+  forecast(h = 7) %>%
+  autoplot()
+mod_tslm %>% fitted() %>% autoplot()
+
+
+mod_tslm %>% checkresiduals()
+
+ts_mention[, 'sum_mention'] %>%
+  autoplot(series = 'Original') +
+  autolayer(fitted(mod_tslm), series = 'tslm_fitted') +
+  autolayer(forecast(mod_tslm), h = 7, series = 'tslm_forecast') +
+  scale_color_manual(values = c('Original' = 'black', 'tslm_fitted' = 'red', 'tslm_forecast' = 'blue'),
+                     breaks = c('Original', 'tslm_fitted', 'tslm_forecast'))
+
+mod_tslm %>% forecast(h = 7)
+boy
+
+boy_model <- function(total, final_boy){
+  # 연습생 언급량 필터링 & ts 객체 변환
+  boy_ts <- total %>%
+    filter(boy == final_boy) %>%
+    ts(frequency = 7)
+
+  # 시계열 교차검증용 모델 지정
+  forecast_arima <- function(x, h){
+    auto.arima(x, stepwise = FALSE) %>% forecast(h = h)
+  }
+  forecast_tslm <- function(x, h){
+    tslm(x ~ trend + season, data = x) %>% forecast(h = h)
+  }
+  forecast_ets <- function(x, h){
+    ets(x) %>% forecast(h = h)
+  }
+
+  # 모델 평가 매트릭 함수 지정(RMSE)
+  RMSE <- function(y){
+    mean(y^2, na.rm=TRUE)^0.5
+  }
+
+  # 시계열 교차검증
+  tslm_cv_residual  <- tsCV(boy_ts[, 'sum_mention'], forecast_tslm, h = 1)
+  ets_cv_residual   <- tsCV(boy_ts[, 'sum_mention'], forecast_ets, h = 1)
+  arima_cv_residual <- tsCV(boy_ts[, 'sum_mention'], forecast_arima, h = 1)
+
+  # 최적 성능순 모델 이름 추출
+  models <- data.frame(model = c('tslm', 'ets', 'arima'),
+                       score = c(RMSE(tslm_cv_residual), RMSE(ets_cv_residual), RMSE(arima_cv_residual))) %>%
+    arrange(score) %>%
+    .$model
+
+  # 모델 적용 함수
+  select_model <- function(type){
+
+    if(model == 'tslm'){
+      final_model <- tslm(sum_mention ~ trend + season, data = boy_ts)
+    }
+
+    if(model == 'ets'){
+      final_model <- ets(boy_ts[, 'sum_mention'])
+    }
+
+    if(model == 'arima'){
+      final_model <- auto.arima(boy_ts[, 'sum_mention'], stepwise = FALSE)
+    }
+
+    return(final_model)
+
+  }
+
+  # 최적 모델 적용
+  for(model in models){
+    print(model)
+    final_model <- select_model(type = model)
+
+    # 잔차검정
+    if(checkresiduals(final_model, plot = FALSE, test = FALSE)$p.value > 0.05){
+      # 테스트 통과시 for문 종료
+      break
+    }
+  }
+
+  # 모든 모델이 잔차검정 통과 못할 시
+  # 차선책으로 가장 좋은 성능을 내는 첫번째 모델 선택
+  if(checkresiduals(final_model, plot = FALSE)$p.value <= 0.05 && model == models[3]){
+
+    model <- models[1]
+
+    final_model <- select_model(type = model)
+  }
+
+  # 최적 모델, 사용된 모델명 반환
+  boy_model <- list(
+    model     = final_model,
+    use_model = model
+  )
+
+  return(boy_model)
+}
+final <- c()
+final_boy <- c()
+for(final_boy in boylist){
+  print(final_boy)
+  final[[final_boy]] <- boy_model(total, final_boy)
+}
+
+final
+final %>% glimpse()
+
+ts_mention[, 'sum_mention'] %>%
+  autoplot(series = 'Original') +
+  autolayer(fitted(mod_tslm), series = 'tslm_fitted') +
+  autolayer(forecast(mod_tslm), h = 7, series = 'tslm_forecast') +
+  scale_color_manual(values = c('Original' = 'black', 'tslm_fitted' = 'red', 'tslm_forecast' = 'blue'),
+                     breaks = c('Original', 'tslm_fitted', 'tslm_forecast'))
+
+final[1]
+final$김요한
+final$boylist[1]
+final$김요한$model %>% summary()
+
+final[boylist[1]]
+final[boylist[1]][1]
+
+final[boylist[1]][[1]]
+final[[1]]$model %>% forecast(h = 7)
+
+testdata <- sapply(seq(1, 20),
+                   function(x){
+                     final[[x]]$model %>%
+                       forecast(h = 7)
+                   }
+)
+
+testdata %>% autoplot(facet = T)
+testdata[[1]] %>% autoplot()
+
+autoplot(ts_mention[, 'sum_mention'])
+
+sapply(seq(1, 20),
+       function(x){
+         final[[x]]$model %>%
+           forecast(h = 7)
+       }
+)
+testdata[[1]]
+testdata[[1]] %>% glimpse()
+testdata[[1]]$fitted
+testdata[[1]]$x　
+testdata[[1]]$level
+testdata[[1]]$newdata
+
+testdata
+
+boy_plot <- function(boy){
+
+  forecast_obj <- forecast(final[[boy]]$model, h = 7)
+
+  p <- forecast_obj %>%
+    autoplot() +
+    autolayer(fitted(final[[1]]$model), series = 'fitted', color = 'red') +
+    theme_tq() +
+    labs(subtitle = boy, x = 'Time', y = 'sum_mention') +
+    theme(plot.subtitle = element_text(hjust = 1, size = 12))
+
+  ggplotly(p) %>%
+    config(displayModeBar = F) %>%
+    layout(title = list(text = str_glue('[{boy}] Forecasts from {forecast_obj$method}' ),
+                        x    = 0.05, y = 0.99))
+}
+
+i = 0
+final_plot <- c()
+for(i in seq(1, 20)){
+  final_plot[[i]] <- boy_plot(boylist[i])
+}
+
+library(gridExtra)
+do.call('subplot', c(final_plot[1], ncol = 1))
+
+t1 <- boy_plot(boylist[1])
+install.packages('autoplotly')
+library(autoplotly)
+library(plotly)
+plotly::subplot(final_plot[1], final_plot[2])
+
+
+t1 <- forecast(final[['구정모']]$model, h = 7)
+t1$method
+
+boy_plot <- function(boy){
+  forecast(final[[boy]]$model, h = 7) %>%
+    autoplot() +
+    autolayer(fitted(final[[1]]$model), series = 'fitted', color = 'red') +
+    scale_x_continuous(breaks = seq(1, 9),
+                       labels = str_glue("{(seq(1, 7) + 4) %>% append(c('final', 'predict'))}")) +
+    theme_tq() +
+    labs(subtitle = boy, x = 'episode', y = 'sum_mention') +
+    theme(plot.subtitle = element_text(hjust = 1, size = 12))
+}
+
+boy_plot(boylist[1])
+
+
+
+# 연습생별 모델 그래프 저장
+i = 0
+final_plot <- c()
+for(i in seq(1, 20)){
+  final_plot[[i]] <- boy_plot(boylist[i])
+}
+
+seq(from = as.Date('2019-06-01'), to = as.Date('2019-07-19'), by = 'days')
+
+
+# 예측값 생성
+final
+compare_pred <- final %>%
+  map(function(x){
+    x$model %>% forecast(h = 1) %>% as.data.frame()
+  }) %>%
+  do.call(rbind, .)
+
+compare_pred %>% str()
+compare_pred %>%
+  arrange(desc(`Point Forecast`)) %>%
+  mutate(rank = row_number(),
+         boy  = rownames(.)) %>%
+  select(rank, boy, `Point Forecast`)
+
+compare_pred %>% rownames()
+
+# 총 언급량 기준
+pxdata %>%
+  glimpse()
+
+boylist2
+
+temp_mention <- c()
+episode_mention <- c()
+for(i in seq(1, 20)){
+  temp_mention <- pxdata %>%
+    filter(str_detect(p_title, boylist2[i])) %>%
+    group_by(p_episode) %>%
+    summarise(mention =n()) %>%
+    mutate(boy = boylist[i])
+
+  episode_mention <- rbind(episode_mention, temp_mention)
+}
+
+week11_rank <- episode_mention %>%
+  filter(p_episode == 11) %>%
+  arrange(desc(mention)) %>%
+  mutate(week11_rank = row_number()) %>%
+  rename(week11_mention = mention) %>%
+  select(week11_rank, boy, week11_mention)
+
+total_rank <- episode_mention %>%
+  group_by(boy) %>%
+  summarise(total_mention = sum(mention)) %>%
+  arrange(desc(total_mention)) %>%
+  mutate(total_rank = row_number()) %>%
+  select(total_rank, boy, total_mention)
+
+model_rank %>%
+  left_join(week11_rank, by = 'boy') %>%
+  left_join(total_rank , by = 'boy')
+
+# 모든 기준에 들어가는 연습생
+all_rank %>%
+  filter(model_rank  %in% seq(1, 11)) %>%
+  filter(week11_rank %in% seq(1, 11)) %>%
+  filter(total_rank  %in% seq(1, 11))
+
+# 모든 기준에 들어가지 않는 연습생
+all_rank %>%
+  filter(!model_rank  %in% seq(1, 11)) %>%
+  filter(!week11_rank %in% seq(1, 11)) %>%
+  filter(!total_rank  %in% seq(1, 11))
+
+
+
+final[[1]]$model %>% forecast(h = 1)
+final[[1]]$model %>% forecast(h = 2)
+final[[1]]$model %>% forecast(h = 3)
+final[[1]]$model %>%
+  forecast(h = 7) %>%
+  as.data.frame() %>%
+  map_df(mean)
+
+
+compare_pred <- final %>%
+  map(function(x){
+    x$model %>%
+      forecast(h = 7) %>%
+      as.data.frame() %>%
+      map_df(mean)
+  }) %>%
+  do.call(rbind, .)
+
+model_rank <- compare_pred %>%
+  arrange(desc(`Point Forecast`)) %>%
+  mutate(rank = row_number(),
+         boy  = rownames(.)) %>%
+  select(rank, boy, `Point Forecast`)
+
+
+all_rank %>%
+  filter()
+
+compare_pred %>%
+  mutate(boy = boylist)
+
+final[['송형준']]$model %>%
+  forecast(h = 7) %>%
+  autoplot(conf.int.fill = 'royalblue1', conf.int.alpha = 0.2) +
+  autolayer(final[['황윤성']]$model$data$sum_mention,    color = 'violetred4')  +
+  autolayer(final[['황윤성']]$model %>% forecast(h = 7), color = 'red',  alpha = 0.2) +
+  labs(title = "황윤성 - 송형준 95% 신뢰구간 비교")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
