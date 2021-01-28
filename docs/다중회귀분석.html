@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 다중회귀분석 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 다중회귀분석 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 다중회귀분석 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="JDW" />
+
+
+<meta name="date" content="2019-12-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="모델링.html"/>
+<link rel="next" href="시계열-분석1.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
+<li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
+<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
+<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
+<li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
+<li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
+<li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
+<li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
+<li class="chapter" data-level="7.2.4" data-path="다중회귀분석.html"><a href="다중회귀분석.html#등분산성"><i class="fa fa-check"></i><b>7.2.4</b> 등분산성</a></li>
+<li class="chapter" data-level="7.2.5" data-path="다중회귀분석.html"><a href="다중회귀분석.html#다중공선성"><i class="fa fa-check"></i><b>7.2.5</b> 다중공선성</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a><ul>
+<li class="chapter" data-level="8.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
+<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
+<li class="chapter" data-level="8.2.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
+<li class="chapter" data-level="8.2.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
+<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
+<li class="chapter" data-level="8.4.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
+<li class="chapter" data-level="8.4.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
+<li class="chapter" data-level="8.4.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a><ul>
+<li class="chapter" data-level="9.1" data-path="시계열-분석2.html"><a href="시계열-분석2.html#연습생별-모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 연습생별 모델링 함수 생성</a></li>
+<li class="chapter" data-level="9.2" data-path="시계열-분석2.html"><a href="시계열-분석2.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
+<li class="chapter" data-level="9.3" data-path="시계열-분석2.html"><a href="시계열-분석2.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
+<li class="chapter" data-level="9.4" data-path="시계열-분석2.html"><a href="시계열-분석2.html#결론"><i class="fa fa-check"></i><b>9.4</b> 결론</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="다중회귀분석" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> 다중회귀분석</h1>
+<div id="데이터-분할" class="section level2">
+<h2><span class="header-section-number">7.1</span> 데이터 분할</h2>
+<p> 언급량(sum_mention)을 종속변수로 하는 다중회귀모델을 생성하고, 모델이 추정하는 예측치를 바탕으로 순위 매겨보겠습니다. 여기서는 전체 데이터 중 마지막 방송이 방영된 날의 데이터를 테스트 데이터로, 그 이전의 데이터를 모델의 학습데이터로 분할해 주겠습니다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="다중회귀분석.html#cb68-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb68-2"><a href="다중회귀분석.html#cb68-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb68-3"><a href="다중회귀분석.html#cb68-3"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb68-4"><a href="다중회귀분석.html#cb68-4"></a><span class="kw">library</span>(stringr)</span>
+<span id="cb68-5"><a href="다중회귀분석.html#cb68-5"></a></span>
+<span id="cb68-6"><a href="다중회귀분석.html#cb68-6"></a><span class="co"># train &amp; test </span></span>
+<span id="cb68-7"><a href="다중회귀분석.html#cb68-7"></a>total_train &lt;-<span class="st"> </span>total <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(p_ymd <span class="op">!=</span><span class="st"> &#39;2019-07-19&#39;</span>) <span class="co"># 마지막날 이전 데이터</span></span>
+<span id="cb68-8"><a href="다중회귀분석.html#cb68-8"></a>total_test &lt;-<span class="st">  </span>total <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(p_ymd <span class="op">==</span><span class="st"> &#39;2019-07-19&#39;</span>) <span class="co"># 마지막날 데이터</span></span></code></pre></div>
+<p> 그런 다음 댓글, 조회수, 추천수를 독립변수로 하여 언급량을 추정하는 다중회귀모델을 생성합니다.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="다중회귀분석.html#cb69-1"></a>total_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(sum_mention <span class="op">~</span><span class="st"> </span>sum_count <span class="op">+</span><span class="st"> </span>sum_recommend <span class="op">+</span><span class="st"> </span>sum_comment <span class="op">+</span><span class="st"> </span>boy, <span class="dt">data =</span> total_train)</span></code></pre></div>
+</div>
+<div id="모델-검정" class="section level2">
+<h2><span class="header-section-number">7.2</span> 모델 검정</h2>
+<p>  생성한 회귀모델이 적절한 모델인지를 검정하는 과정이 필요로 합니다. 회귀분석이 지닌 기본적인 가정인 정규성, 선형성, 독립성, 등분산성을 검정하는 과정을 거쳐 모델이 적절한지를 파악하는 과정을 수행해 보도록 합니다. 생성한 모델을 <code>plot()</code>함수를 사용하여 잔차시각화를 진행합니다.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="다중회귀분석.html#cb70-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb70-2"><a href="다중회귀분석.html#cb70-2"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="다중회귀분석.html#cb71-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div id="정규성" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> 정규성</h3>
+<p> 선형회귀에서는 오차항이 정규분포를 따라야합니다. 그러므로 오차에 속한 잔차 역시 정규분포를 따라야 하는 가정을 따라야 합니다. 만약 잔차들이 정규성을 따른다면 Q-Q Plot상의 점들이 45도 각도의 직선에 밀접합니다.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="다중회귀분석.html#cb72-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb72-2"><a href="다중회귀분석.html#cb72-2"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">qqPlot</span>()</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<pre><code>## [1]  77 111</code></pre>
+<p> 육안으로 보아도 정규성에 위배되는 것을 확인할 수 있습니다.</p>
+<p> 한편 <code>shapiro.test()</code>함수를 사용하면 더 정확하게 정규성을 검정할 수 있습니다. 잔차를 대상으로 Shapiro test 를 진행, p값이 기각역보다 크다면 잔차가 정규성을 띈다고 해석합니다.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="다중회귀분석.html#cb74-1"></a><span class="kw">shapiro.test</span>(total_lm<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  total_lm$residuals
+## W = 0.81877, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div id="선형성" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> 선형성</h3>
+<p> 독립변수는 종속변수와의 관계에서 선형성을 띄어야 하는 가정을 충족해야 합니다. 선형성은 회귀 모델에서 모델의 통계적 유의성 검정을 통해 추측할 수 있습니다. 만약 모델이 선형성을 충족한다면 모델에 대한 p값이 유의하게 나올 것입니다.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="다중회귀분석.html#cb76-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = sum_mention ~ sum_count + sum_recommend + sum_comment + 
+##     boy, data = total_train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -924.50 -103.65  -20.83   76.50 2806.30 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.064e+02  3.585e+01   2.968 0.003072 ** 
+## sum_count      5.060e-03  2.597e-04  19.483  &lt; 2e-16 ***
+## sum_recommend -3.656e-02  4.889e-03  -7.477 1.74e-13 ***
+## sum_comment   -1.373e-02  1.217e-02  -1.128 0.259436    
+## boy구정모     -1.040e+02  4.973e+01  -2.091 0.036813 *  
+## boy금동현      2.557e+01  4.893e+01   0.522 0.601449    
+## boy김민규      1.882e-01  4.937e+01   0.004 0.996959    
+## boy김요한     -2.484e+02  5.019e+01  -4.950 8.79e-07 ***
+## boy김우석     -2.159e+02  5.564e+01  -3.880 0.000112 ***
+## boy남도현     -4.851e+02  5.136e+01  -9.444  &lt; 2e-16 ***
+## boy손동표     -9.429e+01  4.893e+01  -1.927 0.054261 .  
+## boy송유빈      7.180e-01  4.900e+01   0.015 0.988312    
+## boy송형준     -1.344e+02  4.921e+01  -2.731 0.006426 ** 
+## boy이세진     -6.016e+01  4.932e+01  -1.220 0.222881    
+## boy이은상     -1.124e+02  4.944e+01  -2.274 0.023186 *  
+## boy이진혁     -3.728e+02  5.100e+01  -7.311 5.68e-13 ***
+## boy이한결     -2.169e+02  4.909e+01  -4.418 1.11e-05 ***
+## boy조승연     -5.814e+02  6.327e+01  -9.189  &lt; 2e-16 ***
+## boy차준호     -7.508e+01  4.896e+01  -1.534 0.125470    
+## boy토니       -1.087e+02  4.900e+01  -2.218 0.026801 *  
+## boy한승우     -2.645e+02  4.980e+01  -5.311 1.36e-07 ***
+## boy함원진     -1.252e+02  4.897e+01  -2.556 0.010745 *  
+## boy황윤성     -1.179e+02  4.890e+01  -2.412 0.016078 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 239.4 on 937 degrees of freedom
+## Multiple R-squared:  0.8115,	Adjusted R-squared:  0.8071 
+## F-statistic: 183.4 on 22 and 937 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p> <code>car</code>패키지에 있는 <code>crPlots()</code> 함수를 통해 개별 독립변수에 대한 선형성을 확인할 수 있습니다. 만약 plot에서 비선형성이 관찰된다면 이는 해당 변수가 선형성을 충족하지 못한것으로 볼 수 있습니다.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="다중회귀분석.html#cb78-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crPlots</span>()</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+</div>
+<div id="독립성" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> 독립성</h3>
+<p> 독립성 가정은 크게 세가지를 충족하여야 합니다. 첫째 모델의 예측값과 잔차간의 독립성. 둘째 독립변수와 잔차간의 독립성. 셋째 잔차의 자기상관성. 먼저 예측값과 잔차간의 독립성은 앞서 보았던 잔차그래프중 첫번째 그래프에서 확인할 수 있습니다.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="다중회귀분석.html#cb79-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p> 생성된 그래프를 보면 이상치의 영향으로 인해 정확한 판단은 어렵지만 잔차가 무작위적으로 퍼져있는것이 아닌 특정 부분에 쏠려 있는것으로 보여 집니다. 만약 잔차에 패턴이 보인다면 이는 곧 모델이 패턴에 해당하는 규칙성을 누락했단 의미로 해석될 수 있으며 모델에 추가해야할 요소가 남아있음을 의미합니다.</p>
+<p> 독립변수와 잔차간의 독립성은 상관계수 및 분포도로 판단할 수 있습니다. 모델에서 사용된 독립변인과 잔차를 묶어 <code>GGally::ggpairs()</code> 함수를 통해 확인해 보도록 하겠습니다.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="다중회귀분석.html#cb80-1"></a>total_train <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb80-2"><a href="다중회귀분석.html#cb80-2"></a><span class="st">    </span><span class="kw">select</span>(sum_count, sum_recommend, sum_comment) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb80-3"><a href="다중회귀분석.html#cb80-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">residual =</span> total_lm<span class="op">$</span>residuals) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb80-4"><a href="다중회귀분석.html#cb80-4"></a><span class="st">    </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>()</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p> 생성된 그래프를 보면 가운데를 기준으로 좌하단에는 변수간 산점도, 우상단에는 상관계수가 작성되어 있는 것을 확인할 수 있습니다. 여기에서 잔차(residual)와 각 독립변수(sum_count, sum_comment, sum_recommend)들 간의 상관계수는 0에 상회하는 것으로 거의 독립적인 것을 확인 할 수 있습니다. 그러나 각 독립변수들 간에 상관성이 높게 띄는것으로 보아 다중공선성이 크게 의심스러운 상황입니다.</p>
+<p> 마지막으로 잔차의 자기상관성은 <code>car</code> 패키지에 있는 <code>durbinWatsonTest()</code> 함수를 통해 진행할 수 있습니다. 더빈왓슨 테스트의 검정통계량 D-W Statistic 값은 0 ~ 4의 값을 가지며 0으로 가까울 수록 (잔차의) 양의 상관관계를, 4에 가까울수록 음의 상관관계를 가집니다. 2는 독립적인 것을 의미합니다. 여기서의 p_value는 자기상관성에 대한 것인데 기각역보다 작다면 자기상관관계가 있다고 해석합니다.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="다중회귀분석.html#cb81-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">durbinWatsonTest</span>()</span></code></pre></div>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1       0.1532939       1.68914       0
+##  Alternative hypothesis: rho != 0</code></pre>
+<p> 더빈왓슨 테스트의 결과 잔차에는 어느정도 자기상관성이 존재하여 독립성을 충족하지 못한것으로 보입니다.</p>
+</div>
+<div id="등분산성" class="section level3">
+<h3><span class="header-section-number">7.2.4</span> 등분산성</h3>
+<p> 잔차의 분산은 예측값과 관계없이 고루 퍼져있어야 합니다. 이는 표준화된 잔차그래프에서 확인할 수 있으며 0 수평선을 기준으로 랜덤한 형태로 분포가 되어 있는 모습이 이상적인 등분산성의 형태입니다.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="다중회귀분석.html#cb83-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p> 생성된 그래프를 살펴보니 그래프의 특정 부위값에 몰려 있으며, 붉은색 추세선 역시 수평보다 위로 치우쳐져 있어 등분산성 가정에는 못미치는 것으로 판단됩니다. 등분산성 검정을 위한 통계적 검정법에는 <code>ncvTest()</code> 함수를 사용하는 방법이 있습니다.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="다중회귀분석.html#cb84-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ncvTest</span>()</span></code></pre></div>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 2195.865, Df = 1, p = &lt; 2.22e-16</code></pre>
+<p> <code>ncvTest()</code>의 수행으로 나오는 p_value는 모델의 등분산성에 대한 검정 결과입니다. 여기서의 귀무가설은 모델이 등분산성을 따른다이며, 대립가설로는 등분산성을 따르지 않는것으로 보여짐 입니다. p값이 낮게 나온것으로 보아 등분산성의 검정역시 통과하지 못한것으로 보입니다.</p>
+</div>
+<div id="다중공선성" class="section level3">
+<h3><span class="header-section-number">7.2.5</span> 다중공선성</h3>
+<p>  여러 변수들의 조합을 통해 만드는 다중회귀모델은 각 독립변수들의 독립성을 요구합니다. 만약 독립변수간에 강한 상관성이 존재한다면 이는 모델의 설명력에 왜곡을 불러올 것입니다. 다중회귀모델에서 독립변수에 대한 회귀계수는 다른 변인들이 0이라는 가정 하에 종속변수와 해당 독립변수 간의 선형성을 계산하는데 만약 독립변수끼리의 상관성이 존재한다면 상관성이 존재하는 변수들이 종속변수를 설명하는데 사용되는 분산이 중복되는 부분이 생겨 이는 곧 모델의 예측 성능 하락을 야기하고, 회귀식을 해석하는데 있어서 오류를 범하게 만드는 요인이 될 것입니다.</p>
+<p> 다중공선성을 계산하는 방법으로는 <code>car</code>패키지의 <code>vif()</code>(분산팽창지수)함수를 사용하는 방법이 있습니다. 변수간의 상관성을 계산하는 vif()함수는 통계값이 일반적으로 4미만일시 문제없다고 판단하고, 10을 넘어가면 다중공선성 문제가 있다고 판단합니다.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="다중회귀분석.html#cb86-1"></a>total_lm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">vif</span>()</span></code></pre></div>
+<pre><code>##                   GVIF Df GVIF^(1/(2*Df))
+## sum_count     25.82365  1        5.081698
+## sum_recommend 12.75725  1        3.571729
+## sum_comment   10.79254  1        3.285200
+## boy            3.61625 19        1.034406</code></pre>
+<p> 다중공선성을 계산한 결과 연습생 변수만을 제외한 모든 변수에서 다중공선성이 존재하는것을 볼 수 있습니다.</p>
+</div>
+</div>
+<div id="결과" class="section level2">
+<h2><span class="header-section-number">7.3</span> 결과</h2>
+<p> 모델 검정 결과 다중회귀분석은 적절한 방법이 아닌것으로 판단할 수 있습니다. 선형회귀모델이 가진 가정을 검정한 결과 선형성의 조건을 제외한 나머지 정규성, 독립성, 등분상성의 조건을 충족하지 못하였으며 더 나아가 다중회귀모델에서 가지는 다중공선성의 문제역시 보유하고 있는 것을 볼 수 있었습니다. 어찌보면 당연한 것이 이번 모델링에서 사용한 변수들은 각각 게시물에 대한 조회수, 댓글수, 추천수인데 상식적으로 생각해봐도 조회수가 높은 게시물은 댓글과 추천을 많이 가질 확률이 높을 것입니다. 각 지표가 높게 나온 이유는 무엇보다 게시물의 <strong>내용</strong>이라는 공통된 요인이 유저들의 이목을 집중시켰을 테니까요. 그리고 무엇보다도 데이터가 가진 시계열적 요소를 배재한체 다중회귀분석을 진행한 것에 대한 문제점도 있었습니다. 시계열 데이터가 지닌 특징중에 하나인 자기상관성의 영향력도 무시하지 못할 요인인데 말이죠.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="다중회귀분석.html#cb88-1"></a><span class="kw">library</span>(forecast)</span>
+<span id="cb88-2"><a href="다중회귀분석.html#cb88-2"></a><span class="kw">ggAcf</span>(total_lm<span class="op">$</span>residuals)</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p> <code>ggAcf()</code>는 ACF(Auto Correlation Function)(자기상관함수)를 계산하여 시각화한 함수로 과거 특정 시점과의 자기상관성을 계산하여 그래프로 표현하는 함수입니다. 푸른색 점선을 넘어가는 직선은 해당시점(lag)과의 상관성이 존재한다는 의미인데(시점의 자기상관성이 통계적으로 유의하다) 여기서 회귀모델의 잔차는 다수의 시점에서 자기상관성이 관측되는 것을 볼 수 있습니다. 이럴경우 일반적인 회귀모델보다 시계열분석이 더 적합할 수 있습니다.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="모델링.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-분석1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_sample.pdf", "bookdown_sample.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

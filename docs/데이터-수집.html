@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="prologue.html"/>
 <link rel="next" href="데이터-전처리.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,24 +50,27 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.7/datatables.js"></script>
-<link href="libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -76,14 +79,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -92,9 +97,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -143,32 +148,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">텍스트 분석을 통한 프로듀스X101 데뷔조 예측</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 프롤로그</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
+<li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
 <li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
-<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#code"><i class="fa fa-check"></i><b>2.1</b> code</a></li>
+<li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
-<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-전처리-1"><i class="fa fa-check"></i><b>3.1</b> 데이터 전처리</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#mixedsort-함수"><i class="fa fa-check"></i><b>3.1.1</b> mixedsort() 함수</a></li>
+<li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
+<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#변수열-생성"><i class="fa fa-check"></i><b>3.2</b> 변수열 생성</a></li>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
+<li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> EDA</a><ul>
-<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#dataset"><i class="fa fa-check"></i><b>4.1</b> dataset</a></li>
-<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 회차별 게시글 수 비교</a></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 요일별 게시글 수 비교</a></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.4</b> 일자별 게시글 수 비교</a></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
+<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="시각화.html"><a href="시각화.html"><i class="fa fa-check"></i><b>5</b> 시각화</a><ul>
-<li class="chapter" data-level="5.1" data-path="시각화.html"><a href="시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
-<li class="chapter" data-level="5.2" data-path="시각화.html"><a href="시각화.html#범위-설정"><i class="fa fa-check"></i><b>5.2</b> 범위 설정</a></li>
-<li class="chapter" data-level="5.3" data-path="시각화.html"><a href="시각화.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a></li>
-<li class="chapter" data-level="5.4" data-path="시각화.html"><a href="시각화.html#시각화-1"><i class="fa fa-check"></i><b>5.4</b> 시각화</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="시각화.html"><a href="시각화.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
-<li class="chapter" data-level="5.4.2" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode"><i class="fa fa-check"></i><b>5.4.2</b> Barchart(Split by episode)</a></li>
-<li class="chapter" data-level="5.4.3" data-path="시각화.html"><a href="시각화.html#barchartsplit-by-episode-and-reordered"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(Split by episode and reordered)</a></li>
-<li class="chapter" data-level="5.4.4" data-path="시각화.html"><a href="시각화.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
+<li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
+<li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
+<li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
+<li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
+<li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
+<li class="chapter" data-level="7.2.4" data-path="다중회귀분석.html"><a href="다중회귀분석.html#등분산성"><i class="fa fa-check"></i><b>7.2.4</b> 등분산성</a></li>
+<li class="chapter" data-level="7.2.5" data-path="다중회귀분석.html"><a href="다중회귀분석.html#다중공선성"><i class="fa fa-check"></i><b>7.2.5</b> 다중공선성</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a><ul>
+<li class="chapter" data-level="8.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
+<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
+<li class="chapter" data-level="8.2.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
+<li class="chapter" data-level="8.2.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
+<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
+<li class="chapter" data-level="8.4.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
+<li class="chapter" data-level="8.4.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
+<li class="chapter" data-level="8.4.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a><ul>
+<li class="chapter" data-level="9.1" data-path="시계열-분석2.html"><a href="시계열-분석2.html#연습생별-모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 연습생별 모델링 함수 생성</a></li>
+<li class="chapter" data-level="9.2" data-path="시계열-분석2.html"><a href="시계열-분석2.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
+<li class="chapter" data-level="9.3" data-path="시계열-분석2.html"><a href="시계열-분석2.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
+<li class="chapter" data-level="9.4" data-path="시계열-분석2.html"><a href="시계열-분석2.html#결론"><i class="fa fa-check"></i><b>9.4</b> 결론</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -192,195 +233,262 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="데이터-수집" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> 데이터 수집</h1>
-<p>데이터 분석을 위해 가장 먼저 해야 할 일은 분석의 대상이 될 데이터를 확보 하는 일 입니다.</p>
-<p>이전 글에서 말했다시피 이번 파트에서 진행할 것은 데이터 크롤링에 관한 전반적인 것들 입니다.</p>
-<p>프로듀스X101 관련 모든 커뮤니티의 글들을 수집하는것은 물리적으로 불가능에 가깝기 때문에 해당방송과 관련된 커뮤니티중 가장 규모가 큰 한곳을 선정하여 데이터 수집을 진행하였습니다.
-<br>
+<p> 데이터 분석을 위해 가장 먼저 진행한 것은 분석의 대상이 될 데이터를 확보 하는 일 입니다.</p>
+<p> 이번장에서 진행할 것은 데이터 수집에 관한 전반적인 것들 입니다.</p>
+<p> “프로듀스 X 101”은 당시 인기가 많은 프로그램이었기 때문에 다양한 웹 커뮤니티에서 방송에 대한 많은 의견들이 올라왔었습니다. 물론 이들 모두를 수집하여 분석하면 더욱 좋았겠지만 취미로 진행하였기에 커뮤니티 중 활발히 활성화가 되고 있던 한 곳을 선정하여 데이터 수집을 진행하였습니다.<br />
 <br></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="img_source/producex2/dc_producexgallery.png" alt="디시인사이드 프로듀스x101 갤러리" width="80%" />
-<p class="caption">
-Figure 2.1: 디시인사이드 프로듀스x101 갤러리
-</p>
+<img src="img_source/producex2/dc_producexgallery.jpg" width="80%" style="display: block; margin: auto;" />
+<center>
+<em>웹 커뮤니티에 올라오는 글</em>
+</center>
+<p><br></p>
+<p> 해당 커뮤니티는 방송이 인기를 끌었던 시점에는 하루에 대략 4만건의 게시물 까지 올라왔었는데요. 한참 방송이 진행중이던 06/01 부터 마지막 생방송날인 07/19 까지의 데이터를 수집하였었습니다.</p>
+<p> 웹 데이터 수집을 위한 여러 방법이 있지만 R 에서 웹페이지를 수집할 때 보편적으로 사용하는 <code>rvest</code> 패키지를 주로 활용하여 스크래핑을 진행하였습니다.<br />
+<br></p>
+<div class="infobox caution">
+<p><strong>주의사항!</strong></p>
+<p> 크롤링 혹은 스크래핑을 통한 데이터 수집을 진행할 경우에는 웹사이트 소유권자가 제공하는 <a href="https://ko.wikipedia.org/wiki/%EB%A1%9C%EB%B4%87_%EB%B0%B0%EC%A0%9C_%ED%91%9C%EC%A4%80"><strong>robot.txt</strong></a> 를 준수하며 진행해야 합니다. <br>
+ 비록 의무가 아닌 권고이지만 이를 무시하고 크롤링을 진행할 경우 윤리적 문제뿐만 아니라 심할 경우 <em>현행법 위반</em> 으로 법에 저촉되는 행위가 될 수 있습니다.</p>
 </div>
 <p><br></p>
-<p>해당 커뮤니티는 방송이 인기를 끌었던 시점에 하루에 대략 4만건의 게시물이 올라왔었는데요.
-한참 방송이 진행중이던 06/01 부터 마지막 생방송날인 07/19 까지의 데이터를 수집하였었습니다.
-<br></p>
-<p>웹 데이터 수집을 위한 여러 방법이 있지만 R 에서 웹페이지를 크롤링할때 보편적으로 사용하는 <code>rvest</code> 패키지를 활용하여 크롤링을 진행하였습니다.
-<br></p>
-<p>아래는 크롤링 코드 입니다.</p>
-<div id="code" class="section level2">
-<h2><span class="header-section-number">2.1</span> code</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># 저장 폴더 설정 </span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/JDW/Desktop/PROJECT/PRODUCEX/CRAWLING DATA&#39;</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw">library</span>(rvest)</a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="kw">library</span>(stringr)</a></code></pre></div>
-<p><br></p>
-<p>먼저 크롤링한 데이터를 저장할 폴더와 필요한 패키지들을 호출 합니다.</p>
-<p><br></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">basic_url &lt;-<span class="st"> &#39;https://gall.dcinside.com/board/lists/?id=producex&amp;page=&#39;</span></a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co"># 주소설정 ----</span></a>
-<a class="sourceLine" id="cb2-4" title="4"></a>
-<a class="sourceLine" id="cb2-5" title="5">urls &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">599</span>){</a>
-<a class="sourceLine" id="cb2-7" title="7">    urls[x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(basic_url, x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-8" title="8">}</a></code></pre></div>
-<p><br></p>
-<p>웹 데이터를 크롤링해 오는데엔 두가지 방식이 있습니다. 바로 GET 방식과 POST방식인데요. <br>
-GET 방식은 웹페이지의 URL주소를 기반으로 데이터를 가저오는 형식입니다. 즉, 특정한 웹페이지의 주소를 서버측에 요청하면 서버는 요청에 대한 응답으로 웹페이지 URL의 정보를 클라이언트(사용자)에게 보내주는 것입니다. 우리가 인터넷을 사용할때 주소창에 URL주소를 입력하고 엔터를 누를때 웹페이지가 변경되는 것을 생각하시면 됩니다.</p>
-<p>R에서는 이러한 동작의 수행을 위해서 <code>rvest</code> 패키지를 보편적으로 사용합니다.</p>
-<p><br></p>
-<p>웹페이지 주소를 기반으로 정보를 가져오기 때문에 정보를 가져올 웹페이지의 주소를 for문을 통해서 만들어 줍니다.</p>
-<p>해당 코드를 돌리면 다음과 같은 결과값이 나옵니다.</p>
+<p> 아래부터는 스크래핑 코드 입니다.</p>
+<div id="웹-스크래핑" class="section level2">
+<h2><span class="header-section-number">2.1</span> 웹 스크래핑</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="데이터-수집.html#cb2-1"></a><span class="co"># 저장 폴더 설정 ---- </span></span>
+<span id="cb2-2"><a href="데이터-수집.html#cb2-2"></a>dataFolder &lt;-<span class="st"> &#39;저장폴더경로&#39;</span></span>
+<span id="cb2-3"><a href="데이터-수집.html#cb2-3"></a><span class="kw">setwd</span>(dataFolder)</span>
+<span id="cb2-4"><a href="데이터-수집.html#cb2-4"></a></span>
+<span id="cb2-5"><a href="데이터-수집.html#cb2-5"></a><span class="co"># 사용 패키지 호출 ---- </span></span>
+<span id="cb2-6"><a href="데이터-수집.html#cb2-6"></a><span class="kw">library</span>(rvest)</span>
+<span id="cb2-7"><a href="데이터-수집.html#cb2-7"></a><span class="kw">library</span>(httr)</span>
+<span id="cb2-8"><a href="데이터-수집.html#cb2-8"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb2-9"><a href="데이터-수집.html#cb2-9"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb2-10"><a href="데이터-수집.html#cb2-10"></a><span class="kw">library</span>(stringr)</span></code></pre></div>
+<p> 먼저 스크래핑한 데이터를 저장할 폴더와 필요한 패키지들을 호출합니다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="데이터-수집.html#cb3-1"></a><span class="co"># 주소설정 ----</span></span>
+<span id="cb3-2"><a href="데이터-수집.html#cb3-2"></a>basic_url &lt;-<span class="st"> &#39;https://gall.dcinside.com/board/lists/?id=producex&amp;page=&#39;</span></span>
+<span id="cb3-3"><a href="데이터-수집.html#cb3-3"></a>urls &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb3-4"><a href="데이터-수집.html#cb3-4"></a><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">999</span>){</span>
+<span id="cb3-5"><a href="데이터-수집.html#cb3-5"></a>    urls[x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(basic_url, x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb3-6"><a href="데이터-수집.html#cb3-6"></a>}</span></code></pre></div>
+<p> 웹페이지의 주소를 기반으로 스크래핑을 진행하기 때문에 정보를 가져올 웹페이지의 주소를 for문을 통해서 만들어 줍니다.</p>
+<p> 해당 코드를 돌리면 다음과 같은 결과값이 나옵니다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="데이터-수집.html#cb4-1"></a><span class="kw">head</span>(urls);<span class="kw">tail</span>(urls)</span></code></pre></div>
 <pre><code>## [1] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=1&quot;
 ## [2] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=2&quot;
 ## [3] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=3&quot;
 ## [4] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=4&quot;
 ## [5] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=5&quot;
 ## [6] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=6&quot;</code></pre>
-<pre><code>## [1] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=595&quot;
-## [2] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=596&quot;
-## [3] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=597&quot;
-## [4] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=598&quot;
-## [5] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=599&quot;
-## [6] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=600&quot;</code></pre>
-<p><br></p>
-<p>for문을 통해 1페이지부터 600페이지까지 총 600개의 웹페이지 주소가 생성되었네요.</p>
-<p>만들어진 주소들을 기반으로 크롤링을 진행합니다. 먼저 크롤링 정보를 담을 빈객체들을 생성합니다.</p>
-<p><br></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># 크롤링 ----</span></a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">html1 &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-4" title="4">p_title &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-5" title="5">p_writer &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-6" title="6">p_writer_id &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-7" title="7">p_time &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-8" title="8">p_count &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-9" title="9">p_recommend &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-10" title="10">dc &lt;-<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
-<p><br></p>
-<p>본격적으로 for문을 통해 데이터를 페이지순으로 순차적으로 가져옵니다.</p>
-<p><br></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="cf">for</span>(url <span class="cf">in</span> urls){</a>
-<a class="sourceLine" id="cb6-2" title="2">            html1 &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</a>
-<a class="sourceLine" id="cb6-3" title="3">            p_title &lt;-<span class="st"> </span><span class="kw">c</span>(p_title, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">                             </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="st">                             </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="st">                             </span><span class="kw">html_node</span>(<span class="st">&#39;a&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="st">                             </span><span class="kw">html_text</span>())</a>
-<a class="sourceLine" id="cb6-8" title="8">            p_writer &lt;-<span class="st"> </span><span class="kw">c</span>(p_writer, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-9" title="9"><span class="st">                              </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-10" title="10"><span class="st">                              </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_writer.ub-writer&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="st">                              </span><span class="kw">html_attr</span>(<span class="st">&#39;data-nick&#39;</span>))</a>
-<a class="sourceLine" id="cb6-12" title="12">            p_writer_id &lt;-<span class="st"> </span><span class="kw">c</span>(p_writer_id, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-13" title="13"><span class="st">                                 </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-14" title="14"><span class="st">                                 </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_writer.ub-writer&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-15" title="15"><span class="st">                                 </span><span class="kw">html_attr</span>(<span class="st">&#39;data-uid&#39;</span>))</a>
-<a class="sourceLine" id="cb6-16" title="16">            p_time &lt;-<span class="st"> </span><span class="kw">c</span>(p_time, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-17" title="17"><span class="st">                            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-18" title="18"><span class="st">                            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_date&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-19" title="19"><span class="st">                            </span><span class="kw">html_attr</span>(<span class="st">&#39;title&#39;</span>))</a>
-<a class="sourceLine" id="cb6-20" title="20">            p_count &lt;-<span class="st"> </span><span class="kw">c</span>(p_count, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-21" title="21"><span class="st">                             </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-22" title="22"><span class="st">                             </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_count&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-23" title="23"><span class="st">                             </span><span class="kw">html_text</span>())</a>
-<a class="sourceLine" id="cb6-24" title="24">            p_recommend &lt;-<span class="st"> </span><span class="kw">c</span>(p_recommend, html1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-25" title="25"><span class="st">                                 </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-26" title="26"><span class="st">                                 </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_recommend&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-27" title="27"><span class="st">                                 </span><span class="kw">html_text</span>())</a>
-<a class="sourceLine" id="cb6-28" title="28"></a>
-<a class="sourceLine" id="cb6-29" title="29">}</a></code></pre></div>
-<p><br></p>
-<p>해당 for문을 돌릴시 R은 맨 처음 만들었던 주소들 즉, urls 객체에 담긴 주소값을 받아서 서버에게 순차적으로 주소에 대한 정보를 요청하게 됩니다. 그리고 for문 내부에 있는 코드를 수행하는데요, 각각의 객체에 해당하는 값들을(p_title, p_time 등등..) 파싱합니다. 모든 코드를 수행하면 for문은 다음 주소를 요청하여 처음 코드부터 다시 파싱을 진행하게 됩니다.</p>
-<p><br></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># 데이터 프레임화 </span></a>
-<a class="sourceLine" id="cb7-2" title="2">dc &lt;-<span class="st"> </span><span class="kw">data.frame</span>(p_title, p_writer, p_writer_id, p_time, p_count, p_recommend)</a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co"># 날짜조정 ----</span></a>
-<a class="sourceLine" id="cb7-5" title="5">dc<span class="op">$</span>p_time &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(dc<span class="op">$</span>p_time)</a>
-<a class="sourceLine" id="cb7-6" title="6">dc &lt;-<span class="st"> </span>dc[<span class="kw">day</span>(dc<span class="op">$</span>p_time) <span class="op">==</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), ]</a></code></pre></div>
-<p><br></p>
-<p>for문을 통해 수집한 각각의 객체 데이터들을 ‘dc’ 라는 이름의 데이터프레임에 담아줍니다. 시간을 다루는 <code>lubridate</code> 패키지의 <code>ymd_hms()</code>함수를 이용하여 글 작성 시간을 의미하는 <code>p_time</code> 데이터를 시간 데이터로 변경해 줍니다.</p>
-<p>저는 이 코드를 <code>taskscheduleR</code> 패키지를 활용하여 매일 자정무렵 자동으로 돌아가게끔 설정 하였었는데요, 데이터를 매일 수집하는 것이다 보니 오직 전날에 작성된 글들만을 저장하기 위해서 <code>dc &lt;- dc[day(dc$p_time) == day(today()-1), ]</code> 필터링 코드를 만들었습니다. 코드를 짧막하게 설명하자면 글 작성 시간을 의미하는 <code>dc$p_time</code> 이 수집하는 날 바로 하루 전 <code>today() - 1</code> 의 값과 동일한 값만을 dc객체로 새로이 담아낸 것입니다.</p>
+<pre><code>## [1] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=995&quot; 
+## [2] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=996&quot; 
+## [3] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=997&quot; 
+## [4] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=998&quot; 
+## [5] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=999&quot; 
+## [6] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=1000&quot;</code></pre>
+<p> for문을 통해 1페이지부터 1000페이지까지 총 1000개의 웹페이지 주소가 생성되었네요.</p>
+<p> 만들어진 주소들을 기반으로 스크래핑을 진행합니다. 먼저 스크래핑 정보를 담을 빈객체들을 생성합니다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="데이터-수집.html#cb7-1"></a><span class="co"># 빈 객체 생성 ----</span></span>
+<span id="cb7-2"><a href="데이터-수집.html#cb7-2"></a>gallMain      &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-3"><a href="데이터-수집.html#cb7-3"></a>p_title       &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-4"><a href="데이터-수집.html#cb7-4"></a>p_comment_num &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-5"><a href="데이터-수집.html#cb7-5"></a>p_time        &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-6"><a href="데이터-수집.html#cb7-6"></a>p_count       &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-7"><a href="데이터-수집.html#cb7-7"></a>p_recommend   &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb7-8"><a href="데이터-수집.html#cb7-8"></a>dc            &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
+<p> 본격적으로 for문을 통해 데이터를 페이지순으로 순차적으로 가져옵니다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="데이터-수집.html#cb8-1"></a><span class="co"># 스크래핑 ---- </span></span>
+<span id="cb8-2"><a href="데이터-수집.html#cb8-2"></a><span class="cf">for</span>(url <span class="cf">in</span> urls){</span>
+<span id="cb8-3"><a href="데이터-수집.html#cb8-3"></a>    </span>
+<span id="cb8-4"><a href="데이터-수집.html#cb8-4"></a>    gallMain &lt;-<span class="st"> </span><span class="kw">GET</span>(url, <span class="kw">timeout</span>(<span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">read_html</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>)</span>
+<span id="cb8-5"><a href="데이터-수집.html#cb8-5"></a></span>
+<span id="cb8-6"><a href="데이터-수집.html#cb8-6"></a>    p_title &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb8-7"><a href="데이터-수집.html#cb8-7"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
+<span id="cb8-8"><a href="데이터-수집.html#cb8-8"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-9"><a href="데이터-수집.html#cb8-9"></a><span class="st">            </span><span class="kw">html_node</span>(<span class="st">&#39;a&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-10"><a href="데이터-수집.html#cb8-10"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
+<span id="cb8-11"><a href="데이터-수집.html#cb8-11"></a>    })</span>
+<span id="cb8-12"><a href="데이터-수집.html#cb8-12"></a>    p_comment_num &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb8-13"><a href="데이터-수집.html#cb8-13"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
+<span id="cb8-14"><a href="데이터-수집.html#cb8-14"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-15"><a href="데이터-수집.html#cb8-15"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.reply_numbox&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-16"><a href="데이터-수집.html#cb8-16"></a><span class="st">            </span><span class="kw">html_text</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_replace_all</span>(., <span class="st">&#39;[[:punct:]]&#39;</span>, <span class="st">&#39;&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(., <span class="dt">collapse =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb8-17"><a href="데이터-수집.html#cb8-17"></a>    })</span>
+<span id="cb8-18"><a href="데이터-수집.html#cb8-18"></a>    p_time &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb8-19"><a href="데이터-수집.html#cb8-19"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
+<span id="cb8-20"><a href="데이터-수집.html#cb8-20"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_date&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-21"><a href="데이터-수집.html#cb8-21"></a><span class="st">            </span><span class="kw">html_attr</span>(<span class="st">&#39;title&#39;</span>)</span>
+<span id="cb8-22"><a href="데이터-수집.html#cb8-22"></a>    })</span>
+<span id="cb8-23"><a href="데이터-수집.html#cb8-23"></a>    p_count &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb8-24"><a href="데이터-수집.html#cb8-24"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
+<span id="cb8-25"><a href="데이터-수집.html#cb8-25"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_count&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-26"><a href="데이터-수집.html#cb8-26"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
+<span id="cb8-27"><a href="데이터-수집.html#cb8-27"></a>    })</span>
+<span id="cb8-28"><a href="데이터-수집.html#cb8-28"></a>    p_recommend &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb8-29"><a href="데이터-수집.html#cb8-29"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
+<span id="cb8-30"><a href="데이터-수집.html#cb8-30"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_recommend&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-31"><a href="데이터-수집.html#cb8-31"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
+<span id="cb8-32"><a href="데이터-수집.html#cb8-32"></a>    })</span>
+<span id="cb8-33"><a href="데이터-수집.html#cb8-33"></a></span>
+<span id="cb8-34"><a href="데이터-수집.html#cb8-34"></a>}</span></code></pre></div>
+<p> for문을 돌릴 시 맨 처음 만들었던 주소들 즉, <code>urls</code> 객체에 담긴 주소값을 받아서 서버에게 순차적으로 주소에 대한 정보를 요청하게 됩니다. 그렇게 응답받은 정보를 바탕으로 for문 내부에 있는 파싱코드를 수행하는게 되는데요. 각각의 객체에 해당하는 값들을(<code>p_title</code>, <code>p_time</code>…) 파싱합니다. for문 내 모든 과정을 수행하면 for문은 다음 주소를 요청하여 처음부터 다시 파싱을 진행하게 됩니다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="데이터-수집.html#cb9-1"></a><span class="co"># 데이터 프레임화 ----  </span></span>
+<span id="cb9-2"><a href="데이터-수집.html#cb9-2"></a>dc &lt;-<span class="st"> </span><span class="kw">data.frame</span>(p_title, p_comment_num, p_time, p_count, p_recommend)</span>
+<span id="cb9-3"><a href="데이터-수집.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="데이터-수집.html#cb9-4"></a><span class="co"># 날짜조정 ----</span></span>
+<span id="cb9-5"><a href="데이터-수집.html#cb9-5"></a>dc<span class="op">$</span>p_time &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(dc<span class="op">$</span>p_time)</span>
+<span id="cb9-6"><a href="데이터-수집.html#cb9-6"></a>dc &lt;-<span class="st"> </span>dc[<span class="kw">day</span>(dc<span class="op">$</span>p_time) <span class="op">==</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), ]</span></code></pre></div>
+<p> for문을 통해 수집한 각각의 객체 데이터들을 <code>dc</code> 라는 이름의 데이터프레임에 담아주었습니다. 시간을 다루는 <code>lubridate</code> 패키지의 <code>ymd_hms()</code>함수를 이용하여 글 작성 시간을 의미하는 <code>p_time</code> 데이터를 시간 데이터로 변경해 줍니다.</p>
+<p> 코드는 <code>taskscheduleR</code> 패키지를 활용하여 매일 자정 무렵 자동으로 돌아가게끔 설정 했었는데요. 데이터를 매일 수집하는 것이다 보니 오직 전날에 작성된 글들만을 저장하기 위해서 <code>dc &lt;- dc[day(dc$p_time) == day(today()-1), ]</code> 필터링 코드를 만들었습니다. 코드를 짧막하게 설명하자면 글 작성 시간을 의미하는 <code>dc$p_time</code> 이 수집하는 날 바로 하루 전 <code>today() - 1</code> 의 값과 동일한 값만을 dc객체로 새로이 담아낸 것입니다.</p>
 <table>
 <thead>
-<tr class="header">
-<th align="right">V1</th>
-<th align="left">p_title</th>
-<th align="left">p_writer</th>
-<th align="left">p_writer_id</th>
-<th align="left">p_time</th>
-<th align="right">p_count</th>
-<th align="right">p_recommend</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+p_title
+</th>
+<th style="text-align:left;">
+p_comment_num
+</th>
+<th style="text-align:left;">
+p_time
+</th>
+<th style="text-align:left;">
+p_count
+</th>
+<th style="text-align:left;">
+p_recommend
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">42448</td>
-<td align="left">???</td>
-<td align="left">ㅇㅇ</td>
-<td align="left"></td>
-<td align="left">2019-06-01 00:00:02</td>
-<td align="right">5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+41684
+</td>
+<td style="text-align:left;">
+???
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:02
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="right">42449</td>
-<td align="left">시즌4 비센이 잇긴 하냐</td>
-<td align="left">ㅇㅇ</td>
-<td align="left"></td>
-<td align="left">2019-06-01 00:00:01</td>
-<td align="right">11</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+41685
+</td>
+<td style="text-align:left;">
+시즌4 비센이 잇긴 하냐
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:01
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="right">42450</td>
-<td align="left">아아아아앙 민희야어아아아앙</td>
-<td align="left">ㅇㅇ</td>
-<td align="left"></td>
-<td align="left">2019-06-01 00:00:01</td>
-<td align="right">4</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+41686
+</td>
+<td style="text-align:left;">
+아아아아앙 민희야어아아아앙
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:01
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="right">42451</td>
-<td align="left">아악 유리옵ㅠㅠㅠㅠㅠㅠ</td>
-<td align="left">유리는유리다</td>
-<td align="left">yuri1228</td>
-<td align="left">2019-06-01 00:00:00</td>
-<td align="right">40</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+41687
+</td>
+<td style="text-align:left;">
+아악 유리옵ㅠㅠㅠㅠㅠㅠ
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:00
+</td>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="right">42452</td>
-<td align="left">김민규 그와중에 또 핑크입은거 실화냐</td>
-<td align="left">ㅇㅇ</td>
-<td align="left">adkljf</td>
-<td align="left">2019-06-01 00:00:00</td>
-<td align="right">36</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+41688
+</td>
+<td style="text-align:left;">
+김민규 그와중에 또 핑크입은거 실화냐
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:00
+</td>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:left;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="right">42453</td>
-<td align="left">진짜 한남들 자적자 어뜩하냐</td>
-<td align="left">ㅇㅇ</td>
-<td align="left"></td>
-<td align="left">2019-06-01 00:00:00</td>
-<td align="right">27</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+41689
+</td>
+<td style="text-align:left;">
+진짜 한남들 자적자 어뜩하냐
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2019-06-01 00:00:00
+</td>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
+<center>
+<em>스크래핑을 마친 데이터의 구조</em>
+</center>
 <p><br></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># 파일저장 ----</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">write.csv</span>(dc, <span class="kw">paste0</span>(<span class="kw">ymd</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), <span class="st">&quot;.csv&quot;</span>))</a></code></pre></div>
-<p><br></p>
-<p>마지막으로 필터링까지 완료된 데이터를 csv파일로 저장합니다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="데이터-수집.html#cb10-1"></a><span class="co"># 파일저장 ----</span></span>
+<span id="cb10-2"><a href="데이터-수집.html#cb10-2"></a><span class="kw">write.csv</span>(dc, <span class="kw">paste0</span>(<span class="kw">ymd</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<p> 마지막으로 필터링까지 완료된 데이터를 <code>rds</code>파일로 저장합니다.</p>
 
 </div>
 </div>
@@ -389,7 +497,7 @@ GET 방식은 웹페이지의 URL주소를 기반으로 데이터를 가저오�
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prologue.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="데이터-전처리.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
