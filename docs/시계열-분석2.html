@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 시계열 분석2 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 시계열 분석2 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
   
 <link rel="prev" href="시계열-분석1.html"/>
 
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,21 +51,16 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.17/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NYSBNPQH3H"></script>
 <script>
@@ -77,18 +73,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -108,7 +104,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -159,38 +155,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
 <li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
-<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
 <li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
 <li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
 <li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
-<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="언급량-도출.html"><a href="언급량-도출.html#데이터-시각화-1"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
 <li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
-<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
 <li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
 <li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
 <li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
 <li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
-<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
 <li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
 <li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
@@ -199,22 +204,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a><ul>
+<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
-<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델링-1"><i class="fa fa-check"></i><b>8.2</b> 모델링</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
 <li class="chapter" data-level="8.2.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
 <li class="chapter" data-level="8.2.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
-<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
 <li class="chapter" data-level="8.4.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
 <li class="chapter" data-level="8.4.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
 <li class="chapter" data-level="8.4.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a><ul>
+<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="시계열-분석2.html"><a href="시계열-분석2.html#연습생별-모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 연습생별 모델링 함수 생성</a></li>
 <li class="chapter" data-level="9.2" data-path="시계열-분석2.html"><a href="시계열-분석2.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
 <li class="chapter" data-level="9.3" data-path="시계열-분석2.html"><a href="시계열-분석2.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
@@ -240,111 +249,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-분석2" class="section level1">
+<div id="시계열-분석2" class="section level1" number="9">
 <h1><span class="header-section-number">Chapter 9</span> 시계열 분석2</h1>
 <p> 지금까지 연습생들의 언급량을 총 합산한 데이터를 토대로 시계열 예측 과정을 진행하였습니다. 이 과정을 개별 연습생에 대한 언급량 데이터에 적용하여 각각의 연습생들에 적법한 모델을 찾고 그 모델을 토대로 바로 다음 시점의 언급량을 추정, 이를 대조하여 언습생들의 인기를 추측해 보겠습니다.</p>
-<div id="연습생별-모델링-함수-생성" class="section level2">
+<div id="연습생별-모델링-함수-생성" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> 연습생별 모델링 함수 생성</h2>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="시계열-분석2.html#cb123-1"></a><span class="co"># 연습생별 최적 성능 모델 생성 함수 </span></span>
-<span id="cb123-2"><a href="시계열-분석2.html#cb123-2"></a>boy_model &lt;-<span class="st"> </span><span class="cf">function</span>(total, final_boy){</span>
-<span id="cb123-3"><a href="시계열-분석2.html#cb123-3"></a>    <span class="co"># 연습생 언급량 필터링 &amp; ts 객체 변환 </span></span>
-<span id="cb123-4"><a href="시계열-분석2.html#cb123-4"></a>    boy_ts &lt;-<span class="st"> </span>total <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb123-5"><a href="시계열-분석2.html#cb123-5"></a><span class="st">        </span><span class="kw">filter</span>(boy <span class="op">==</span><span class="st"> </span>final_boy) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb123-6"><a href="시계열-분석2.html#cb123-6"></a><span class="st">        </span><span class="kw">ts</span>(<span class="dt">frequency =</span> <span class="dv">7</span>)</span>
-<span id="cb123-7"><a href="시계열-분석2.html#cb123-7"></a>    </span>
-<span id="cb123-8"><a href="시계열-분석2.html#cb123-8"></a>    <span class="co"># 시계열 교차검증용 모델 지정 </span></span>
-<span id="cb123-9"><a href="시계열-분석2.html#cb123-9"></a>    forecast_arima &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
-<span id="cb123-10"><a href="시계열-분석2.html#cb123-10"></a>        <span class="kw">auto.arima</span>(x, <span class="dt">stepwise =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
-<span id="cb123-11"><a href="시계열-분석2.html#cb123-11"></a>    }</span>
-<span id="cb123-12"><a href="시계열-분석2.html#cb123-12"></a>    forecast_tslm &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
-<span id="cb123-13"><a href="시계열-분석2.html#cb123-13"></a>        <span class="kw">tslm</span>(x <span class="op">~</span><span class="st"> </span>trend <span class="op">+</span><span class="st"> </span>season, <span class="dt">data =</span> x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
-<span id="cb123-14"><a href="시계열-분석2.html#cb123-14"></a>    }</span>
-<span id="cb123-15"><a href="시계열-분석2.html#cb123-15"></a>    forecast_ets &lt;-<span class="st"> </span><span class="cf">function</span>(x, h){</span>
-<span id="cb123-16"><a href="시계열-분석2.html#cb123-16"></a>        <span class="kw">ets</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> h)</span>
-<span id="cb123-17"><a href="시계열-분석2.html#cb123-17"></a>    }</span>
-<span id="cb123-18"><a href="시계열-분석2.html#cb123-18"></a>    </span>
-<span id="cb123-19"><a href="시계열-분석2.html#cb123-19"></a>    <span class="co"># 모델 평가 매트릭 함수 지정(RMSE)</span></span>
-<span id="cb123-20"><a href="시계열-분석2.html#cb123-20"></a>    RMSE &lt;-<span class="st"> </span><span class="cf">function</span>(y){</span>
-<span id="cb123-21"><a href="시계열-분석2.html#cb123-21"></a>        <span class="kw">mean</span>(y<span class="op">^</span><span class="dv">2</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)<span class="op">^</span><span class="fl">0.5</span></span>
-<span id="cb123-22"><a href="시계열-분석2.html#cb123-22"></a>    }</span>
-<span id="cb123-23"><a href="시계열-분석2.html#cb123-23"></a>    </span>
-<span id="cb123-24"><a href="시계열-분석2.html#cb123-24"></a>    <span class="co"># 시계열 교차검증 </span></span>
-<span id="cb123-25"><a href="시계열-분석2.html#cb123-25"></a>    tslm_cv_residual  &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_tslm, <span class="dt">h =</span> <span class="dv">1</span>)</span>
-<span id="cb123-26"><a href="시계열-분석2.html#cb123-26"></a>    ets_cv_residual   &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_ets, <span class="dt">h =</span> <span class="dv">1</span>)</span>
-<span id="cb123-27"><a href="시계열-분석2.html#cb123-27"></a>    arima_cv_residual &lt;-<span class="st"> </span><span class="kw">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_arima, <span class="dt">h =</span> <span class="dv">1</span>)</span>
-<span id="cb123-28"><a href="시계열-분석2.html#cb123-28"></a>    </span>
-<span id="cb123-29"><a href="시계열-분석2.html#cb123-29"></a>    <span class="co"># 최적 성능순 모델 이름 추출   </span></span>
-<span id="cb123-30"><a href="시계열-분석2.html#cb123-30"></a>    models &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&#39;tslm&#39;</span>, <span class="st">&#39;ets&#39;</span>, <span class="st">&#39;arima&#39;</span>), </span>
-<span id="cb123-31"><a href="시계열-분석2.html#cb123-31"></a>                         <span class="dt">score =</span> <span class="kw">c</span>(<span class="kw">RMSE</span>(tslm_cv_residual), <span class="kw">RMSE</span>(ets_cv_residual), <span class="kw">RMSE</span>(arima_cv_residual))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb123-32"><a href="시계열-분석2.html#cb123-32"></a><span class="st">        </span><span class="kw">arrange</span>(score) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb123-33"><a href="시계열-분석2.html#cb123-33"></a><span class="st">        </span>.<span class="op">$</span>model</span>
-<span id="cb123-34"><a href="시계열-분석2.html#cb123-34"></a>    </span>
-<span id="cb123-35"><a href="시계열-분석2.html#cb123-35"></a>    <span class="co"># 모델 적용 함수 </span></span>
-<span id="cb123-36"><a href="시계열-분석2.html#cb123-36"></a>    select_model &lt;-<span class="st"> </span><span class="cf">function</span>(type){</span>
-<span id="cb123-37"><a href="시계열-분석2.html#cb123-37"></a>        </span>
-<span id="cb123-38"><a href="시계열-분석2.html#cb123-38"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;tslm&#39;</span>){</span>
-<span id="cb123-39"><a href="시계열-분석2.html#cb123-39"></a>            final_model &lt;-<span class="st"> </span><span class="kw">tslm</span>(sum_mention <span class="op">~</span><span class="st"> </span>trend <span class="op">+</span><span class="st"> </span>season, <span class="dt">data =</span> boy_ts)</span>
-<span id="cb123-40"><a href="시계열-분석2.html#cb123-40"></a>        }</span>
-<span id="cb123-41"><a href="시계열-분석2.html#cb123-41"></a>        </span>
-<span id="cb123-42"><a href="시계열-분석2.html#cb123-42"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;ets&#39;</span>){</span>
-<span id="cb123-43"><a href="시계열-분석2.html#cb123-43"></a>            final_model &lt;-<span class="st"> </span><span class="kw">ets</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>]) </span>
-<span id="cb123-44"><a href="시계열-분석2.html#cb123-44"></a>        }</span>
-<span id="cb123-45"><a href="시계열-분석2.html#cb123-45"></a>        </span>
-<span id="cb123-46"><a href="시계열-분석2.html#cb123-46"></a>        <span class="cf">if</span>(type <span class="op">==</span><span class="st"> &#39;arima&#39;</span>){</span>
-<span id="cb123-47"><a href="시계열-분석2.html#cb123-47"></a>            final_model &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], <span class="dt">stepwise =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb123-48"><a href="시계열-분석2.html#cb123-48"></a>        }</span>
-<span id="cb123-49"><a href="시계열-분석2.html#cb123-49"></a>        </span>
-<span id="cb123-50"><a href="시계열-분석2.html#cb123-50"></a>        <span class="kw">return</span>(final_model)</span>
-<span id="cb123-51"><a href="시계열-분석2.html#cb123-51"></a>    }</span>
-<span id="cb123-52"><a href="시계열-분석2.html#cb123-52"></a>    </span>
-<span id="cb123-53"><a href="시계열-분석2.html#cb123-53"></a>    <span class="co"># 최적 모델 적용 </span></span>
-<span id="cb123-54"><a href="시계열-분석2.html#cb123-54"></a>    <span class="cf">for</span>(model <span class="cf">in</span> models){</span>
-<span id="cb123-55"><a href="시계열-분석2.html#cb123-55"></a>        <span class="co"># print(model)</span></span>
-<span id="cb123-56"><a href="시계열-분석2.html#cb123-56"></a>        final_model &lt;-<span class="st"> </span><span class="kw">select_model</span>(<span class="dt">type =</span> model)</span>
-<span id="cb123-57"><a href="시계열-분석2.html#cb123-57"></a>        </span>
-<span id="cb123-58"><a href="시계열-분석2.html#cb123-58"></a>        <span class="co"># 잔차검정 </span></span>
-<span id="cb123-59"><a href="시계열-분석2.html#cb123-59"></a>        <span class="cf">if</span>(<span class="kw">checkresiduals</span>(final_model, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>p.value <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.05</span>){</span>
-<span id="cb123-60"><a href="시계열-분석2.html#cb123-60"></a>            <span class="co"># 테스트 통과시 for문 종료</span></span>
-<span id="cb123-61"><a href="시계열-분석2.html#cb123-61"></a>            <span class="cf">break</span></span>
-<span id="cb123-62"><a href="시계열-분석2.html#cb123-62"></a>        }</span>
-<span id="cb123-63"><a href="시계열-분석2.html#cb123-63"></a>    }</span>
-<span id="cb123-64"><a href="시계열-분석2.html#cb123-64"></a>    </span>
-<span id="cb123-65"><a href="시계열-분석2.html#cb123-65"></a>    <span class="co"># 모든 모델이 잔차검정 통과 못할 시 </span></span>
-<span id="cb123-66"><a href="시계열-분석2.html#cb123-66"></a>    <span class="co"># 차선책으로 가장 좋은 성능을 내는 첫번째 모델 선택</span></span>
-<span id="cb123-67"><a href="시계열-분석2.html#cb123-67"></a>    <span class="cf">if</span>(<span class="kw">checkresiduals</span>(final_model, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>p.value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">&amp;&amp;</span><span class="st"> </span>model <span class="op">==</span><span class="st"> </span>models[<span class="dv">3</span>]){</span>
-<span id="cb123-68"><a href="시계열-분석2.html#cb123-68"></a>        </span>
-<span id="cb123-69"><a href="시계열-분석2.html#cb123-69"></a>        model &lt;-<span class="st"> </span>models[<span class="dv">1</span>]</span>
-<span id="cb123-70"><a href="시계열-분석2.html#cb123-70"></a>        </span>
-<span id="cb123-71"><a href="시계열-분석2.html#cb123-71"></a>        final_model &lt;-<span class="st"> </span><span class="kw">select_model</span>(<span class="dt">type =</span> model)</span>
-<span id="cb123-72"><a href="시계열-분석2.html#cb123-72"></a>    }</span>
-<span id="cb123-73"><a href="시계열-분석2.html#cb123-73"></a>    </span>
-<span id="cb123-74"><a href="시계열-분석2.html#cb123-74"></a>    <span class="co"># 최적 모델, 사용된 모델명 반환 </span></span>
-<span id="cb123-75"><a href="시계열-분석2.html#cb123-75"></a>    boy_model &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb123-76"><a href="시계열-분석2.html#cb123-76"></a>        <span class="dt">model     =</span> final_model, </span>
-<span id="cb123-77"><a href="시계열-분석2.html#cb123-77"></a>        <span class="dt">use_model =</span> model</span>
-<span id="cb123-78"><a href="시계열-분석2.html#cb123-78"></a>    )</span>
-<span id="cb123-79"><a href="시계열-분석2.html#cb123-79"></a>    </span>
-<span id="cb123-80"><a href="시계열-분석2.html#cb123-80"></a>    <span class="kw">return</span>(boy_model)</span>
-<span id="cb123-81"><a href="시계열-분석2.html#cb123-81"></a>}</span>
-<span id="cb123-82"><a href="시계열-분석2.html#cb123-82"></a></span>
-<span id="cb123-83"><a href="시계열-분석2.html#cb123-83"></a>final &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb123-84"><a href="시계열-분석2.html#cb123-84"></a>final_boy &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb123-85"><a href="시계열-분석2.html#cb123-85"></a><span class="cf">for</span>(final_boy <span class="cf">in</span> boylist){</span>
-<span id="cb123-86"><a href="시계열-분석2.html#cb123-86"></a>    <span class="kw">print</span>(final_boy)</span>
-<span id="cb123-87"><a href="시계열-분석2.html#cb123-87"></a>    final[[final_boy]] &lt;-<span class="st"> </span><span class="kw">boy_model</span>(total, final_boy)</span>
-<span id="cb123-88"><a href="시계열-분석2.html#cb123-88"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="시계열-분석2.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 연습생별 최적 성능 모델 생성 함수  </span></span>
+<span id="cb36-2"><a href="시계열-분석2.html#cb36-2" aria-hidden="true" tabindex="-1"></a>boy_model <span class="ot">&lt;-</span> <span class="cf">function</span>(total, final_boy){ </span>
+<span id="cb36-3"><a href="시계열-분석2.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 연습생 언급량 필터링 &amp; ts 객체 변환 </span></span>
+<span id="cb36-4"><a href="시계열-분석2.html#cb36-4" aria-hidden="true" tabindex="-1"></a>    boy_ts <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="시계열-분석2.html#cb36-5" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">filter</span>(boy <span class="sc">==</span> final_boy) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="시계열-분석2.html#cb36-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ts</span>(<span class="at">frequency =</span> <span class="dv">7</span>)</span>
+<span id="cb36-7"><a href="시계열-분석2.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-8"><a href="시계열-분석2.html#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 시계열 교차검증용 모델 지정 </span></span>
+<span id="cb36-9"><a href="시계열-분석2.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    forecast_arima <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb36-10"><a href="시계열-분석2.html#cb36-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">auto.arima</span>(x, <span class="at">stepwise =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb36-11"><a href="시계열-분석2.html#cb36-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-12"><a href="시계열-분석2.html#cb36-12" aria-hidden="true" tabindex="-1"></a>    forecast_tslm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb36-13"><a href="시계열-분석2.html#cb36-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tslm</span>(x <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb36-14"><a href="시계열-분석2.html#cb36-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-15"><a href="시계열-분석2.html#cb36-15" aria-hidden="true" tabindex="-1"></a>    forecast_ets <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb36-16"><a href="시계열-분석2.html#cb36-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ets</span>(x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb36-17"><a href="시계열-분석2.html#cb36-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-18"><a href="시계열-분석2.html#cb36-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-19"><a href="시계열-분석2.html#cb36-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모델 평가 매트릭 함수 지정(RMSE)</span></span>
+<span id="cb36-20"><a href="시계열-분석2.html#cb36-20" aria-hidden="true" tabindex="-1"></a>    RMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb36-21"><a href="시계열-분석2.html#cb36-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(y<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">^</span><span class="fl">0.5</span></span>
+<span id="cb36-22"><a href="시계열-분석2.html#cb36-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-23"><a href="시계열-분석2.html#cb36-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-24"><a href="시계열-분석2.html#cb36-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 시계열 교차검증 </span></span>
+<span id="cb36-25"><a href="시계열-분석2.html#cb36-25" aria-hidden="true" tabindex="-1"></a>    tslm_cv_residual  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_tslm, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-26"><a href="시계열-분석2.html#cb36-26" aria-hidden="true" tabindex="-1"></a>    ets_cv_residual   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_ets, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-27"><a href="시계열-분석2.html#cb36-27" aria-hidden="true" tabindex="-1"></a>    arima_cv_residual <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], forecast_arima, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb36-28"><a href="시계열-분석2.html#cb36-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-29"><a href="시계열-분석2.html#cb36-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 최적 성능순 모델 이름 추출   </span></span>
+<span id="cb36-30"><a href="시계열-분석2.html#cb36-30" aria-hidden="true" tabindex="-1"></a>    models <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">model =</span> <span class="fu">c</span>(<span class="st">&#39;tslm&#39;</span>, <span class="st">&#39;ets&#39;</span>, <span class="st">&#39;arima&#39;</span>), </span>
+<span id="cb36-31"><a href="시계열-분석2.html#cb36-31" aria-hidden="true" tabindex="-1"></a>                         <span class="at">score =</span> <span class="fu">c</span>(<span class="fu">RMSE</span>(tslm_cv_residual), <span class="fu">RMSE</span>(ets_cv_residual), <span class="fu">RMSE</span>(arima_cv_residual))) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-32"><a href="시계열-분석2.html#cb36-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">arrange</span>(score) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-33"><a href="시계열-분석2.html#cb36-33" aria-hidden="true" tabindex="-1"></a>        .<span class="sc">$</span>model</span>
+<span id="cb36-34"><a href="시계열-분석2.html#cb36-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-35"><a href="시계열-분석2.html#cb36-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모델 적용 함수 </span></span>
+<span id="cb36-36"><a href="시계열-분석2.html#cb36-36" aria-hidden="true" tabindex="-1"></a>    select_model <span class="ot">&lt;-</span> <span class="cf">function</span>(type){</span>
+<span id="cb36-37"><a href="시계열-분석2.html#cb36-37" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-38"><a href="시계열-분석2.html#cb36-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(type <span class="sc">==</span> <span class="st">&#39;tslm&#39;</span>){</span>
+<span id="cb36-39"><a href="시계열-분석2.html#cb36-39" aria-hidden="true" tabindex="-1"></a>            final_model <span class="ot">&lt;-</span> <span class="fu">tslm</span>(sum_mention <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> boy_ts)</span>
+<span id="cb36-40"><a href="시계열-분석2.html#cb36-40" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb36-41"><a href="시계열-분석2.html#cb36-41" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-42"><a href="시계열-분석2.html#cb36-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(type <span class="sc">==</span> <span class="st">&#39;ets&#39;</span>){</span>
+<span id="cb36-43"><a href="시계열-분석2.html#cb36-43" aria-hidden="true" tabindex="-1"></a>            final_model <span class="ot">&lt;-</span> <span class="fu">ets</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>]) </span>
+<span id="cb36-44"><a href="시계열-분석2.html#cb36-44" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb36-45"><a href="시계열-분석2.html#cb36-45" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-46"><a href="시계열-분석2.html#cb36-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(type <span class="sc">==</span> <span class="st">&#39;arima&#39;</span>){</span>
+<span id="cb36-47"><a href="시계열-분석2.html#cb36-47" aria-hidden="true" tabindex="-1"></a>            final_model <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(boy_ts[, <span class="st">&#39;sum_mention&#39;</span>], <span class="at">stepwise =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-48"><a href="시계열-분석2.html#cb36-48" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb36-49"><a href="시계열-분석2.html#cb36-49" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-50"><a href="시계열-분석2.html#cb36-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(final_model)</span>
+<span id="cb36-51"><a href="시계열-분석2.html#cb36-51" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-52"><a href="시계열-분석2.html#cb36-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-53"><a href="시계열-분석2.html#cb36-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 최적 모델 적용 </span></span>
+<span id="cb36-54"><a href="시계열-분석2.html#cb36-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(model <span class="cf">in</span> models){</span>
+<span id="cb36-55"><a href="시계열-분석2.html#cb36-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(model)</span></span>
+<span id="cb36-56"><a href="시계열-분석2.html#cb36-56" aria-hidden="true" tabindex="-1"></a>        final_model <span class="ot">&lt;-</span> <span class="fu">select_model</span>(<span class="at">type =</span> model)</span>
+<span id="cb36-57"><a href="시계열-분석2.html#cb36-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-58"><a href="시계열-분석2.html#cb36-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 잔차검정 </span></span>
+<span id="cb36-59"><a href="시계열-분석2.html#cb36-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">checkresiduals</span>(final_model, <span class="at">plot =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.05</span>){</span>
+<span id="cb36-60"><a href="시계열-분석2.html#cb36-60" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 테스트 통과시 for문 종료</span></span>
+<span id="cb36-61"><a href="시계열-분석2.html#cb36-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb36-62"><a href="시계열-분석2.html#cb36-62" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb36-63"><a href="시계열-분석2.html#cb36-63" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-64"><a href="시계열-분석2.html#cb36-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-65"><a href="시계열-분석2.html#cb36-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모든 모델이 잔차검정 통과 못할 시 </span></span>
+<span id="cb36-66"><a href="시계열-분석2.html#cb36-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 차선책으로 가장 좋은 성능을 내는 첫번째 모델 선택</span></span>
+<span id="cb36-67"><a href="시계열-분석2.html#cb36-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">checkresiduals</span>(final_model, <span class="at">plot =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>p.value <span class="sc">&lt;=</span> <span class="fl">0.05</span> <span class="sc">&amp;&amp;</span> model <span class="sc">==</span> models[<span class="dv">3</span>]){</span>
+<span id="cb36-68"><a href="시계열-분석2.html#cb36-68" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-69"><a href="시계열-분석2.html#cb36-69" aria-hidden="true" tabindex="-1"></a>        model <span class="ot">&lt;-</span> models[<span class="dv">1</span>]</span>
+<span id="cb36-70"><a href="시계열-분석2.html#cb36-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-71"><a href="시계열-분석2.html#cb36-71" aria-hidden="true" tabindex="-1"></a>        final_model <span class="ot">&lt;-</span> <span class="fu">select_model</span>(<span class="at">type =</span> model)</span>
+<span id="cb36-72"><a href="시계열-분석2.html#cb36-72" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-73"><a href="시계열-분석2.html#cb36-73" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-74"><a href="시계열-분석2.html#cb36-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 최적 모델, 사용된 모델명 반환 </span></span>
+<span id="cb36-75"><a href="시계열-분석2.html#cb36-75" aria-hidden="true" tabindex="-1"></a>    boy_model <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb36-76"><a href="시계열-분석2.html#cb36-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">model     =</span> final_model, </span>
+<span id="cb36-77"><a href="시계열-분석2.html#cb36-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">use_model =</span> model</span>
+<span id="cb36-78"><a href="시계열-분석2.html#cb36-78" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb36-79"><a href="시계열-분석2.html#cb36-79" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-80"><a href="시계열-분석2.html#cb36-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(boy_model)</span>
+<span id="cb36-81"><a href="시계열-분석2.html#cb36-81" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-82"><a href="시계열-분석2.html#cb36-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-83"><a href="시계열-분석2.html#cb36-83" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(as.list)</span>
+<span id="cb36-84"><a href="시계열-분석2.html#cb36-84" aria-hidden="true" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">future_lapply</span>(boylist, boy_model, <span class="at">total =</span> total)</span>
+<span id="cb36-85"><a href="시계열-분석2.html#cb36-85" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(final) <span class="ot">&lt;-</span> boylist</span></code></pre></div>
 <p> 연습생 개개인의 상황에 맞는 우수한 성능 모델을 찾아 잔차검정까지 마친 최적의 모델을 찾아 반환하는 <code>boy_model()</code>함수를 사용하여 그 결과물을 <code>final</code> 객체에 저장하였습니다.</p>
 </div>
-<div id="사용-모델-확인" class="section level2">
+<div id="사용-모델-확인" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> 사용 모델 확인</h2>
 <p> 연습생들에 적용된 최적의 모델이 무엇인지 확인하겠습니다.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="시계열-분석2.html#cb124-1"></a>final <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-2"><a href="시계열-분석2.html#cb124-2"></a><span class="st">    </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="cf">function</span>(x){x<span class="op">$</span>use_model}) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-3"><a href="시계열-분석2.html#cb124-3"></a><span class="st">    </span><span class="kw">do.call</span>(rbind, .) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-4"><a href="시계열-분석2.html#cb124-4"></a><span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-5"><a href="시계열-분석2.html#cb124-5"></a><span class="st">    </span>kableExtra<span class="op">::</span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb124-6"><a href="시계열-분석2.html#cb124-6"></a><span class="st">    </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&#39;V1&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb124-7"><a href="시계열-분석2.html#cb124-7"></a><span class="st">    </span>shiny<span class="op">::</span><span class="kw">HTML</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-분석2.html#cb37-1" aria-hidden="true" tabindex="-1"></a>final <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="시계열-분석2.html#cb37-2" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">map</span>(<span class="cf">function</span>(x){x<span class="sc">$</span>use_model}) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="시계열-분석2.html#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do.call</span>(rbind, .) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="시계열-분석2.html#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="시계열-분석2.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    kableExtra<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="시계열-분석2.html#cb37-6" aria-hidden="true" tabindex="-1"></a>    stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">&#39;V1&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="시계열-분석2.html#cb37-7" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">HTML</span>()</span></code></pre></div>
 <table>
  <thead>
   <tr>
@@ -437,50 +443,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p> 연습생별 최적 모델을 찾는 함수에서 지정한 <code>use_model</code>변수는 개별 모델을 적용할 때 사용한 모델의 이름을 저장한 변수입니다. 이 변수만을 별도로 보니 연습생별로 모델을 적용하는데 있어서 대체로 arima 모델과 시계열 회귀모델이 선택되고 ets 모델은 상대적으로 덜 선택된 것을 볼 수 있습니다. 이처럼 언급량 데이터는 성격과 형태가 유사한 데이터 이지만 데이터가 지닌 시계열적 특징에 따라 적용된 모델이 상이한 것을 확인할 수 있었습니다.</p>
 </div>
-<div id="모델-시각화" class="section level2">
+<div id="모델-시각화" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> 모델 시각화</h2>
 <p> 개개인의 데이터에 맞춘 모델을 이전장에서 했던 유사한 시각화 방식으로 파악할 수 있습니다. 생성된 모델과 실제 데이터를 모델에 적합한 값 그리고 모델이 예측한 값을 연습생별로 시각화하여 살펴보도록 하겠습니다.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="시계열-분석2.html#cb125-1"></a><span class="co"># 모델 시각화 함수 생성  </span></span>
-<span id="cb125-2"><a href="시계열-분석2.html#cb125-2"></a><span class="kw">library</span>(tidyquant)</span>
-<span id="cb125-3"><a href="시계열-분석2.html#cb125-3"></a></span>
-<span id="cb125-4"><a href="시계열-분석2.html#cb125-4"></a>boy_plot &lt;-<span class="st"> </span><span class="cf">function</span>(boy){</span>
-<span id="cb125-5"><a href="시계열-분석2.html#cb125-5"></a>    <span class="kw">forecast</span>(final[[boy]]<span class="op">$</span>model, <span class="dt">h =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb125-6"><a href="시계열-분석2.html#cb125-6"></a><span class="st">        </span><span class="kw">autoplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb125-7"><a href="시계열-분석2.html#cb125-7"></a><span class="st">        </span><span class="kw">autolayer</span>(<span class="kw">fitted</span>(final[[<span class="dv">1</span>]]<span class="op">$</span>model), <span class="dt">series =</span> <span class="st">&#39;fitted&#39;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb125-8"><a href="시계열-분석2.html#cb125-8"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>), </span>
-<span id="cb125-9"><a href="시계열-분석2.html#cb125-9"></a>                           <span class="dt">labels =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{(seq(1, 7) + 4) %&gt;% append(c(&#39;final&#39;, &#39;predict&#39;))}&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb125-10"><a href="시계열-분석2.html#cb125-10"></a><span class="st">        </span><span class="kw">theme_tq</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb125-11"><a href="시계열-분석2.html#cb125-11"></a><span class="st">        </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> boy, <span class="dt">x =</span> <span class="st">&#39;episode&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;sum_mention&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb125-12"><a href="시계열-분석2.html#cb125-12"></a><span class="st">        </span><span class="kw">theme</span>(<span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">12</span>)) </span>
-<span id="cb125-13"><a href="시계열-분석2.html#cb125-13"></a>}</span>
-<span id="cb125-14"><a href="시계열-분석2.html#cb125-14"></a></span>
-<span id="cb125-15"><a href="시계열-분석2.html#cb125-15"></a><span class="co"># 연습생별 모델 그래프 저장 </span></span>
-<span id="cb125-16"><a href="시계열-분석2.html#cb125-16"></a>i =<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb125-17"><a href="시계열-분석2.html#cb125-17"></a>final_plot &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb125-18"><a href="시계열-분석2.html#cb125-18"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)){</span>
-<span id="cb125-19"><a href="시계열-분석2.html#cb125-19"></a>    final_plot[[i]] &lt;-<span class="st"> </span><span class="kw">boy_plot</span>(boylist[i])</span>
-<span id="cb125-20"><a href="시계열-분석2.html#cb125-20"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="시계열-분석2.html#cb126-1"></a><span class="kw">library</span>(gridExtra)</span>
-<span id="cb126-2"><a href="시계열-분석2.html#cb126-2"></a><span class="kw">do.call</span>(<span class="st">&#39;grid.arrange&#39;</span>, <span class="kw">c</span>(final_plot, <span class="dt">ncol =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-1.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-2.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-3.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-4.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-5.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-6.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-71-7.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="시계열-분석2.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 시각화 함수 생성  </span></span>
+<span id="cb38-2"><a href="시계열-분석2.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant) </span>
+<span id="cb38-3"><a href="시계열-분석2.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="시계열-분석2.html#cb38-4" aria-hidden="true" tabindex="-1"></a>boy_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(boy){</span>
+<span id="cb38-5"><a href="시계열-분석2.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">forecast</span>(final[[boy]]<span class="sc">$</span>model, <span class="at">h =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="시계열-분석2.html#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">autoplot</span>() <span class="sc">+</span> </span>
+<span id="cb38-7"><a href="시계열-분석2.html#cb38-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">autolayer</span>(<span class="fu">fitted</span>(final[[boy]]<span class="sc">$</span>model), <span class="at">series =</span> <span class="st">&#39;fitted&#39;</span>, <span class="at">color =</span> <span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb38-8"><a href="시계열-분석2.html#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>), </span>
+<span id="cb38-9"><a href="시계열-분석2.html#cb38-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">str_glue</span>(<span class="st">&quot;{(seq(1, 7) + 4) %&gt;% append(c(&#39;final&#39;, &#39;predict&#39;))}&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb38-10"><a href="시계열-분석2.html#cb38-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_tq</span>() <span class="sc">+</span> </span>
+<span id="cb38-11"><a href="시계열-분석2.html#cb38-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">subtitle =</span> boy, <span class="at">x =</span> <span class="st">&#39;episode&#39;</span>, <span class="at">y =</span> <span class="st">&#39;sum_mention&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb38-12"><a href="시계열-분석2.html#cb38-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>)) </span>
+<span id="cb38-13"><a href="시계열-분석2.html#cb38-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-14"><a href="시계열-분석2.html#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="시계열-분석2.html#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 연습생별 모델 그래프 저장 </span></span>
+<span id="cb38-16"><a href="시계열-분석2.html#cb38-16" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb38-17"><a href="시계열-분석2.html#cb38-17" aria-hidden="true" tabindex="-1"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb38-18"><a href="시계열-분석2.html#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)){</span>
+<span id="cb38-19"><a href="시계열-분석2.html#cb38-19" aria-hidden="true" tabindex="-1"></a>    final_plot[[i]] <span class="ot">&lt;-</span> <span class="fu">boy_plot</span>(boylist[i])</span>
+<span id="cb38-20"><a href="시계열-분석2.html#cb38-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="시계열-분석2.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb39-2"><a href="시계열-분석2.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">do.call</span>(<span class="st">&#39;grid.arrange&#39;</span>, <span class="fu">c</span>(final_plot, <span class="at">ncol =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-1.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-2.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-3.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-4.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-5.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-6.png" width="672" /><img src="bookdown_sample_files/figure-html/unnamed-chunk-21-7.png" width="672" /></p>
 <p> 방송이 방영된 회차에 발생한 실제 언급량을 검정선에, 생성된 모델에 실제 언급량을 반영한 모델값을 붉은색선, 그리고 방송이 끝난 후의 언급량을 모델이 예측한 값을 푸른색 신뢰구간과 함께 파란색선으로 표현하였습니다. 연습생별로 모델이 추정한 미래 값이 서로 상이한 것을 볼 수 있습니다.</p>
 </div>
-<div id="결론" class="section level2">
+<div id="결론" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> 결론</h2>
 <p> 지금까지 적지 않은 과정을 통해 시계열 분석 절차를 진행 해 왔습니다. 모델에 사용된 데이터는 커뮤니티 게시판에서 시청자들 혹은 방송에 관심이 있는 유저들이 작성한 게시글의 제목으로, 이 제목 중 특정 연습생 인물의 이름 또는 별명을 일간별로 계산하여 이를 시계열 모델로 생성하였는데요. 이제 해당 개별 모델들이 추정한 방송이 끝난 한 시점 이후의 미래값을 비교하여 연습생들의 (추정 언급량)순위를 매겨 보겠습니다.</p>
 <p> 모델을 생성하였으면 미래값을 추정하는 것은 그리 어려운 일이 아닙니다. 지금까지 자주 사용하였던 <code>forecast()</code>함수를 사용하여 개개인의 미래값을 도출하고 이를 하나의 데이터프레임으로 묶겠습니다.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="시계열-분석2.html#cb127-1"></a><span class="kw">library</span>(purrr)</span>
-<span id="cb127-2"><a href="시계열-분석2.html#cb127-2"></a></span>
-<span id="cb127-3"><a href="시계열-분석2.html#cb127-3"></a>compare_pred &lt;-<span class="st"> </span>final <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb127-4"><a href="시계열-분석2.html#cb127-4"></a><span class="st">    </span><span class="kw">map</span>(<span class="cf">function</span>(x){</span>
-<span id="cb127-5"><a href="시계열-분석2.html#cb127-5"></a>        x<span class="op">$</span>model <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb127-6"><a href="시계열-분석2.html#cb127-6"></a><span class="st">            </span><span class="kw">forecast</span>(<span class="dt">h =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb127-7"><a href="시계열-분석2.html#cb127-7"></a><span class="st">            </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb127-8"><a href="시계열-분석2.html#cb127-8"></a><span class="st">            </span><span class="kw">map_df</span>(mean)</span>
-<span id="cb127-9"><a href="시계열-분석2.html#cb127-9"></a>    }) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb127-10"><a href="시계열-분석2.html#cb127-10"></a><span class="st">    </span><span class="kw">do.call</span>(rbind, .)</span>
-<span id="cb127-11"><a href="시계열-분석2.html#cb127-11"></a></span>
-<span id="cb127-12"><a href="시계열-분석2.html#cb127-12"></a>compare_pred</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-분석2.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb40-2"><a href="시계열-분석2.html#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="시계열-분석2.html#cb40-3" aria-hidden="true" tabindex="-1"></a>compare_pred <span class="ot">&lt;-</span> final <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="시계열-분석2.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map</span>(<span class="cf">function</span>(x){</span>
+<span id="cb40-5"><a href="시계열-분석2.html#cb40-5" aria-hidden="true" tabindex="-1"></a>        x<span class="sc">$</span>model <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="시계열-분석2.html#cb40-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-7"><a href="시계열-분석2.html#cb40-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-8"><a href="시계열-분석2.html#cb40-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">map_df</span>(mean)</span>
+<span id="cb40-9"><a href="시계열-분석2.html#cb40-9" aria-hidden="true" tabindex="-1"></a>    }) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-10"><a href="시계열-분석2.html#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do.call</span>(rbind, .)</span>
+<span id="cb40-11"><a href="시계열-분석2.html#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="시계열-분석2.html#cb40-12" aria-hidden="true" tabindex="-1"></a>compare_pred</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 5
 ##    `Point Forecast` `Lo 80` `Hi 80` `Lo 95` `Hi 95`
 ##  *            &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -505,16 +511,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 19             567.   239.     895.   64.9    1069.
 ## 20             278.    88.9    467.  -11.0     566.</code></pre>
 <p> 예측은 모델이 바로 1 시점 이후를 예측하는 것이 아닌 시계열 데이터가 지니고 있는 주기적인 반복성인 계절성의 영향을 고려하여 모델의 7 예측 시점 까지를 구하고 이를 평균낸 값을 활용하도록 하겠습니다. 각 모델별로 7 시점 미래 값을 평균내어 예측 신뢰구간과 함께 점추정값을 하나의 객체에 저장하였습니다. 여기서 비교의 대상이 될 점추정값(Point Forecast)값을 기준으로 연습생들을 재정렬, 이를 순위매겨보도록 하겠습니다.</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="시계열-분석2.html#cb129-1"></a>model_rank &lt;-<span class="st"> </span>compare_pred <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-2"><a href="시계열-분석2.html#cb129-2"></a><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="st">`</span><span class="dt">Point Forecast</span><span class="st">`</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-3"><a href="시계열-분석2.html#cb129-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">rank =</span> <span class="kw">row_number</span>(), </span>
-<span id="cb129-4"><a href="시계열-분석2.html#cb129-4"></a>           <span class="dt">boy  =</span> <span class="kw">rownames</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-5"><a href="시계열-분석2.html#cb129-5"></a><span class="st">    </span><span class="kw">select</span>(rank, boy, <span class="st">`</span><span class="dt">Point Forecast</span><span class="st">`</span>)</span>
-<span id="cb129-6"><a href="시계열-분석2.html#cb129-6"></a></span>
-<span id="cb129-7"><a href="시계열-분석2.html#cb129-7"></a><span class="kw">library</span>(kableExtra)</span>
-<span id="cb129-8"><a href="시계열-분석2.html#cb129-8"></a></span>
-<span id="cb129-9"><a href="시계열-분석2.html#cb129-9"></a><span class="kw">kable</span>(model_rank, <span class="dt">align =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb129-10"><a href="시계열-분석2.html#cb129-10"></a><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> T, <span class="dt">position =</span> <span class="st">&quot;center&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-분석2.html#cb42-1" aria-hidden="true" tabindex="-1"></a>model_rank <span class="ot">&lt;-</span> compare_pred <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="시계열-분석2.html#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Point Forecast</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="시계열-분석2.html#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>(), </span>
+<span id="cb42-4"><a href="시계열-분석2.html#cb42-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">boy  =</span> <span class="fu">rownames</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="시계열-분석2.html#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(rank, boy, <span class="st">`</span><span class="at">Point Forecast</span><span class="st">`</span>)</span>
+<span id="cb42-6"><a href="시계열-분석2.html#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="시계열-분석2.html#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb42-8"><a href="시계열-분석2.html#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="시계열-분석2.html#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(model_rank, <span class="at">align =</span> <span class="st">&#39;c&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-10"><a href="시계열-분석2.html#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> T, <span class="at">position =</span> <span class="st">&quot;center&quot;</span>)</span></code></pre></div>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -754,87 +760,87 @@ Point Forecast
 </table>
 <p> 모델이 추정한 미래값을 기준으로 최종 11명을 뽑자면 <strong>조승연</strong>, <strong>김우석</strong>, <strong>구정모</strong>, <strong>이은상</strong>, <strong>한승우</strong>, <strong>김민규</strong>, <strong>김요한</strong>, <strong>남도현</strong>, <strong>강민희</strong>, <strong>금동현</strong>, <strong>황윤성</strong> 순으로 뽑을 수 있겠습니다.</p>
 <p> 이전 5장에서 순위를 매겼던 방식인 방송 기간 중 연습생별 총 언급량 기준, 그리고 방송의 마지막 주차(11주차)를 기준으로 정렬한 언급량 순위랑 비교해보면 어떠한 차이가 있을지 비교해 보도록 하겠습니다.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="시계열-분석2.html#cb130-1"></a><span class="kw">library</span>(stringr)</span>
-<span id="cb130-2"><a href="시계열-분석2.html#cb130-2"></a></span>
-<span id="cb130-3"><a href="시계열-분석2.html#cb130-3"></a>temp_mention &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb130-4"><a href="시계열-분석2.html#cb130-4"></a>episode_mention &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb130-5"><a href="시계열-분석2.html#cb130-5"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)){</span>
-<span id="cb130-6"><a href="시계열-분석2.html#cb130-6"></a>    temp_mention &lt;-<span class="st"> </span>pxdata <span class="op">%&gt;%</span></span>
-<span id="cb130-7"><a href="시계열-분석2.html#cb130-7"></a><span class="st">        </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(p_title, boylist2[i])) <span class="op">%&gt;%</span></span>
-<span id="cb130-8"><a href="시계열-분석2.html#cb130-8"></a><span class="st">        </span><span class="kw">group_by</span>(p_episode) <span class="op">%&gt;%</span></span>
-<span id="cb130-9"><a href="시계열-분석2.html#cb130-9"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mention =</span><span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb130-10"><a href="시계열-분석2.html#cb130-10"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">boy =</span> boylist[i])</span>
-<span id="cb130-11"><a href="시계열-분석2.html#cb130-11"></a>    </span>
-<span id="cb130-12"><a href="시계열-분석2.html#cb130-12"></a>    episode_mention &lt;-<span class="st"> </span><span class="kw">rbind</span>(episode_mention, temp_mention)</span>
-<span id="cb130-13"><a href="시계열-분석2.html#cb130-13"></a>}</span>
-<span id="cb130-14"><a href="시계열-분석2.html#cb130-14"></a></span>
-<span id="cb130-15"><a href="시계열-분석2.html#cb130-15"></a>week11_rank &lt;-<span class="st"> </span>episode_mention <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-16"><a href="시계열-분석2.html#cb130-16"></a><span class="st">    </span><span class="kw">filter</span>(p_episode <span class="op">==</span><span class="st"> </span><span class="dv">11</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-17"><a href="시계열-분석2.html#cb130-17"></a><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mention)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-18"><a href="시계열-분석2.html#cb130-18"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">week11_rank =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-19"><a href="시계열-분석2.html#cb130-19"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">week11_mention =</span> mention) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-20"><a href="시계열-분석2.html#cb130-20"></a><span class="st">    </span><span class="kw">select</span>(week11_rank, boy, week11_mention)</span>
-<span id="cb130-21"><a href="시계열-분석2.html#cb130-21"></a></span>
-<span id="cb130-22"><a href="시계열-분석2.html#cb130-22"></a>total_rank &lt;-<span class="st"> </span>episode_mention <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-23"><a href="시계열-분석2.html#cb130-23"></a><span class="st">    </span><span class="kw">group_by</span>(boy) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-24"><a href="시계열-분석2.html#cb130-24"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">total_mention =</span> <span class="kw">sum</span>(mention)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-25"><a href="시계열-분석2.html#cb130-25"></a><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(total_mention)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-26"><a href="시계열-분석2.html#cb130-26"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">total_rank =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-27"><a href="시계열-분석2.html#cb130-27"></a><span class="st">    </span><span class="kw">select</span>(total_rank, boy, total_mention)</span>
-<span id="cb130-28"><a href="시계열-분석2.html#cb130-28"></a></span>
-<span id="cb130-29"><a href="시계열-분석2.html#cb130-29"></a>all_rank &lt;-<span class="st"> </span>model_rank <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-30"><a href="시계열-분석2.html#cb130-30"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">model_rank =</span> rank) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-31"><a href="시계열-분석2.html#cb130-31"></a><span class="st">    </span><span class="kw">left_join</span>(week11_rank, <span class="dt">by =</span> <span class="st">&#39;boy&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb130-32"><a href="시계열-분석2.html#cb130-32"></a><span class="st">    </span><span class="kw">left_join</span>(total_rank , <span class="dt">by =</span> <span class="st">&#39;boy&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb130-33"><a href="시계열-분석2.html#cb130-33"></a><span class="st">    </span><span class="kw">select</span>(model_rank, week11_rank, total_rank, boy, <span class="st">`</span><span class="dt">Point Forecast</span><span class="st">`</span>, week11_mention, total_mention)</span></code></pre></div>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="시계열-분석2.html#cb131-1"></a><span class="kw">library</span>(DT)</span>
-<span id="cb131-2"><a href="시계열-분석2.html#cb131-2"></a></span>
-<span id="cb131-3"><a href="시계열-분석2.html#cb131-3"></a>my_table &lt;-<span class="st"> </span><span class="cf">function</span>(dt){</span>
-<span id="cb131-4"><a href="시계열-분석2.html#cb131-4"></a>    dt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">datatable</span>(<span class="dt">rownames =</span> F, </span>
-<span id="cb131-5"><a href="시계열-분석2.html#cb131-5"></a>                     <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;t&#39;</span>, </span>
-<span id="cb131-6"><a href="시계열-분석2.html#cb131-6"></a>                                    <span class="dt">pageLength =</span> <span class="dv">20</span>, </span>
-<span id="cb131-7"><a href="시계열-분석2.html#cb131-7"></a>                                    <span class="dt">columnDefs =</span> <span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">className =</span> <span class="st">&#39;dt-center&#39;</span>, <span class="dt">targets =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>)),</span>
-<span id="cb131-8"><a href="시계열-분석2.html#cb131-8"></a>                                    <span class="co"># column name 사이즈 조절 </span></span>
-<span id="cb131-9"><a href="시계열-분석2.html#cb131-9"></a>                                    <span class="dt">headerCallback =</span> DT<span class="op">::</span><span class="kw">JS</span>(</span>
-<span id="cb131-10"><a href="시계열-분석2.html#cb131-10"></a>                                        <span class="st">&quot;function(thead) {&quot;</span>,</span>
-<span id="cb131-11"><a href="시계열-분석2.html#cb131-11"></a>                                        <span class="st">&quot;  $(thead).css(&#39;font-size&#39;, &#39;0.8em&#39;);&quot;</span>,</span>
-<span id="cb131-12"><a href="시계열-분석2.html#cb131-12"></a>                                        <span class="st">&quot;}&quot;</span></span>
-<span id="cb131-13"><a href="시계열-분석2.html#cb131-13"></a>                                    ) </span>
-<span id="cb131-14"><a href="시계열-분석2.html#cb131-14"></a>                     )</span>
-<span id="cb131-15"><a href="시계열-분석2.html#cb131-15"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb131-16"><a href="시계열-분석2.html#cb131-16"></a><span class="st">        </span><span class="kw">formatRound</span>(<span class="st">&quot;Point Forecast&quot;</span>, <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb131-17"><a href="시계열-분석2.html#cb131-17"></a><span class="st">        </span><span class="kw">formatStyle</span>(<span class="dt">columns =</span> <span class="kw">colnames</span>(.), <span class="dt">fontSize =</span> <span class="st">&#39;70%&#39;</span>) </span>
-<span id="cb131-18"><a href="시계열-분석2.html#cb131-18"></a>}</span>
-<span id="cb131-19"><a href="시계열-분석2.html#cb131-19"></a></span>
-<span id="cb131-20"><a href="시계열-분석2.html#cb131-20"></a><span class="kw">my_table</span>(all_rank)</span></code></pre></div>
-<div id="htmlwidget-5c1e09967c5db66de3e6" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5c1e09967c5db66de3e6">{"x":{"filter":"none","data":[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],[1,3,2,8,5,4,6,7,12,10,13,11,14,16,15,9,17,18,19,20],[2,1,5,4,9,3,6,7,10,13,12,8,15,16,17,11,18,14,19,20],["조승연","김우석","구정모","이은상","한승우","김민규","김요한","남도현","강민희","금동현","황윤성","송형준","송유빈","차준호","토니","이진혁","이한결","손동표","함원진","이세진"],[2183.75510204082,2002.5306122449,1424.3353693699,1152.61224489796,1065.69022242028,1055.87781602846,1053.12244897959,1031.42857142857,977.673469387755,940.244897959184,890.959183673469,733.922186849255,619.959183673469,610.581016965812,567.106657845701,542.918367346939,541.55124079137,527.081632653061,354.220117002369,277.715346117471],[13637,9731,10387,6608,6779,8262,6726,6689,5698,5997,5139,5864,4537,4332,4336,6549,4200,3853,3235,1721],[58019,71188,40142,40305,28371,46739,38578,34959,27723,23070,23139,32814,19797,19545,16484,26603,16401,21585,13852,9262]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="시계열-분석2.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb43-2"><a href="시계열-분석2.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="시계열-분석2.html#cb43-3" aria-hidden="true" tabindex="-1"></a>temp_mention <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb43-4"><a href="시계열-분석2.html#cb43-4" aria-hidden="true" tabindex="-1"></a>episode_mention <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb43-5"><a href="시계열-분석2.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)){</span>
+<span id="cb43-6"><a href="시계열-분석2.html#cb43-6" aria-hidden="true" tabindex="-1"></a>    temp_mention <span class="ot">&lt;-</span> pxdata <span class="sc">%&gt;%</span></span>
+<span id="cb43-7"><a href="시계열-분석2.html#cb43-7" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(p_title, boylist2[i])) <span class="sc">%&gt;%</span></span>
+<span id="cb43-8"><a href="시계열-분석2.html#cb43-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(p_episode) <span class="sc">%&gt;%</span></span>
+<span id="cb43-9"><a href="시계열-분석2.html#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarise</span>(<span class="at">mention =</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="시계열-분석2.html#cb43-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">boy =</span> boylist[i])</span>
+<span id="cb43-11"><a href="시계열-분석2.html#cb43-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb43-12"><a href="시계열-분석2.html#cb43-12" aria-hidden="true" tabindex="-1"></a>    episode_mention <span class="ot">&lt;-</span> <span class="fu">rbind</span>(episode_mention, temp_mention)</span>
+<span id="cb43-13"><a href="시계열-분석2.html#cb43-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-14"><a href="시계열-분석2.html#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="시계열-분석2.html#cb43-15" aria-hidden="true" tabindex="-1"></a>week11_rank <span class="ot">&lt;-</span> episode_mention <span class="sc">%&gt;%</span> </span>
+<span id="cb43-16"><a href="시계열-분석2.html#cb43-16" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(p_episode <span class="sc">==</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-17"><a href="시계열-분석2.html#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(mention)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-18"><a href="시계열-분석2.html#cb43-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">week11_rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-19"><a href="시계열-분석2.html#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">week11_mention =</span> mention) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-20"><a href="시계열-분석2.html#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(week11_rank, boy, week11_mention)</span>
+<span id="cb43-21"><a href="시계열-분석2.html#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-22"><a href="시계열-분석2.html#cb43-22" aria-hidden="true" tabindex="-1"></a>total_rank <span class="ot">&lt;-</span> episode_mention <span class="sc">%&gt;%</span> </span>
+<span id="cb43-23"><a href="시계열-분석2.html#cb43-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(boy) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-24"><a href="시계열-분석2.html#cb43-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">total_mention =</span> <span class="fu">sum</span>(mention)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-25"><a href="시계열-분석2.html#cb43-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(total_mention)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-26"><a href="시계열-분석2.html#cb43-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">total_rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-27"><a href="시계열-분석2.html#cb43-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(total_rank, boy, total_mention)</span>
+<span id="cb43-28"><a href="시계열-분석2.html#cb43-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-29"><a href="시계열-분석2.html#cb43-29" aria-hidden="true" tabindex="-1"></a>all_rank <span class="ot">&lt;-</span> model_rank <span class="sc">%&gt;%</span> </span>
+<span id="cb43-30"><a href="시계열-분석2.html#cb43-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">model_rank =</span> rank) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-31"><a href="시계열-분석2.html#cb43-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(week11_rank, <span class="at">by =</span> <span class="st">&#39;boy&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-32"><a href="시계열-분석2.html#cb43-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(total_rank , <span class="at">by =</span> <span class="st">&#39;boy&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-33"><a href="시계열-분석2.html#cb43-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(model_rank, week11_rank, total_rank, boy, <span class="st">`</span><span class="at">Point Forecast</span><span class="st">`</span>, week11_mention, total_mention)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="시계열-분석2.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb44-2"><a href="시계열-분석2.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="시계열-분석2.html#cb44-3" aria-hidden="true" tabindex="-1"></a>my_table <span class="ot">&lt;-</span> <span class="cf">function</span>(dt){</span>
+<span id="cb44-4"><a href="시계열-분석2.html#cb44-4" aria-hidden="true" tabindex="-1"></a>    dt <span class="sc">%&gt;%</span> <span class="fu">datatable</span>(<span class="at">rownames =</span> F, </span>
+<span id="cb44-5"><a href="시계열-분석2.html#cb44-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&#39;t&#39;</span>, </span>
+<span id="cb44-6"><a href="시계열-분석2.html#cb44-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pageLength =</span> <span class="dv">20</span>, </span>
+<span id="cb44-7"><a href="시계열-분석2.html#cb44-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">columnDefs =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">className =</span> <span class="st">&#39;dt-center&#39;</span>, <span class="at">targets =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)),</span>
+<span id="cb44-8"><a href="시계열-분석2.html#cb44-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="co"># column name 사이즈 조절 </span></span>
+<span id="cb44-9"><a href="시계열-분석2.html#cb44-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">headerCallback =</span> DT<span class="sc">::</span><span class="fu">JS</span>(</span>
+<span id="cb44-10"><a href="시계열-분석2.html#cb44-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;function(thead) {&quot;</span>,</span>
+<span id="cb44-11"><a href="시계열-분석2.html#cb44-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;  $(thead).css(&#39;font-size&#39;, &#39;0.8em&#39;);&quot;</span>,</span>
+<span id="cb44-12"><a href="시계열-분석2.html#cb44-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;}&quot;</span></span>
+<span id="cb44-13"><a href="시계열-분석2.html#cb44-13" aria-hidden="true" tabindex="-1"></a>                                    ) </span>
+<span id="cb44-14"><a href="시계열-분석2.html#cb44-14" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb44-15"><a href="시계열-분석2.html#cb44-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-16"><a href="시계열-분석2.html#cb44-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">formatRound</span>(<span class="st">&quot;Point Forecast&quot;</span>, <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-17"><a href="시계열-분석2.html#cb44-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">formatStyle</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(.), <span class="at">fontSize =</span> <span class="st">&#39;70%&#39;</span>) </span>
+<span id="cb44-18"><a href="시계열-분석2.html#cb44-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-19"><a href="시계열-분석2.html#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="시계열-분석2.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">my_table</span>(all_rank)</span></code></pre></div>
+<div id="htmlwidget-7c966d954201fe2b0194" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7c966d954201fe2b0194">{"x":{"filter":"none","data":[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],[1,3,2,8,5,4,6,7,12,10,13,11,14,16,15,9,17,18,19,20],[2,1,5,4,9,3,6,7,10,13,12,8,15,16,17,11,18,14,19,20],["조승연","김우석","구정모","이은상","한승우","김민규","김요한","남도현","강민희","금동현","황윤성","송형준","송유빈","차준호","토니","이진혁","이한결","손동표","함원진","이세진"],[2183.75510204082,2002.5306122449,1424.3353693699,1152.61224489796,1065.69022242028,1055.87781602846,1053.12244897959,1031.42857142857,977.673469387755,940.244897959184,890.959183673469,733.922186849255,619.959183673469,610.581016965812,567.106657845701,542.918367346939,541.55124079137,527.081632653061,354.220117002369,277.715346117471],[13637,9731,10387,6608,6779,8262,6726,6689,5698,5997,5139,5864,4537,4332,4336,6549,4200,3853,3235,1721],[58019,71188,40142,40305,28371,46739,38578,34959,27723,23070,23139,32814,19797,19545,16484,26603,16401,21585,13852,9262]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
 <p> 기준별로 순위는 상이하지만 상위권과 하위권이 대체로 유사하게 나타나는 것처럼 보입니다. 그렇다면 모델이 추정한 값의 순위, 11주차 기준 순위, 전체 언급량 순위 모두에서 데뷔 순위로 나타나는 연습생과 그렇지 않은 연습생은 어떠한지 보겠습니다.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="시계열-분석2.html#cb132-1"></a><span class="co"># 모든 기준에 들어가는 연습생 </span></span>
-<span id="cb132-2"><a href="시계열-분석2.html#cb132-2"></a>all_rank <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-3"><a href="시계열-분석2.html#cb132-3"></a><span class="st">    </span><span class="kw">filter</span>(model_rank  <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-4"><a href="시계열-분석2.html#cb132-4"></a><span class="st">    </span><span class="kw">filter</span>(week11_rank <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-5"><a href="시계열-분석2.html#cb132-5"></a><span class="st">    </span><span class="kw">filter</span>(total_rank  <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-6"><a href="시계열-분석2.html#cb132-6"></a><span class="st">    </span><span class="kw">my_table</span>()</span></code></pre></div>
-<div id="htmlwidget-a271fa0ef9d2b9141e0b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a271fa0ef9d2b9141e0b">{"x":{"filter":"none","data":[[1,2,3,4,5,6,7,8],[1,3,2,8,5,4,6,7],[2,1,5,4,9,3,6,7],["조승연","김우석","구정모","이은상","한승우","김민규","김요한","남도현"],[2183.75510204082,2002.5306122449,1424.3353693699,1152.61224489796,1065.69022242028,1055.87781602846,1053.12244897959,1031.42857142857],[13637,9731,10387,6608,6779,8262,6726,6689],[58019,71188,40142,40305,28371,46739,38578,34959]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="시계열-분석2.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 기준에 들어가는 연습생 </span></span>
+<span id="cb45-2"><a href="시계열-분석2.html#cb45-2" aria-hidden="true" tabindex="-1"></a>all_rank <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="시계열-분석2.html#cb45-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(model_rank  <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-4"><a href="시계열-분석2.html#cb45-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(week11_rank <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-5"><a href="시계열-분석2.html#cb45-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(total_rank  <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-6"><a href="시계열-분석2.html#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_table</span>()</span></code></pre></div>
+<div id="htmlwidget-b9107eebab4cc5c7e387" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b9107eebab4cc5c7e387">{"x":{"filter":"none","data":[[1,2,3,4,5,6,7,8],[1,3,2,8,5,4,6,7],[2,1,5,4,9,3,6,7],["조승연","김우석","구정모","이은상","한승우","김민규","김요한","남도현"],[2183.75510204082,2002.5306122449,1424.3353693699,1152.61224489796,1065.69022242028,1055.87781602846,1053.12244897959,1031.42857142857],[13637,9731,10387,6608,6779,8262,6726,6689],[58019,71188,40142,40305,28371,46739,38578,34959]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
 <p> 모든 기준에서 최종 데뷔조로 나타나는 연습생은 각각 <strong>조승연</strong>, <strong>김우석</strong>, <strong>구정모</strong>, <strong>이은상</strong>, <strong>한승우</strong>, <strong>김민규</strong>, <strong>김요한</strong>, <strong>남도현</strong>이 좋은 수치를 내는 것을 볼 수 있습니다.</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="시계열-분석2.html#cb133-1"></a><span class="co"># 모든 기준에 들어가지 않는 연습생 </span></span>
-<span id="cb133-2"><a href="시계열-분석2.html#cb133-2"></a>all_rank <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb133-3"><a href="시계열-분석2.html#cb133-3"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>model_rank  <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb133-4"><a href="시계열-분석2.html#cb133-4"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>week11_rank <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb133-5"><a href="시계열-분석2.html#cb133-5"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>total_rank  <span class="op">%in%</span><span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb133-6"><a href="시계열-분석2.html#cb133-6"></a><span class="st">    </span><span class="kw">my_table</span>()</span></code></pre></div>
-<div id="htmlwidget-e6632528f5b1dd7cbc4b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e6632528f5b1dd7cbc4b">{"x":{"filter":"none","data":[[13,14,15,17,18,19,20],[14,16,15,17,18,19,20],[15,16,17,18,14,19,20],["송유빈","차준호","토니","이한결","손동표","함원진","이세진"],[619.959183673469,610.581016965812,567.106657845701,541.55124079137,527.081632653061,354.220117002369,277.715346117471],[4537,4332,4336,4200,3853,3235,1721],[19797,19545,16484,16401,21585,13852,9262]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="시계열-분석2.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 기준에 들어가지 않는 연습생 </span></span>
+<span id="cb46-2"><a href="시계열-분석2.html#cb46-2" aria-hidden="true" tabindex="-1"></a>all_rank <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="시계열-분석2.html#cb46-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>model_rank  <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="시계열-분석2.html#cb46-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>week11_rank <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-5"><a href="시계열-분석2.html#cb46-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>total_rank  <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-6"><a href="시계열-분석2.html#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_table</span>()</span></code></pre></div>
+<div id="htmlwidget-800440b1f55e5642a033" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-800440b1f55e5642a033">{"x":{"filter":"none","data":[[13,14,15,17,18,19,20],[14,16,15,17,18,19,20],[15,16,17,18,14,19,20],["송유빈","차준호","토니","이한결","손동표","함원진","이세진"],[619.959183673469,610.581016965812,567.106657845701,541.55124079137,527.081632653061,354.220117002369,277.715346117471],[4537,4332,4336,4200,3853,3235,1721],[19797,19545,16484,16401,21585,13852,9262]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>model_rank<\/th>\n      <th>week11_rank<\/th>\n      <th>total_rank<\/th>\n      <th>boy<\/th>\n      <th>Point Forecast<\/th>\n      <th>week11_mention<\/th>\n      <th>total_mention<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":20,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"headerCallback":"function(thead) {\n  $(thead).css('font-size', '0.8em');\n}","order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100],"rowCallback":"function(row, data) {\n}"}},"evals":["options.columnDefs.0.render","options.headerCallback","options.rowCallback"],"jsHooks":[]}</script>
 <p> 한편 <strong>송유빈</strong>, <strong>차준호</strong>, <strong>토니</strong>, <strong>이한결</strong>, <strong>손동표</strong>, <strong>함원진</strong>, <strong>이세진</strong> 연습생들은 모든 기준에서도 데뷔조에 들어가지 않는것으로 나오고 있습니다. 하지만 해당 결과를 실제 예측에 반영하기는 무리가 있는점이 있습니다. <em>신뢰구간</em>을 고려하지 않은 점추정 값의 비교는 자칫 치명적인 오류를 범할 수 있기 때문입니다. 예를들어 어느 두 사람의 추정값이 상대적으로 높게 나오더라도 신뢰구간이 겹치게 된다면 이는 실제 두사람의 결과가 얼마든지 바뀔 수 있기 때문입니다.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="시계열-분석2.html#cb134-1"></a>final[[<span class="st">&#39;송형준&#39;</span>]]<span class="op">$</span>model <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb134-2"><a href="시계열-분석2.html#cb134-2"></a><span class="st">    </span><span class="kw">forecast</span>(<span class="dt">h =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb134-3"><a href="시계열-분석2.html#cb134-3"></a><span class="st">    </span><span class="kw">autoplot</span>(<span class="dt">conf.int.fill =</span> <span class="st">&#39;royalblue1&#39;</span>, <span class="dt">conf.int.alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb134-4"><a href="시계열-분석2.html#cb134-4"></a><span class="st">    </span><span class="kw">autolayer</span>(final[[<span class="st">&#39;황윤성&#39;</span>]]<span class="op">$</span>model<span class="op">$</span>data<span class="op">$</span>sum_mention,    <span class="dt">color =</span> <span class="st">&#39;violetred4&#39;</span>)  <span class="op">+</span><span class="st"> </span></span>
-<span id="cb134-5"><a href="시계열-분석2.html#cb134-5"></a><span class="st">    </span><span class="kw">autolayer</span>(final[[<span class="st">&#39;황윤성&#39;</span>]]<span class="op">$</span>model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h =</span> <span class="dv">7</span>), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>,  <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb134-6"><a href="시계열-분석2.html#cb134-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;황윤성 - 송형준 95% 신뢰구간 비교&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="시계열-분석2.html#cb47-1" aria-hidden="true" tabindex="-1"></a>final[[<span class="st">&#39;송형준&#39;</span>]]<span class="sc">$</span>model <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="시계열-분석2.html#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="시계열-분석2.html#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>(<span class="at">conf.int.fill =</span> <span class="st">&#39;royalblue1&#39;</span>, <span class="at">conf.int.alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb47-4"><a href="시계열-분석2.html#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(final[[<span class="st">&#39;황윤성&#39;</span>]]<span class="sc">$</span>model<span class="sc">$</span>data<span class="sc">$</span>sum_mention,    <span class="at">color =</span> <span class="st">&#39;violetred4&#39;</span>)  <span class="sc">+</span> </span>
+<span id="cb47-5"><a href="시계열-분석2.html#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(final[[<span class="st">&#39;황윤성&#39;</span>]]<span class="sc">$</span>model <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>), <span class="at">color =</span> <span class="st">&#39;red&#39;</span>,  <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb47-6"><a href="시계열-분석2.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;황윤성 - 송형준 95% 신뢰구간 비교&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown_sample_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p> 그래프에 붉은색으로 음영처리된 부분은 모델이 데뷔조의 마지막 등수인 11등으로 예측한 <strong>황윤성</strong>의 95% 신뢰구간을 표시한 것이고, 푸른색 음영처리 부분은 12등으로 예측한 <strong>송형준</strong>의 신뢰구간을 의미합니다. 신뢰구간인 즉슨 실제 값이 신뢰구간에 속할 확률이 95%란 의미인데 이처럼 겹쳐있는 부분이 존재하면 특히 겹쳐있는 부분의 범위가 넓을수록 쉽사리 누가 우위에 있는지를 속단하기 어려운 의미입니다.</p>
 <p> 또한 데이터의 출처를 생각해 보자면 특정 커뮤니티에서의 의견이기 때문이기 때문에 커뮤니티에 활동하는 유저의 <em>성향</em>에 따라 데이터가 편향이 될 가능성이 높습니다. 수집한 데이터의 출처가된 커뮤니티의 유저들이 전체 시청자들의 의견을 대변하는건 아니기 때문에 해당 모델링 결과를 통해 최종 예측을 하기엔 다소 무리가 있습니다.</p>
 <p> 그렇다면 진행한 모델링의 결과는 의미가 없냐? 또 그렇진 않습니다. 분석의 대전제가 된 언급량이 많을수록 인기가 있을것이다란 것에 맞춘 모델링이기에 여기서의 값이 높게 나온 연습생은 실제로 인기가 높은 연습생일 확률이 높습니다. 또한 높은 확률로 데뷔조에 속할 가능성이 있습니다.</p>
