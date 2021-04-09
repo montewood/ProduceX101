@@ -255,14 +255,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ts객체" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> <code>ts</code>객체</h2>
 <p> time-series의 약자인 <code>ts</code>객체는 이름에 나와있는 것처럼 시계열분석을 위해 사용되는 객체 중 하나입니다. 시간의 흐름에 따라 연속적인 속성을 지닌 변수에 <code>ts()</code>함수를 적용하여 생성할 수 있으며, 시계열에 존재하는 주기를 <code>frequency</code> 옵션을 사용하여 지정할 수 있는것이 특징입니다. 이전장에서 사용한 <code>total</code>변수를 사용하여 연습생들의 언급량의 총 합을 계산하여 이를 ts객체로 생성해 보겠습니다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="시계열-분석1.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-2"><a href="시계열-분석1.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="시계열-분석1.html#cb2-3" aria-hidden="true" tabindex="-1"></a>ts_mention <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span> </span>
-<span id="cb2-4"><a href="시계열-분석1.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(p_ymd) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-5"><a href="시계열-분석1.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">sum_mention =</span> sum_mention <span class="sc">%&gt;%</span> <span class="fu">sum</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-6"><a href="시계열-분석1.html#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ts</span>(<span class="at">frequency =</span> <span class="dv">7</span>)</span>
-<span id="cb2-7"><a href="시계열-분석1.html#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="시계열-분석1.html#cb2-8" aria-hidden="true" tabindex="-1"></a>ts_mention</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-분석1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="시계열-분석1.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="시계열-분석1.html#cb3-3" aria-hidden="true" tabindex="-1"></a>ts_mention <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="시계열-분석1.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(p_ymd) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="시계열-분석1.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">sum_mention =</span> sum_mention <span class="sc">%&gt;%</span> <span class="fu">sum</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="시계열-분석1.html#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ts</span>(<span class="at">frequency =</span> <span class="dv">7</span>)</span>
+<span id="cb3-7"><a href="시계열-분석1.html#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="시계열-분석1.html#cb3-8" aria-hidden="true" tabindex="-1"></a>ts_mention</span></code></pre></div>
 <pre><code>## Time Series:
 ## Start = c(1, 1) 
 ## End = c(7, 7) 
@@ -323,13 +323,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="시계열-회귀-모델" class="section level3" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> 시계열 회귀 모델</h3>
 <p> <code>forecast</code>패키지에 포함되어 있는 <code>tslm()</code> 함수는 시계열 회귀분석을 하는데 용이한 함수입니다. 일반적으로 <code>lm()</code>함수와 동일한 기능을 수행하지만 시계열 데이터가 보유하고 있는 계절성과 추세를 자동으로 계산하여 각각 <code>season</code>, <code>trend</code> 변수로 치환하고, 이를 회귀분석에 사용할 수 있도록 해줍니다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="시계열-분석1.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb4-2"><a href="시계열-분석1.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="시계열-분석1.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># tslm 모델 생성 </span></span>
-<span id="cb4-4"><a href="시계열-분석1.html#cb4-4" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(sum_mention <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> ts_mention)</span>
-<span id="cb4-5"><a href="시계열-분석1.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="시계열-분석1.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 결과 </span></span>
-<span id="cb4-7"><a href="시계열-분석1.html#cb4-7" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="시계열-분석1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb5-2"><a href="시계열-분석1.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="시계열-분석1.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># tslm 모델 생성 </span></span>
+<span id="cb5-4"><a href="시계열-분석1.html#cb5-4" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(sum_mention <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> ts_mention)</span>
+<span id="cb5-5"><a href="시계열-분석1.html#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="시계열-분석1.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 결과 </span></span>
+<span id="cb5-7"><a href="시계열-분석1.html#cb5-7" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## tslm(formula = sum_mention ~ trend + season, data = ts_mention)
@@ -355,9 +355,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.8255, Adjusted R-squared:  0.7957 
 ## F-statistic: 27.71 on 7 and 41 DF,  p-value: 1.275e-13</code></pre>
 <p> 생성된 모델의 결과를 살펴보면 자동으로 추세변수와 계절성 변수를 계산하여 이를통해 회귀식을 생성한 것을 볼 수 있습니다. 이렇게 생성된 모델을 <code>forecast()</code>함수를 통해 미래의 예측값을 도출해 낼 수 있습니다.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="시계열-분석1.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측값 도출 </span></span>
-<span id="cb6-2"><a href="시계열-분석1.html#cb6-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="ot">&lt;-</span> mod_tslm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
-<span id="cb6-3"><a href="시계열-분석1.html#cb6-3" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="시계열-분석1.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측값 도출 </span></span>
+<span id="cb7-2"><a href="시계열-분석1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="ot">&lt;-</span> mod_tslm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
+<span id="cb7-3"><a href="시계열-분석1.html#cb7-3" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred</span></code></pre></div>
 <pre><code>##          Point Forecast    Lo 80    Hi 80     Lo 95    Hi 95
 ## 8.000000       28729.98 24847.59 32612.37 22710.491 34749.47
 ## 8.142857       18009.41 14127.02 21891.80 11989.920 24028.90
@@ -367,12 +367,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 8.714286       16846.27 12963.88 20728.65 10826.777 22865.75
 ## 8.857143       20246.69 16364.30 24129.08 14227.205 26266.18</code></pre>
 <p> 모델을 통한 예측값의 점추정 값과 신뢰구간을 계산해 줌을 볼 수 있습니다. 이렇게 계산된 예측값을 시각화하여 볼 수 있습니다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="시계열-분석1.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측값 시각화 </span></span>
-<span id="cb8-2"><a href="시계열-분석1.html#cb8-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="시계열-분석1.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예측값 시각화 </span></span>
+<span id="cb9-2"><a href="시계열-분석1.html#cb9-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p> 최종적으로 모델을 사용하기 이전에 모델의 성능을 측정하여 해당 모델이 다른 모델에 비해 성능적으로 우위가 있는지를 판단할 수 있습니다. 모델의 성능을 측정하는 방법에는 다양한 방법들이 존재합니다. 함수 <code>accuracy()</code>를 사용하면 주요 성능을 계산하여 보여줌으로서 모델의 성능을 파악하는데 용이합니다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="시계열-분석1.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정확성 </span></span>
-<span id="cb9-2"><a href="시계열-분석1.html#cb9-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="시계열-분석1.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정확성 </span></span>
+<span id="cb10-2"><a href="시계열-분석1.html#cb10-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
 <pre><code>##                         ME     RMSE      MAE       MPE     MAPE      MASE
 ## Training set -1.949778e-13 2463.901 1914.331 -2.689877 17.70896 0.7446207
 ##                   ACF1
@@ -381,10 +381,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ets" class="section level3" number="8.2.2">
 <h3><span class="header-section-number">8.2.2</span> ETS</h3>
 <p> 지수평활법(Exponential Smoothing)은 과거 시점의 값들을 지수적으로 감쇠시키는 가중치를 부여, 그 과정에서 시계열 데이터가 지니고 있는 추세적 특징과 계절성을 함께 사용하여 미래값을 추정하는 방식입니다. <code>ets()</code>함수를 통해 사용할 수 있습니다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="시계열-분석1.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 생성 </span></span>
-<span id="cb11-2"><a href="시계열-분석1.html#cb11-2" aria-hidden="true" tabindex="-1"></a>mod_ets <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>])</span>
-<span id="cb11-3"><a href="시계열-분석1.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="시계열-분석1.html#cb11-4" aria-hidden="true" tabindex="-1"></a>mod_ets</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="시계열-분석1.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 생성 </span></span>
+<span id="cb12-2"><a href="시계열-분석1.html#cb12-2" aria-hidden="true" tabindex="-1"></a>mod_ets <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>])</span>
+<span id="cb12-3"><a href="시계열-분석1.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="시계열-분석1.html#cb12-4" aria-hidden="true" tabindex="-1"></a>mod_ets</span></code></pre></div>
 <pre><code>## ETS(M,N,M) 
 ## 
 ## Call:
@@ -403,24 +403,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##      AIC     AICc      BIC 
 ## 963.9526 969.7421 982.8708</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="시계열-분석1.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 예측값</span></span>
-<span id="cb13-2"><a href="시계열-분석1.html#cb13-2" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="ot">&lt;-</span> mod_ets <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
-<span id="cb13-3"><a href="시계열-분석1.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="시계열-분석1.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 예측값 시각화 </span></span>
-<span id="cb13-5"><a href="시계열-분석1.html#cb13-5" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="시계열-분석1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 예측값</span></span>
+<span id="cb14-2"><a href="시계열-분석1.html#cb14-2" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="ot">&lt;-</span> mod_ets <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
+<span id="cb14-3"><a href="시계열-분석1.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="시계열-분석1.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 예측값 시각화 </span></span>
+<span id="cb14-5"><a href="시계열-분석1.html#cb14-5" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="시계열-분석1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 성능 </span></span>
-<span id="cb14-2"><a href="시계열-분석1.html#cb14-2" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="시계열-분석1.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ETS 모델 성능 </span></span>
+<span id="cb15-2"><a href="시계열-분석1.html#cb15-2" aria-hidden="true" tabindex="-1"></a>mod_ets_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
 <pre><code>##                    ME     RMSE      MAE         MPE     MAPE     MASE      ACF1
 ## Training set 366.2466 2238.365 1732.237 -0.02427324 14.99357 0.673791 0.1015756</code></pre>
 </div>
 <div id="arima" class="section level3" number="8.2.3">
 <h3><span class="header-section-number">8.2.3</span> ARIMA</h3>
 <p> 시계열 데이터의 자기회귀성을 통해 미래값을 추정하는 arima 모델을 사용하여 미래값을 추정할 수 있습니다. arima 모델은 평균과 분산이 일정한 정상성의 성격을 가진 시계열 데이터를 자기회귀모델(Auto-Regressive model)과 이동평균모델(Moving Average model)을 결합한 모델로서 각각 특정 과거시점까지의 계수의 자기상관성과 오차의 자기상관성을 하나의 모델로서 구현한 것입니다. 본래 arima 모델을 구하기 위해서는 먼저 차분을 통한 시계열의 정상성 확보 이후 ACF와 PACF를 통한 적절한 AR 차수와 MA 차수를 구하는 과정이 필요하지만 R에서 제공하는 <code>auto.arima()</code>함수는 (AICc값의 최소로 하는 모델을 찾아) 최적의 arima 모델을 찾아 반환하여 줍니다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="시계열-분석1.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 생성 </span></span>
-<span id="cb16-2"><a href="시계열-분석1.html#cb16-2" aria-hidden="true" tabindex="-1"></a>mod_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], <span class="at">stepwise =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb16-3"><a href="시계열-분석1.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="시계열-분석1.html#cb16-4" aria-hidden="true" tabindex="-1"></a>mod_arima</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="시계열-분석1.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 생성 </span></span>
+<span id="cb17-2"><a href="시계열-분석1.html#cb17-2" aria-hidden="true" tabindex="-1"></a>mod_arima <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], <span class="at">stepwise =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-3"><a href="시계열-분석1.html#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="시계열-분석1.html#cb17-4" aria-hidden="true" tabindex="-1"></a>mod_arima</span></code></pre></div>
 <pre><code>## Series: ts_mention[, &quot;sum_mention&quot;] 
 ## ARIMA(0,0,2)(1,1,0)[7] with drift 
 ## 
@@ -431,14 +431,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## sigma^2 estimated as 6908166:  log likelihood=-389.24
 ## AIC=788.49   AICc=790.15   BIC=797.18</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="시계열-분석1.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 예측값</span></span>
-<span id="cb18-2"><a href="시계열-분석1.html#cb18-2" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="ot">&lt;-</span> mod_arima <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
-<span id="cb18-3"><a href="시계열-분석1.html#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="시계열-분석1.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 예측값 시각화 </span></span>
-<span id="cb18-5"><a href="시계열-분석1.html#cb18-5" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="시계열-분석1.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 예측값</span></span>
+<span id="cb19-2"><a href="시계열-분석1.html#cb19-2" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="ot">&lt;-</span> mod_arima <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span>
+<span id="cb19-3"><a href="시계열-분석1.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="시계열-분석1.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 예측값 시각화 </span></span>
+<span id="cb19-5"><a href="시계열-분석1.html#cb19-5" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="시계열-분석1.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 성능 </span></span>
-<span id="cb19-2"><a href="시계열-분석1.html#cb19-2" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="시계열-분석1.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arima 모델 성능 </span></span>
+<span id="cb20-2"><a href="시계열-분석1.html#cb20-2" aria-hidden="true" tabindex="-1"></a>mod_arima_pred <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span></code></pre></div>
 <pre><code>##                     ME     RMSE      MAE    MPE     MAPE     MASE       ACF1
 ## Training set -28.30705 2314.596 1719.968 -4.203 14.63408 0.669019 -0.0157034</code></pre>
 </div>
@@ -446,20 +446,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="모델-평가" class="section level2" number="8.3">
 <h2><span class="header-section-number">8.3</span> 모델 평가</h2>
 <p>  <code>accuracy()</code>함수를 통해 계산한 모델들의 성능을 대조해 봄으로서 각 모델들의 성능을 한눈에 파악하고, 최적의 퍼포먼스를 보여주는 모델을 파악하여 최종 사용 모델로 선정할 수 있습니다. 생성한 모델들의 성능을 하나의 데이터 프레임으로 묶어 지표 기준으로 재정렬하는 과정을 진행합니다.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="시계열-분석1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델별 정확도 변수 생성  </span></span>
-<span id="cb21-2"><a href="시계열-분석1.html#cb21-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_accuracy  <span class="ot">&lt;-</span> mod_tslm <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
-<span id="cb21-3"><a href="시계열-분석1.html#cb21-3" aria-hidden="true" tabindex="-1"></a>mod_ets_accuracy   <span class="ot">&lt;-</span> mod_ets <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
-<span id="cb21-4"><a href="시계열-분석1.html#cb21-4" aria-hidden="true" tabindex="-1"></a>mod_arima_accuracy <span class="ot">&lt;-</span> mod_arima <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
-<span id="cb21-5"><a href="시계열-분석1.html#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="시계열-분석1.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정확도 이름 지정</span></span>
-<span id="cb21-7"><a href="시계열-분석1.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_tslm_accuracy)[[<span class="dv">1</span>]]  <span class="ot">&lt;-</span> <span class="st">&#39;mod_tslm&#39;</span></span>
-<span id="cb21-8"><a href="시계열-분석1.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_ets_accuracy)[[<span class="dv">1</span>]]   <span class="ot">&lt;-</span> <span class="st">&#39;mod_ets&#39;</span></span>
-<span id="cb21-9"><a href="시계열-분석1.html#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_arima_accuracy)[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="st">&#39;mod_arima&#39;</span></span>
-<span id="cb21-10"><a href="시계열-분석1.html#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="시계열-분석1.html#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE 기준 정렬 </span></span>
-<span id="cb21-12"><a href="시계열-분석1.html#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-13"><a href="시계열-분석1.html#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb21-14"><a href="시계열-분석1.html#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="시계열-분석1.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델별 정확도 변수 생성  </span></span>
+<span id="cb22-2"><a href="시계열-분석1.html#cb22-2" aria-hidden="true" tabindex="-1"></a>mod_tslm_accuracy  <span class="ot">&lt;-</span> mod_tslm <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
+<span id="cb22-3"><a href="시계열-분석1.html#cb22-3" aria-hidden="true" tabindex="-1"></a>mod_ets_accuracy   <span class="ot">&lt;-</span> mod_ets <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
+<span id="cb22-4"><a href="시계열-분석1.html#cb22-4" aria-hidden="true" tabindex="-1"></a>mod_arima_accuracy <span class="ot">&lt;-</span> mod_arima <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>()</span>
+<span id="cb22-5"><a href="시계열-분석1.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="시계열-분석1.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 정확도 이름 지정</span></span>
+<span id="cb22-7"><a href="시계열-분석1.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_tslm_accuracy)[[<span class="dv">1</span>]]  <span class="ot">&lt;-</span> <span class="st">&#39;mod_tslm&#39;</span></span>
+<span id="cb22-8"><a href="시계열-분석1.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_ets_accuracy)[[<span class="dv">1</span>]]   <span class="ot">&lt;-</span> <span class="st">&#39;mod_ets&#39;</span></span>
+<span id="cb22-9"><a href="시계열-분석1.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(mod_arima_accuracy)[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="st">&#39;mod_arima&#39;</span></span>
+<span id="cb22-10"><a href="시계열-분석1.html#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="시계열-분석1.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE 기준 정렬 </span></span>
+<span id="cb22-12"><a href="시계열-분석1.html#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-13"><a href="시계열-분석1.html#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-14"><a href="시계열-분석1.html#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
 <pre><code>##                      ME     RMSE      MAE         MPE     MAPE      MASE
 ## mod_ets    3.662466e+02 2238.365 1732.237 -0.02427324 14.99357 0.6737910
 ## mod_arima -2.830705e+01 2314.596 1719.968 -4.20300032 14.63408 0.6690190
@@ -468,10 +468,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## mod_ets    0.1015756
 ## mod_arima -0.0157034
 ## mod_tslm   0.3114162</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="시계열-분석1.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAPE 기준 정렬 </span></span>
-<span id="cb23-2"><a href="시계열-분석1.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-3"><a href="시계열-분석1.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb23-4"><a href="시계열-분석1.html#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(MAPE)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="시계열-분석1.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAPE 기준 정렬 </span></span>
+<span id="cb24-2"><a href="시계열-분석1.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="시계열-분석1.html#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="시계열-분석1.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(MAPE)</span></code></pre></div>
 <pre><code>##                      ME     RMSE      MAE         MPE     MAPE      MASE
 ## mod_arima -2.830705e+01 2314.596 1719.968 -4.20300032 14.63408 0.6690190
 ## mod_ets    3.662466e+02 2238.365 1732.237 -0.02427324 14.99357 0.6737910
@@ -480,10 +480,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## mod_arima -0.0157034
 ## mod_ets    0.1015756
 ## mod_tslm   0.3114162</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="시계열-분석1.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF1(1시차 자기상관성) 기준 정렬 </span></span>
-<span id="cb25-2"><a href="시계열-분석1.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-3"><a href="시계열-분석1.html#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb25-4"><a href="시계열-분석1.html#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(ACF1)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="시계열-분석1.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ACF1(1시차 자기상관성) 기준 정렬 </span></span>
+<span id="cb26-2"><a href="시계열-분석1.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(mod_tslm_accuracy, mod_ets_accuracy, mod_arima_accuracy) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="시계열-분석1.html#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="시계열-분석1.html#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(ACF1)</span></code></pre></div>
 <pre><code>##                      ME     RMSE      MAE         MPE     MAPE      MASE
 ## mod_arima -2.830705e+01 2314.596 1719.968 -4.20300032 14.63408 0.6690190
 ## mod_ets    3.662466e+02 2238.365 1732.237 -0.02427324 14.99357 0.6737910
@@ -502,32 +502,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="교차검증-함수-생성" class="section level3" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> 교차검증 함수 생성</h3>
 <p>  <code>tsCV()</code>의 인수로 시계열 모델링을 수행할 함수를 지정하는 과정이 필요합니다. 시계열 교차검증에 적합한 모델 함수를 생성하도록 하겠습니다.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="시계열-분석1.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 교차검증용 모델 생성 </span></span>
-<span id="cb27-2"><a href="시계열-분석1.html#cb27-2" aria-hidden="true" tabindex="-1"></a>forecast_arima <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
-<span id="cb27-3"><a href="시계열-분석1.html#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">auto.arima</span>(x, <span class="at">stepwise =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
-<span id="cb27-4"><a href="시계열-분석1.html#cb27-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-5"><a href="시계열-분석1.html#cb27-5" aria-hidden="true" tabindex="-1"></a>forecast_tslm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
-<span id="cb27-6"><a href="시계열-분석1.html#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tslm</span>(x <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
-<span id="cb27-7"><a href="시계열-분석1.html#cb27-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-8"><a href="시계열-분석1.html#cb27-8" aria-hidden="true" tabindex="-1"></a>forecast_ets <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
-<span id="cb27-9"><a href="시계열-분석1.html#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ets</span>(x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
-<span id="cb27-10"><a href="시계열-분석1.html#cb27-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-11"><a href="시계열-분석1.html#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="시계열-분석1.html#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 교차검증 잔차 </span></span>
-<span id="cb27-13"><a href="시계열-분석1.html#cb27-13" aria-hidden="true" tabindex="-1"></a>tslm_cv_residual  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_tslm, <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb27-14"><a href="시계열-분석1.html#cb27-14" aria-hidden="true" tabindex="-1"></a>ets_cv_residual   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_ets, <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb27-15"><a href="시계열-분석1.html#cb27-15" aria-hidden="true" tabindex="-1"></a>arima_cv_residual <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_arima, <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb27-16"><a href="시계열-분석1.html#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-17"><a href="시계열-분석1.html#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 평가 매트릭 함수 생성(RMSE)</span></span>
-<span id="cb27-18"><a href="시계열-분석1.html#cb27-18" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(res){</span>
-<span id="cb27-19"><a href="시계열-분석1.html#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(res<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">^</span><span class="fl">0.5</span></span>
-<span id="cb27-20"><a href="시계열-분석1.html#cb27-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-21"><a href="시계열-분석1.html#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-22"><a href="시계열-분석1.html#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb27-23"><a href="시계열-분석1.html#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">tslm  =</span> tslm_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>(),</span>
-<span id="cb27-24"><a href="시계열-분석1.html#cb27-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ets   =</span> ets_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>(), </span>
-<span id="cb27-25"><a href="시계열-분석1.html#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">arima =</span> arima_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>()</span>
-<span id="cb27-26"><a href="시계열-분석1.html#cb27-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="시계열-분석1.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 교차검증용 모델 생성 </span></span>
+<span id="cb28-2"><a href="시계열-분석1.html#cb28-2" aria-hidden="true" tabindex="-1"></a>forecast_arima <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb28-3"><a href="시계열-분석1.html#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">auto.arima</span>(x, <span class="at">stepwise =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb28-4"><a href="시계열-분석1.html#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-5"><a href="시계열-분석1.html#cb28-5" aria-hidden="true" tabindex="-1"></a>forecast_tslm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb28-6"><a href="시계열-분석1.html#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tslm</span>(x <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb28-7"><a href="시계열-분석1.html#cb28-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-8"><a href="시계열-분석1.html#cb28-8" aria-hidden="true" tabindex="-1"></a>forecast_ets <span class="ot">&lt;-</span> <span class="cf">function</span>(x, h){</span>
+<span id="cb28-9"><a href="시계열-분석1.html#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ets</span>(x) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> h)</span>
+<span id="cb28-10"><a href="시계열-분석1.html#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-11"><a href="시계열-분석1.html#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="시계열-분석1.html#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 교차검증 잔차 </span></span>
+<span id="cb28-13"><a href="시계열-분석1.html#cb28-13" aria-hidden="true" tabindex="-1"></a>tslm_cv_residual  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_tslm, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb28-14"><a href="시계열-분석1.html#cb28-14" aria-hidden="true" tabindex="-1"></a>ets_cv_residual   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_ets, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb28-15"><a href="시계열-분석1.html#cb28-15" aria-hidden="true" tabindex="-1"></a>arima_cv_residual <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_mention[, <span class="st">&#39;sum_mention&#39;</span>], forecast_arima, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb28-16"><a href="시계열-분석1.html#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="시계열-분석1.html#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 평가 매트릭 함수 생성(RMSE)</span></span>
+<span id="cb28-18"><a href="시계열-분석1.html#cb28-18" aria-hidden="true" tabindex="-1"></a>RMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(res){</span>
+<span id="cb28-19"><a href="시계열-분석1.html#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(res<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">^</span><span class="fl">0.5</span></span>
+<span id="cb28-20"><a href="시계열-분석1.html#cb28-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-21"><a href="시계열-분석1.html#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="시계열-분석1.html#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb28-23"><a href="시계열-분석1.html#cb28-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">tslm  =</span> tslm_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>(),</span>
+<span id="cb28-24"><a href="시계열-분석1.html#cb28-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ets   =</span> ets_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>(), </span>
+<span id="cb28-25"><a href="시계열-분석1.html#cb28-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">arima =</span> arima_cv_residual <span class="sc">%&gt;%</span> <span class="fu">RMSE</span>()</span>
+<span id="cb28-26"><a href="시계열-분석1.html#cb28-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##      tslm      ets    arima
 ## 1 3453.27 3621.207 3845.548</code></pre>
 <p> 모델별 교차검증 결과로 나온 잔차에 RMSE를 기준으로 계산한 결과 시계열 회귀 모델(tslm)의 성능이 상대적으로 우수한 것으로 판별이 되었습니다.</p>
@@ -535,12 +535,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="최종-모델링" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> 최종 모델링</h3>
 <p> 교차검증 모델 평가를 통해 시계열 회귀 모델을 사용하는 것이 괜찮다고 나왔으므로 이전에 생성한 시계열 회귀 모델을 최종 모델로 선정하겠습니다.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="시계열-분석1.html#cb29-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(sum_mention <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> ts_mention)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="시계열-분석1.html#cb30-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(sum_mention <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> ts_mention)</span></code></pre></div>
 </div>
 <div id="잔차-검정" class="section level3" number="8.4.3">
 <h3><span class="header-section-number">8.4.3</span> 잔차 검정</h3>
 <p> 마지막으로 시계열 모델의 잔차가 백색잡음을 띄는지를 검정하도록 하겠습니다. 만약 잔차에 패턴 혹은 상관성이 존재할 경우 모델이 이는 회귀모델의 독립성 가정에 위배되므로 잘못된 모델이라고 할 수 있습니다.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="시계열-분석1.html#cb30-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">checkresiduals</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="시계열-분석1.html#cb31-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">checkresiduals</span>()</span></code></pre></div>
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 11
@@ -552,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="예측" class="section level3" number="8.4.4">
 <h3><span class="header-section-number">8.4.4</span> 예측</h3>
 <p> 잔차검정까지 마친 모델을 대상으로 미래 시점의 값을 추정해 볼 수 있습니다. 앞서 사용한 <code>forecast()</code>함수를 통해 시계열 회귀 모델의 미래 추정값을 계산하고, 이에대한 신뢰구간을 계산하여 파악할 수 있습니다.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="시계열-분석1.html#cb32-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="시계열-분석1.html#cb33-1" aria-hidden="true" tabindex="-1"></a>mod_tslm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">7</span>)</span></code></pre></div>
 <pre><code>##          Point Forecast    Lo 80    Hi 80     Lo 95    Hi 95
 ## 8.000000       28729.98 24847.59 32612.37 22710.491 34749.47
 ## 8.142857       18009.41 14127.02 21891.80 11989.920 24028.90
@@ -562,14 +562,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 8.714286       16846.27 12963.88 20728.65 10826.777 22865.75
 ## 8.857143       20246.69 16364.30 24129.08 14227.205 26266.18</code></pre>
 <p> 모델을 생성하는데 사용된 총 언급량 데이터와 이를 시계열 회귀모델에 적합한 값 그리고 회귀모델의 예측값까지 시각화하여 확인할 수 있습니다. <code>ggplot2</code> 문법을 따르는 <code>autoplot()</code>함수를 통해 시계열 시각화를 수월하게 할 수 있습니다.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="시계열-분석1.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb34-2"><a href="시계열-분석1.html#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="시계열-분석1.html#cb34-3" aria-hidden="true" tabindex="-1"></a>ts_mention[, <span class="st">&#39;sum_mention&#39;</span>] <span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="시계열-분석1.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>(<span class="at">series =</span> <span class="st">&#39;Original&#39;</span>) <span class="sc">+</span>  </span>
-<span id="cb34-5"><a href="시계열-분석1.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(<span class="fu">fitted</span>(mod_tslm), <span class="at">series =</span> <span class="st">&#39;tslm_fitted&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb34-6"><a href="시계열-분석1.html#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(<span class="fu">forecast</span>(mod_tslm), <span class="at">h =</span> <span class="dv">7</span>, <span class="at">series =</span> <span class="st">&#39;tslm_forecast&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb34-7"><a href="시계열-분석1.html#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;Original&#39;</span> <span class="ot">=</span> <span class="st">&#39;black&#39;</span>, <span class="st">&#39;tslm_fitted&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;tslm_forecast&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>),</span>
-<span id="cb34-8"><a href="시계열-분석1.html#cb34-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&#39;Original&#39;</span>, <span class="st">&#39;tslm_fitted&#39;</span>, <span class="st">&#39;tslm_forecast&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="시계열-분석1.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-2"><a href="시계열-분석1.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="시계열-분석1.html#cb35-3" aria-hidden="true" tabindex="-1"></a>ts_mention[, <span class="st">&#39;sum_mention&#39;</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="시계열-분석1.html#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>(<span class="at">series =</span> <span class="st">&#39;Original&#39;</span>) <span class="sc">+</span>  </span>
+<span id="cb35-5"><a href="시계열-분석1.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(<span class="fu">fitted</span>(mod_tslm), <span class="at">series =</span> <span class="st">&#39;tslm_fitted&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb35-6"><a href="시계열-분석1.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autolayer</span>(<span class="fu">forecast</span>(mod_tslm), <span class="at">h =</span> <span class="dv">7</span>, <span class="at">series =</span> <span class="st">&#39;tslm_forecast&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb35-7"><a href="시계열-분석1.html#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;Original&#39;</span> <span class="ot">=</span> <span class="st">&#39;black&#39;</span>, <span class="st">&#39;tslm_fitted&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;tslm_forecast&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>),</span>
+<span id="cb35-8"><a href="시계열-분석1.html#cb35-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&#39;Original&#39;</span>, <span class="st">&#39;tslm_fitted&#39;</span>, <span class="st">&#39;tslm_forecast&#39;</span>))</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: h</code></pre>
 <p><img src="bookdown_sample_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p> 위의 과정을 통해 검정선의 실제 데이터(총 언급량)과 붉은선의 모델에 적합한 값을 비교하여 볼 수 있고, 파란 음영처리된 신뢰구간을 포함한 미래 예측값을 하나의 그래프로 표현하여 한 눈에 볼 수 있습니다.</p>
