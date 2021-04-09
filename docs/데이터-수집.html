@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 데이터 수집 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 데이터 수집 | 텍스트 분석을 통한 프로듀스X101 데뷔조 예측" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
   
 <link rel="prev" href="prologue.html"/>
 <link rel="next" href="데이터-전처리.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,21 +51,20 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.17/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NYSBNPQH3H"></script>
 <script>
@@ -77,18 +77,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -108,7 +108,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -159,38 +159,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Update</a></li>
 <li class="chapter" data-level="1" data-path="prologue.html"><a href="prologue.html"><i class="fa fa-check"></i><b>1</b> Prologue</a></li>
-<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a><ul>
+<li class="chapter" data-level="2" data-path="데이터-수집.html"><a href="데이터-수집.html"><i class="fa fa-check"></i><b>2</b> 데이터 수집</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="데이터-수집.html"><a href="데이터-수집.html#웹-스크래핑"><i class="fa fa-check"></i><b>2.1</b> 웹 스크래핑</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a><ul>
+<li class="chapter" data-level="3" data-path="데이터-전처리.html"><a href="데이터-전처리.html"><i class="fa fa-check"></i><b>3</b> 데이터 전처리</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="데이터-전처리.html"><a href="데이터-전처리.html#데이터-취합"><i class="fa fa-check"></i><b>3.1</b> 데이터 취합</a></li>
 <li class="chapter" data-level="3.2" data-path="데이터-전처리.html"><a href="데이터-전처리.html#feature-engineering"><i class="fa fa-check"></i><b>3.2</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="4" data-path="데이터-시각화.html"><a href="데이터-시각화.html"><i class="fa fa-check"></i><b>4</b> 데이터 시각화</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#회차별-게시글-수-비교"><i class="fa fa-check"></i><b>4.1</b> 회차별 게시글 수 비교</a></li>
 <li class="chapter" data-level="4.2" data-path="데이터-시각화.html"><a href="데이터-시각화.html#요일별-게시글-수-비교"><i class="fa fa-check"></i><b>4.2</b> 요일별 게시글 수 비교</a></li>
 <li class="chapter" data-level="4.3" data-path="데이터-시각화.html"><a href="데이터-시각화.html#일자별-게시글-수-비교"><i class="fa fa-check"></i><b>4.3</b> 일자별 게시글 수 비교</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a><ul>
-<li class="chapter" data-level="5.1" data-path="데이터-시각화.html"><a href="데이터-시각화.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5" data-path="언급량-도출.html"><a href="언급량-도출.html"><i class="fa fa-check"></i><b>5</b> 언급량 도출</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="언급량-도출.html"><a href="언급량-도출.html#데이터-시각화-1"><i class="fa fa-check"></i><b>5.1</b> 데이터 시각화</a></li>
 <li class="chapter" data-level="5.2" data-path="언급량-도출.html"><a href="언급량-도출.html#분석-범위-설정"><i class="fa fa-check"></i><b>5.2</b> 분석 범위 설정</a></li>
-<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a><ul>
+<li class="chapter" data-level="5.3" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-집계"><i class="fa fa-check"></i><b>5.3</b> 언급량 집계</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="언급량-도출.html"><a href="언급량-도출.html#별명-정리"><i class="fa fa-check"></i><b>5.3.1</b> 별명 정리</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a><ul>
+<li class="chapter" data-level="5.4" data-path="언급량-도출.html"><a href="언급량-도출.html#언급량-시각화"><i class="fa fa-check"></i><b>5.4</b> 언급량 시각화</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart"><i class="fa fa-check"></i><b>5.4.1</b> Barchart</a></li>
 <li class="chapter" data-level="5.4.2" data-path="언급량-도출.html"><a href="언급량-도출.html#에피소드별-언급량-변화"><i class="fa fa-check"></i><b>5.4.2</b> 에피소드별 언급량 변화</a></li>
 <li class="chapter" data-level="5.4.3" data-path="언급량-도출.html"><a href="언급량-도출.html#barchart11화-언급량-기준-정렬"><i class="fa fa-check"></i><b>5.4.3</b> Barchart(11화 언급량 기준 정렬)</a></li>
 <li class="chapter" data-level="5.4.4" data-path="언급량-도출.html"><a href="언급량-도출.html#bump-chart"><i class="fa fa-check"></i><b>5.4.4</b> Bump chart</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a><ul>
+<li class="chapter" data-level="6" data-path="모델링.html"><a href="모델링.html"><i class="fa fa-check"></i><b>6</b> 모델링</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="모델링.html"><a href="모델링.html#파일-불러오기-구조-확인"><i class="fa fa-check"></i><b>6.1</b> 파일 불러오기 &amp; 구조 확인</a></li>
 <li class="chapter" data-level="6.2" data-path="모델링.html"><a href="모델링.html#예측-방식-설정"><i class="fa fa-check"></i><b>6.2</b> 예측 방식 설정</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a><ul>
+<li class="chapter" data-level="7" data-path="다중회귀분석.html"><a href="다중회귀분석.html"><i class="fa fa-check"></i><b>7</b> 다중회귀분석</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#데이터-분할"><i class="fa fa-check"></i><b>7.1</b> 데이터 분할</a></li>
-<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a><ul>
+<li class="chapter" data-level="7.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#모델-검정"><i class="fa fa-check"></i><b>7.2</b> 모델 검정</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="다중회귀분석.html"><a href="다중회귀분석.html#정규성"><i class="fa fa-check"></i><b>7.2.1</b> 정규성</a></li>
 <li class="chapter" data-level="7.2.2" data-path="다중회귀분석.html"><a href="다중회귀분석.html#선형성"><i class="fa fa-check"></i><b>7.2.2</b> 선형성</a></li>
 <li class="chapter" data-level="7.2.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#독립성"><i class="fa fa-check"></i><b>7.2.3</b> 독립성</a></li>
@@ -199,22 +208,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="다중회귀분석.html"><a href="다중회귀분석.html#결과"><i class="fa fa-check"></i><b>7.3</b> 결과</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a><ul>
+<li class="chapter" data-level="8" data-path="시계열-분석1.html"><a href="시계열-분석1.html"><i class="fa fa-check"></i><b>8</b> 시계열 분석1</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ts객체"><i class="fa fa-check"></i><b>8.1</b> <code>ts</code>객체</a></li>
-<li class="chapter" data-level="8.2" data-path="모델링.html"><a href="모델링.html#모델링"><i class="fa fa-check"></i><b>8.2</b> 모델링</a><ul>
+<li class="chapter" data-level="8.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델링-1"><i class="fa fa-check"></i><b>8.2</b> 모델링</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-회귀-모델"><i class="fa fa-check"></i><b>8.2.1</b> 시계열 회귀 모델</a></li>
 <li class="chapter" data-level="8.2.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#ets"><i class="fa fa-check"></i><b>8.2.2</b> ETS</a></li>
 <li class="chapter" data-level="8.2.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#arima"><i class="fa fa-check"></i><b>8.2.3</b> ARIMA</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#모델-평가"><i class="fa fa-check"></i><b>8.3</b> 모델 평가</a></li>
-<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a><ul>
+<li class="chapter" data-level="8.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#시계열-교차-검증"><i class="fa fa-check"></i><b>8.4</b> 시계열 교차 검증</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="시계열-분석1.html"><a href="시계열-분석1.html#교차검증-함수-생성"><i class="fa fa-check"></i><b>8.4.1</b> 교차검증 함수 생성</a></li>
 <li class="chapter" data-level="8.4.2" data-path="시계열-분석1.html"><a href="시계열-분석1.html#최종-모델링"><i class="fa fa-check"></i><b>8.4.2</b> 최종 모델링</a></li>
 <li class="chapter" data-level="8.4.3" data-path="시계열-분석1.html"><a href="시계열-분석1.html#잔차-검정"><i class="fa fa-check"></i><b>8.4.3</b> 잔차 검정</a></li>
 <li class="chapter" data-level="8.4.4" data-path="시계열-분석1.html"><a href="시계열-분석1.html#예측"><i class="fa fa-check"></i><b>8.4.4</b> 예측</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a><ul>
+<li class="chapter" data-level="9" data-path="시계열-분석2.html"><a href="시계열-분석2.html"><i class="fa fa-check"></i><b>9</b> 시계열 분석2</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="시계열-분석2.html"><a href="시계열-분석2.html#연습생별-모델링-함수-생성"><i class="fa fa-check"></i><b>9.1</b> 연습생별 모델링 함수 생성</a></li>
 <li class="chapter" data-level="9.2" data-path="시계열-분석2.html"><a href="시계열-분석2.html#사용-모델-확인"><i class="fa fa-check"></i><b>9.2</b> 사용 모델 확인</a></li>
 <li class="chapter" data-level="9.3" data-path="시계열-분석2.html"><a href="시계열-분석2.html#모델-시각화"><i class="fa fa-check"></i><b>9.3</b> 모델 시각화</a></li>
@@ -240,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="데이터-수집" class="section level1">
+<div id="데이터-수집" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> 데이터 수집</h1>
 <p> 데이터 분석을 위해 가장 먼저 진행한 것은 분석의 대상이 될 데이터를 확보 하는 일 입니다.</p>
 <p> 이번장에서 진행할 것은 데이터 수집에 관한 전반적인 것들 입니다.</p>
@@ -261,28 +274,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><br></p>
 <p> 아래부터는 스크래핑 코드 입니다.</p>
-<div id="웹-스크래핑" class="section level2">
+<div id="웹-스크래핑" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> 웹 스크래핑</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="데이터-수집.html#cb2-1"></a><span class="co"># 저장 폴더 설정 ---- </span></span>
-<span id="cb2-2"><a href="데이터-수집.html#cb2-2"></a>dataFolder &lt;-<span class="st"> &#39;저장폴더경로&#39;</span></span>
-<span id="cb2-3"><a href="데이터-수집.html#cb2-3"></a><span class="kw">setwd</span>(dataFolder)</span>
-<span id="cb2-4"><a href="데이터-수집.html#cb2-4"></a></span>
-<span id="cb2-5"><a href="데이터-수집.html#cb2-5"></a><span class="co"># 사용 패키지 호출 ---- </span></span>
-<span id="cb2-6"><a href="데이터-수집.html#cb2-6"></a><span class="kw">library</span>(rvest)</span>
-<span id="cb2-7"><a href="데이터-수집.html#cb2-7"></a><span class="kw">library</span>(httr)</span>
-<span id="cb2-8"><a href="데이터-수집.html#cb2-8"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb2-9"><a href="데이터-수집.html#cb2-9"></a><span class="kw">library</span>(lubridate)</span>
-<span id="cb2-10"><a href="데이터-수집.html#cb2-10"></a><span class="kw">library</span>(stringr)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="데이터-수집.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장 폴더 설정 ---- </span></span>
+<span id="cb3-2"><a href="데이터-수집.html#cb3-2" aria-hidden="true" tabindex="-1"></a>dataFolder <span class="ot">&lt;-</span> <span class="st">&#39;저장폴더경로&#39;</span></span>
+<span id="cb3-3"><a href="데이터-수집.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(dataFolder)</span>
+<span id="cb3-4"><a href="데이터-수집.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="데이터-수집.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 사용 패키지 호출 ---- </span></span>
+<span id="cb3-6"><a href="데이터-수집.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb3-7"><a href="데이터-수집.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb3-8"><a href="데이터-수집.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-9"><a href="데이터-수집.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-10"><a href="데이터-수집.html#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code></pre></div>
 <p> 먼저 스크래핑한 데이터를 저장할 폴더와 필요한 패키지들을 호출합니다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="데이터-수집.html#cb3-1"></a><span class="co"># 주소설정 ----</span></span>
-<span id="cb3-2"><a href="데이터-수집.html#cb3-2"></a>basic_url &lt;-<span class="st"> &#39;https://gall.dcinside.com/board/lists/?id=producex&amp;page=&#39;</span></span>
-<span id="cb3-3"><a href="데이터-수집.html#cb3-3"></a>urls &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb3-4"><a href="데이터-수집.html#cb3-4"></a><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">999</span>){</span>
-<span id="cb3-5"><a href="데이터-수집.html#cb3-5"></a>    urls[x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(basic_url, x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb3-6"><a href="데이터-수집.html#cb3-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="데이터-수집.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 주소설정 ----</span></span>
+<span id="cb4-2"><a href="데이터-수집.html#cb4-2" aria-hidden="true" tabindex="-1"></a>basic_url <span class="ot">&lt;-</span> <span class="st">&#39;https://gall.dcinside.com/board/lists/?id=producex&amp;page=&#39;</span></span>
+<span id="cb4-3"><a href="데이터-수집.html#cb4-3" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-4"><a href="데이터-수집.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(x <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">999</span>){</span>
+<span id="cb4-5"><a href="데이터-수집.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    urls[x <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(basic_url, x <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-6"><a href="데이터-수집.html#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p> 웹페이지의 주소를 기반으로 스크래핑을 진행하기 때문에 정보를 가져올 웹페이지의 주소를 for문을 통해서 만들어 줍니다.</p>
 <p> 해당 코드를 돌리면 다음과 같은 결과값이 나옵니다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="데이터-수집.html#cb4-1"></a><span class="kw">head</span>(urls);<span class="kw">tail</span>(urls)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="데이터-수집.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(urls);<span class="fu">tail</span>(urls)</span></code></pre></div>
 <pre><code>## [1] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=1&quot;
 ## [2] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=2&quot;
 ## [3] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=3&quot;
@@ -297,56 +310,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [6] &quot;https://gall.dcinside.com/board/lists/?id=producex&amp;page=1000&quot;</code></pre>
 <p> for문을 통해 1페이지부터 1000페이지까지 총 1000개의 웹페이지 주소가 생성되었네요.</p>
 <p> 만들어진 주소들을 기반으로 스크래핑을 진행합니다. 먼저 스크래핑 정보를 담을 빈객체들을 생성합니다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="데이터-수집.html#cb7-1"></a><span class="co"># 빈 객체 생성 ----</span></span>
-<span id="cb7-2"><a href="데이터-수집.html#cb7-2"></a>gallMain      &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-3"><a href="데이터-수집.html#cb7-3"></a>p_title       &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-4"><a href="데이터-수집.html#cb7-4"></a>p_comment_num &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-5"><a href="데이터-수집.html#cb7-5"></a>p_time        &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-6"><a href="데이터-수집.html#cb7-6"></a>p_count       &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-7"><a href="데이터-수집.html#cb7-7"></a>p_recommend   &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb7-8"><a href="데이터-수집.html#cb7-8"></a>dc            &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="데이터-수집.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 빈 객체 생성 ----</span></span>
+<span id="cb8-2"><a href="데이터-수집.html#cb8-2" aria-hidden="true" tabindex="-1"></a>gallMain      <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-3"><a href="데이터-수집.html#cb8-3" aria-hidden="true" tabindex="-1"></a>p_title       <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-4"><a href="데이터-수집.html#cb8-4" aria-hidden="true" tabindex="-1"></a>p_comment_num <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-5"><a href="데이터-수집.html#cb8-5" aria-hidden="true" tabindex="-1"></a>p_time        <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-6"><a href="데이터-수집.html#cb8-6" aria-hidden="true" tabindex="-1"></a>p_count       <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-7"><a href="데이터-수집.html#cb8-7" aria-hidden="true" tabindex="-1"></a>p_recommend   <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-8"><a href="데이터-수집.html#cb8-8" aria-hidden="true" tabindex="-1"></a>dc            <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
 <p> 본격적으로 for문을 통해 데이터를 페이지순으로 순차적으로 가져옵니다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="데이터-수집.html#cb8-1"></a><span class="co"># 스크래핑 ---- </span></span>
-<span id="cb8-2"><a href="데이터-수집.html#cb8-2"></a><span class="cf">for</span>(url <span class="cf">in</span> urls){</span>
-<span id="cb8-3"><a href="데이터-수집.html#cb8-3"></a>    </span>
-<span id="cb8-4"><a href="데이터-수집.html#cb8-4"></a>    gallMain &lt;-<span class="st"> </span><span class="kw">GET</span>(url, <span class="kw">timeout</span>(<span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">read_html</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>)</span>
-<span id="cb8-5"><a href="데이터-수집.html#cb8-5"></a></span>
-<span id="cb8-6"><a href="데이터-수집.html#cb8-6"></a>    p_title &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
-<span id="cb8-7"><a href="데이터-수집.html#cb8-7"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
-<span id="cb8-8"><a href="데이터-수집.html#cb8-8"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-9"><a href="데이터-수집.html#cb8-9"></a><span class="st">            </span><span class="kw">html_node</span>(<span class="st">&#39;a&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-10"><a href="데이터-수집.html#cb8-10"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
-<span id="cb8-11"><a href="데이터-수집.html#cb8-11"></a>    })</span>
-<span id="cb8-12"><a href="데이터-수집.html#cb8-12"></a>    p_comment_num &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
-<span id="cb8-13"><a href="데이터-수집.html#cb8-13"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
-<span id="cb8-14"><a href="데이터-수집.html#cb8-14"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-15"><a href="데이터-수집.html#cb8-15"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.reply_numbox&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-16"><a href="데이터-수집.html#cb8-16"></a><span class="st">            </span><span class="kw">html_text</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_replace_all</span>(., <span class="st">&#39;[[:punct:]]&#39;</span>, <span class="st">&#39;&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(., <span class="dt">collapse =</span> <span class="st">&#39;&#39;</span>)</span>
-<span id="cb8-17"><a href="데이터-수집.html#cb8-17"></a>    })</span>
-<span id="cb8-18"><a href="데이터-수집.html#cb8-18"></a>    p_time &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
-<span id="cb8-19"><a href="데이터-수집.html#cb8-19"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
-<span id="cb8-20"><a href="데이터-수집.html#cb8-20"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_date&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-21"><a href="데이터-수집.html#cb8-21"></a><span class="st">            </span><span class="kw">html_attr</span>(<span class="st">&#39;title&#39;</span>)</span>
-<span id="cb8-22"><a href="데이터-수집.html#cb8-22"></a>    })</span>
-<span id="cb8-23"><a href="데이터-수집.html#cb8-23"></a>    p_count &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
-<span id="cb8-24"><a href="데이터-수집.html#cb8-24"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
-<span id="cb8-25"><a href="데이터-수집.html#cb8-25"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_count&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-26"><a href="데이터-수집.html#cb8-26"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
-<span id="cb8-27"><a href="데이터-수집.html#cb8-27"></a>    })</span>
-<span id="cb8-28"><a href="데이터-수집.html#cb8-28"></a>    p_recommend &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
-<span id="cb8-29"><a href="데이터-수집.html#cb8-29"></a>        gallMain[x] <span class="op">%&gt;%</span></span>
-<span id="cb8-30"><a href="데이터-수집.html#cb8-30"></a><span class="st">            </span><span class="kw">html_nodes</span>(<span class="st">&#39;.gall_recommend&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-31"><a href="데이터-수집.html#cb8-31"></a><span class="st">            </span><span class="kw">html_text</span>()</span>
-<span id="cb8-32"><a href="데이터-수집.html#cb8-32"></a>    })</span>
-<span id="cb8-33"><a href="데이터-수집.html#cb8-33"></a></span>
-<span id="cb8-34"><a href="데이터-수집.html#cb8-34"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="데이터-수집.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 스크래핑 ---- </span></span>
+<span id="cb9-2"><a href="데이터-수집.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(url <span class="cf">in</span> urls){</span>
+<span id="cb9-3"><a href="데이터-수집.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-4"><a href="데이터-수집.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    gallMain <span class="ot">&lt;-</span> <span class="fu">GET</span>(url, <span class="fu">timeout</span>(<span class="dv">10</span>)) <span class="sc">%&gt;%</span> <span class="fu">read_html</span>() <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&#39;.ub-content.us-post&#39;</span>)</span>
+<span id="cb9-5"><a href="데이터-수집.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="데이터-수집.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    p_title <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb9-7"><a href="데이터-수집.html#cb9-7" aria-hidden="true" tabindex="-1"></a>        gallMain[x] <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="데이터-수집.html#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="데이터-수집.html#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_node</span>(<span class="st">&#39;a&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="데이터-수집.html#cb9-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_text</span>()</span>
+<span id="cb9-11"><a href="데이터-수집.html#cb9-11" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-12"><a href="데이터-수집.html#cb9-12" aria-hidden="true" tabindex="-1"></a>    p_comment_num <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb9-13"><a href="데이터-수집.html#cb9-13" aria-hidden="true" tabindex="-1"></a>        gallMain[x] <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="데이터-수집.html#cb9-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.gall_tit.ub-word&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="데이터-수집.html#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.reply_numbox&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="데이터-수집.html#cb9-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> <span class="fu">str_replace_all</span>(., <span class="st">&#39;[[:punct:]]&#39;</span>, <span class="st">&#39;&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">paste</span>(., <span class="at">collapse =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb9-17"><a href="데이터-수집.html#cb9-17" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-18"><a href="데이터-수집.html#cb9-18" aria-hidden="true" tabindex="-1"></a>    p_time <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb9-19"><a href="데이터-수집.html#cb9-19" aria-hidden="true" tabindex="-1"></a>        gallMain[x] <span class="sc">%&gt;%</span></span>
+<span id="cb9-20"><a href="데이터-수집.html#cb9-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.gall_date&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-21"><a href="데이터-수집.html#cb9-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_attr</span>(<span class="st">&#39;title&#39;</span>)</span>
+<span id="cb9-22"><a href="데이터-수집.html#cb9-22" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-23"><a href="데이터-수집.html#cb9-23" aria-hidden="true" tabindex="-1"></a>    p_count <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb9-24"><a href="데이터-수집.html#cb9-24" aria-hidden="true" tabindex="-1"></a>        gallMain[x] <span class="sc">%&gt;%</span></span>
+<span id="cb9-25"><a href="데이터-수집.html#cb9-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.gall_count&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-26"><a href="데이터-수집.html#cb9-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_text</span>()</span>
+<span id="cb9-27"><a href="데이터-수집.html#cb9-27" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-28"><a href="데이터-수집.html#cb9-28" aria-hidden="true" tabindex="-1"></a>    p_recommend <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(gallMain)), <span class="cf">function</span>(x){</span>
+<span id="cb9-29"><a href="데이터-수집.html#cb9-29" aria-hidden="true" tabindex="-1"></a>        gallMain[x] <span class="sc">%&gt;%</span></span>
+<span id="cb9-30"><a href="데이터-수집.html#cb9-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_nodes</span>(<span class="st">&#39;.gall_recommend&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-31"><a href="데이터-수집.html#cb9-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">html_text</span>()</span>
+<span id="cb9-32"><a href="데이터-수집.html#cb9-32" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-33"><a href="데이터-수집.html#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="데이터-수집.html#cb9-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p> for문을 돌릴 시 맨 처음 만들었던 주소들 즉, <code>urls</code> 객체에 담긴 주소값을 받아서 서버에게 순차적으로 주소에 대한 정보를 요청하게 됩니다. 그렇게 응답받은 정보를 바탕으로 for문 내부에 있는 파싱코드를 수행하는게 되는데요. 각각의 객체에 해당하는 값들을(<code>p_title</code>, <code>p_time</code>…) 파싱합니다. for문 내 모든 과정을 수행하면 for문은 다음 주소를 요청하여 처음부터 다시 파싱을 진행하게 됩니다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="데이터-수집.html#cb9-1"></a><span class="co"># 데이터 프레임화 ----  </span></span>
-<span id="cb9-2"><a href="데이터-수집.html#cb9-2"></a>dc &lt;-<span class="st"> </span><span class="kw">data.frame</span>(p_title, p_comment_num, p_time, p_count, p_recommend)</span>
-<span id="cb9-3"><a href="데이터-수집.html#cb9-3"></a></span>
-<span id="cb9-4"><a href="데이터-수집.html#cb9-4"></a><span class="co"># 날짜조정 ----</span></span>
-<span id="cb9-5"><a href="데이터-수집.html#cb9-5"></a>dc<span class="op">$</span>p_time &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(dc<span class="op">$</span>p_time)</span>
-<span id="cb9-6"><a href="데이터-수집.html#cb9-6"></a>dc &lt;-<span class="st"> </span>dc[<span class="kw">day</span>(dc<span class="op">$</span>p_time) <span class="op">==</span><span class="st"> </span><span class="kw">day</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="데이터-수집.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 프레임화 ----  </span></span>
+<span id="cb10-2"><a href="데이터-수집.html#cb10-2" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(p_title, p_comment_num, p_time, p_count, p_recommend)</span>
+<span id="cb10-3"><a href="데이터-수집.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="데이터-수집.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 날짜조정 ----</span></span>
+<span id="cb10-5"><a href="데이터-수집.html#cb10-5" aria-hidden="true" tabindex="-1"></a>dc<span class="sc">$</span>p_time <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(dc<span class="sc">$</span>p_time)</span>
+<span id="cb10-6"><a href="데이터-수집.html#cb10-6" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">&lt;-</span> dc[<span class="fu">day</span>(dc<span class="sc">$</span>p_time) <span class="sc">==</span> <span class="fu">day</span>(<span class="fu">today</span>()<span class="sc">-</span><span class="dv">1</span>), ]</span></code></pre></div>
 <p> for문을 통해 수집한 각각의 객체 데이터들을 <code>dc</code> 라는 이름의 데이터프레임에 담아주었습니다. 시간을 다루는 <code>lubridate</code> 패키지의 <code>ymd_hms()</code>함수를 이용하여 글 작성 시간을 의미하는 <code>p_time</code> 데이터를 시간 데이터로 변경해 줍니다.</p>
 <p> 코드는 <code>taskscheduleR</code> 패키지를 활용하여 매일 자정 무렵 자동으로 돌아가게끔 설정 했었는데요. 데이터를 매일 수집하는 것이다 보니 오직 전날에 작성된 글들만을 저장하기 위해서 <code>dc &lt;- dc[day(dc$p_time) == day(today()-1), ]</code> 필터링 코드를 만들었습니다. 코드를 짧막하게 설명하자면 글 작성 시간을 의미하는 <code>dc$p_time</code> 이 수집하는 날 바로 하루 전 <code>today() - 1</code> 의 값과 동일한 값만을 dc객체로 새로이 담아낸 것입니다.</p>
 <table>
@@ -495,8 +508,8 @@ p_recommend
 <em>스크래핑을 마친 데이터의 구조</em>
 </center>
 <p><br></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="데이터-수집.html#cb10-1"></a><span class="co"># 파일저장 ----</span></span>
-<span id="cb10-2"><a href="데이터-수집.html#cb10-2"></a><span class="kw">write.csv</span>(dc, <span class="kw">paste0</span>(<span class="kw">ymd</span>(<span class="kw">today</span>()<span class="op">-</span><span class="dv">1</span>), <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="데이터-수집.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 파일저장 ----</span></span>
+<span id="cb11-2"><a href="데이터-수집.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dc, <span class="fu">paste0</span>(<span class="fu">ymd</span>(<span class="fu">today</span>()<span class="sc">-</span><span class="dv">1</span>), <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
 <p> 마지막으로 필터링까지 완료된 데이터를 <code>rds</code>파일로 저장합니다.</p>
 
 </div>
